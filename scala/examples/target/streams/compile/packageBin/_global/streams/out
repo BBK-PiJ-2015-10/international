@@ -1,0 +1,11 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /Users/apalacios/inter/scala/stripe/target/scala-2.13/stripe_2.13-0.1.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	ApplicationRunner.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/apalacios/inter/scala/stripe/target/scala-2.13/classes/ApplicationRunner.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Processor.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/apalacios/inter/scala/stripe/target/scala-2.13/classes/Processor.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	ApplicationRunner$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/apalacios/inter/scala/stripe/target/scala-2.13/classes/ApplicationRunner$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	ApplicationRunner$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/apalacios/inter/scala/stripe/target/scala-2.13/classes/ApplicationRunner$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m
