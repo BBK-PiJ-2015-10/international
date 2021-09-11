@@ -20,13 +20,7 @@ public class Cache {
         //return value
         return map.get(key);
     }
-
-    /*
-     By reading the statement "Oldest is defined as: The least used item in the cache" , I thought the oldest
-     was the least accessed item. However, based on conversation during interview, it seems that it is meant to be
-     the item that has been not been updated or get the longest amount of time. Hence, my solution on the oldest uses
-     this assumption.
-     */
+    
     public String getOldest(){
         if (keyHistory.isEmpty()){
             return null;
