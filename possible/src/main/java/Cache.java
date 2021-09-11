@@ -20,7 +20,7 @@ public class Cache {
         //return value
         return map.get(key);
     }
-    
+
     public String getOldest(){
         if (keyHistory.isEmpty()){
             return null;
