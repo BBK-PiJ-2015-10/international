@@ -1,9 +1,7 @@
-import java.util.Comparator;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-//This will actually capture the least used
 public class CacheFreq {
 
     class CountedValue{
@@ -59,15 +57,6 @@ public class CacheFreq {
                 .stream()
                 .min((e1,e2) -> map.get(e1).timesAccessed > map.get(e2).timesAccessed ? 1 : -1).get();
     }
-
-
-
-
-
-
-
-
-
 
 
 }
