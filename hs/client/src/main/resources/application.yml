@@ -1,0 +1,9 @@
+
+server:
+  port: 8082
+
+
+app:
+  recommendation-service:
+    host: localhost
+    port: 8080

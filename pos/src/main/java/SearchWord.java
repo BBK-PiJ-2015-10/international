@@ -3,6 +3,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//Extra: https://www.baeldung.com/regular-expressions-java
+
 public class SearchWord {
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
