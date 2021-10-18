@@ -1,17 +1,9 @@
 
 server:
-  port: 8082
+  port: 8092
 
 
 app:
   recommendation-service:
     host: localhost
     port: 8080
-
-  data-service:
-    host: localhost
-    port: 9090
-
-
-
-

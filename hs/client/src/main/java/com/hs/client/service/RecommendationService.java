@@ -1,24 +1,39 @@
 package com.hs.client.service;
 
 import com.hs.client.model.Recommendation;
+import com.hs.client.sink.SinkClient;
+import com.hs.client.source.SourceClient;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 @Component
 @Slf4j
-public class RecommendationProcessor {
+public class RecommendationService {
+
+    private SourceClient sourceClient;
+
+    private SinkClient sinkClient;
+
+    public RecommendationService(SourceClient sourceClient, SinkClient sinkClient) {
+        this.sourceClient = sourceClient;
+        this.sinkClient = sinkClient;
+    }
+
+    public void processTopRecommendation(int productId){
+        val recommendations = sourceClient.getRecommendations(productId);
+        val topRecommendation = recommendations
+                .stream()
+                .max(Comparator.comparing(Recommendation::getRate)).get();
+        sinkClient.submitTopRecommendation(topRecommendation);
+        log.info("Done processing top recommendation for product with id {}",productId);
+    }
+
+
+
+    /*
 
     private String recommendationServiceUrl;
 
@@ -45,6 +60,8 @@ public class RecommendationProcessor {
         log.info("Sending {} recommendations for productId {}",recommendations.size(),productId);
         return recommendations;
     }
+
+     */
 
 
 }

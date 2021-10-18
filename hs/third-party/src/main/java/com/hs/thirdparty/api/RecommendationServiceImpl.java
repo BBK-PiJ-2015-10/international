@@ -16,7 +16,7 @@ public class RecommendationServiceImpl implements RecommendationService{
     @Override
     public List<Recommendation> getRecommendations(int productId) {
         log.info("Fetching recommendations for product with id {}",productId);
-        val reco = new Recommendation(1,201,"Herr Kuhl",10,"Pics","www.mailchimp.com");
+        val reco = new Recommendation(productId,201,"Herr Kuhl",10,"Pics","www.mailchimp.com");
         log.info("Returned {}",reco);
         return Arrays.asList(reco);
 
