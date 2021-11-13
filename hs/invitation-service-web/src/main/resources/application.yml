@@ -1,0 +1,11 @@
+server:
+  port: 9090
+
+app:
+  partner-service:
+    host: candidate.hubteam.com
+    port: 8080
+
+  result-service:
+    host: candidate.hubteam.com
+    port: 8080
