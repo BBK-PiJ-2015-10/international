@@ -27,7 +27,7 @@ public class InvitationService {
         val availabilities = partnerClient.fetchPartnerAvailabilities();
         availabilityCalculator.processAvailabilities(availabilities);
         val countries = availabilityCalculator.processCountries();
-        log.info("Submitting countries dates");
+        log.info(String.format("Submitting %s countries dates",countries.size()));
         resultClient.postCountryAvailabilities(countries);
         log.info("Finished processing invitations");
     }

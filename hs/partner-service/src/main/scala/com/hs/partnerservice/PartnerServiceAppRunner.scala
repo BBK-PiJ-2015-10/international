@@ -7,9 +7,9 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
-import com.hs.partnerservice.messaging.SimpleService
-import com.hs.partnerservice.model.{ErrorMessage, SimpleCommand, SimpleMessage}
-import com.hs.partnerservice.rest.PartnerServiceApiImpl
+import com.hs.partnerservice.messaging.PartnerServiceRouter
+import com.hs.partnerservice.model.{ErrorMessage, FetchPartnerDataCommand, SimpleMessage}
+import com.hs.partnerservice.rest.PartnerServiceApi
 import com.typesafe.config.ConfigFactory
 import spray.json.RootJsonFormat
 
@@ -31,11 +31,11 @@ object PartnerServiceAppRunner extends App {
   implicit val system = ActorSystem("partnerService", config)
   implicit val ec = system.getDispatcher
 
-  val simpleService = system.actorOf(Props(new SimpleService))
+  val simpleService = system.actorOf(Props(new PartnerServiceRouter))
 
   implicit val timeOut = Timeout(3.seconds)
 
-  val apiRoutes = new PartnerServiceApiImpl(system,simpleService,timeOut).route
+  val apiRoutes = new PartnerServiceApi(system,simpleService,timeOut).route
 
   val bindingFuture = Http()(system)
     .newServerAt("localhost",9070).bind(apiRoutes)

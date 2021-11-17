@@ -26,13 +26,19 @@ public class AvailabilityCalculator {
     public List<Country> processCountries(){
         List<Country> countries = new LinkedList<>();
         for (String country: countriesDatesEmails.keySet()){
-            val dateParticipants = countriesDatesEmails.get(country);
-            val selectedDate =
-                    dateParticipants.keySet().stream().sorted(Comparator.comparing(date -> -dateParticipants.get(date).size())).collect(Collectors.toList()).get(0);
             val dto = new Country();
             dto.setName(country);
-            dto.setStartDate(selectedDate.toString());
-            val attendeeList = dateParticipants.get(selectedDate);
+            List<String> attendeeList = null;
+            val dateParticipants = countriesDatesEmails.get(country);
+            val selectedDates =
+                    dateParticipants.keySet().stream().sorted(Comparator.comparing(date -> -dateParticipants.get(date).size())).collect(Collectors.toList());
+            if (selectedDates.isEmpty()){
+                dto.setStartDate(null);
+            } else {
+                LocalDate selectedDate = selectedDates.get(0);
+                dto.setStartDate(selectedDate.toString());
+                attendeeList = dateParticipants.get(selectedDate);
+            }
             if (attendeeList==null){
                 dto.setAttendees(new LinkedList<>());
                 dto.setAttendeeCount(0);
@@ -84,6 +90,11 @@ public class AvailabilityCalculator {
                     }
                 }
             }
+        }
+        //Add country in case no match
+        if (countriesDatesEmails.get(country)==null){
+            Map<LocalDate,List<String>> datesEmails = new TreeMap<>();
+            countriesDatesEmails.put(country,datesEmails);
         }
     }
 

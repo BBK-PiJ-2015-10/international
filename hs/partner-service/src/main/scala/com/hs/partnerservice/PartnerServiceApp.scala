@@ -8,8 +8,8 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.model.StatusCodes
 import akka.pattern.ask
 import akka.util.Timeout
-import com.hs.partnerservice.messaging.SimpleService
-import com.hs.partnerservice.model.{ErrorMessage, SimpleCommand, SimpleMessage}
+import com.hs.partnerservice.messaging.PartnerServiceRouter
+import com.hs.partnerservice.model.{ErrorMessage, FetchPartnerDataCommand, SimpleMessage}
 import com.typesafe.config.ConfigFactory
 import spray.json.RootJsonFormat
 
@@ -36,7 +36,7 @@ object PartnerServiceApp extends App {
 
   system.log.info("fucker")
 
-  val simpleService = system.actorOf(Props(new SimpleService))
+  val simpleService = system.actorOf(Props(new PartnerServiceRouter))
 
   var orders: List[Item] = Nil
 
@@ -47,7 +47,7 @@ object PartnerServiceApp extends App {
   //formats for marshalling and unmarshalling
   implicit val itemFormat = jsonFormat2(Item)
   implicit val orderFormat = jsonFormat1(Order)
-  implicit val simpleCommandFormat : RootJsonFormat[SimpleCommand]= jsonFormat1(SimpleCommand)
+  implicit val simpleCommandFormat : RootJsonFormat[FetchPartnerDataCommand]= jsonFormat1(FetchPartnerDataCommand)
   implicit val simpleMessageFormat : RootJsonFormat[SimpleMessage] = jsonFormat1(SimpleMessage)
   implicit val errorMessageFormat : RootJsonFormat[ErrorMessage] = jsonFormat1(ErrorMessage)
 
@@ -70,7 +70,7 @@ object PartnerServiceApp extends App {
     concat(
       get {
         pathPrefix("culon"/LongNumber){id =>
-          val fucker = simpleService.ask(SimpleCommand(s"Tonto $id"))
+          val fucker = simpleService.ask(FetchPartnerDataCommand(s"Tonto $id"))
           onComplete(fucker){
             case Success(value) => {
               value match {

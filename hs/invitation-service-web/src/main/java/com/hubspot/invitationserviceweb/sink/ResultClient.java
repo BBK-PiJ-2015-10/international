@@ -34,7 +34,7 @@ public class ResultClient {
         log.info("Submitting {}",countries);
         String queryParam = "?userKey=e90ffe5410d099d885bb3ce51006";
         String resultEndpoint  = resultServiceURL+"/candidateTest/v3/problem/result"+queryParam;
-        String response = restTemplate.postForObject(resultEndpoint,countries,String.class);
-        log.info("Received response {} on submission",response);
+        //String response = restTemplate.postForObject(resultEndpoint,countries,String.class);
+        //log.info("Received response {} on submission",response);
     }
 }
