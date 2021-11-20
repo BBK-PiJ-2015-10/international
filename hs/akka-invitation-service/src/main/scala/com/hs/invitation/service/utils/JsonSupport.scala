@@ -10,5 +10,9 @@ trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol{
 
   implicit val partnersMessageFormat: RootJsonFormat[Partners] = jsonFormat1(Partners)
 
+  implicit val countryMessageFormat: RootJsonFormat[Country] = jsonFormat4(Country)
+
+  implicit val countriesMessageFormat: RootJsonFormat[Countries] = jsonFormat1(Countries)
+
 
 }

@@ -7,11 +7,11 @@ object InvitationService {
 
   final val Name = "invitationService"
 
-  def props(partnerClient: ActorRef): Props = Props(new InvitationService(partnerClient))
+  def props(partnerClient: ActorRef, resultClient: ActorRef): Props = Props(new InvitationService(partnerClient,resultClient))
 
 }
 
-class InvitationService(partnerClient: ActorRef) extends Actor with ActorLogging {
+class InvitationService(partnerClient: ActorRef,resultClient: ActorRef) extends Actor with ActorLogging {
 
   val availabilityCalculator = new AvailabilityCalculator()
 
@@ -30,6 +30,7 @@ class InvitationService(partnerClient: ActorRef) extends Actor with ActorLogging
       log.info(s"fucker with size ${listOfCountries.size}")
       val countries = Countries(listOfCountries)
       log.info(s"Will send $countries")
+      resultClient ! countries
     }
     case other: Any => log.info(s"Received a weird message $other ")
   }

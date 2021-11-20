@@ -16,7 +16,6 @@ object PartnerClient {
 
 }
 
-
 class PartnerClient(uriSource: String) extends Actor with ActorLogging with JsonSupport{
 
   implicit val actorSystem = context.system

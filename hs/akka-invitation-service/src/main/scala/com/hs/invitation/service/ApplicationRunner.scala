@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import com.hs.invitation.service.api.TriggerApi
 import com.hs.invitation.service.service.InvitationService
+import com.hs.invitation.service.sink.ResultClient
 import com.hs.invitation.service.source.PartnerClient
 
 import scala.io.StdIn
@@ -15,10 +16,12 @@ object ApplicationRunner extends App{
   implicit val ec = actorSystem.getDispatcher
 
   val source : String = "http://localhost:9070/availability?userKey=e90ffe5410d099d885bb3ce51006";
+  val destination : String = "http://localhost:9090/result?userKey=e90ffe5410d099d885bb3ce51006";
 
   val partnerClient = actorSystem.actorOf(PartnerClient.props(source),PartnerClient.Name)
+  val resultClient = actorSystem.actorOf(ResultClient.props(destination),ResultClient.Name)
 
-  val invitationService = actorSystem.actorOf(InvitationService.props(partnerClient),InvitationService.Name)
+  val invitationService = actorSystem.actorOf(InvitationService.props(partnerClient,resultClient),InvitationService.Name)
 
   val apiRoutes = new TriggerApi(actorSystem,invitationService).route
 
