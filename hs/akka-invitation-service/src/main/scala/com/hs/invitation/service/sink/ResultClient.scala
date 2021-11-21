@@ -33,8 +33,6 @@ class ResultClient(uriDestination: String) extends Actor with ActorLogging with 
         case Success(value) => log.info(s"Successful submission with response $value")
         case Failure(exception) => log.info(s"Something went off ${exception.getMessage}")
       }
-
-
     }
     case other : Any => log.info(s"Received weird stuff $other")
   }
