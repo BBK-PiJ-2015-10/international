@@ -119,6 +119,8 @@ public class WatchlistService {
                 .collect(Collectors.toList())
                 .subscribe(morePreferredItems -> adjustWatchListPreference.accept(morePreferredItems));
 
+        databaseWatchLists.connect();
+
         return saveReactive(watchList);
     }
 
