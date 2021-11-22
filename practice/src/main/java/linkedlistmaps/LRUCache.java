@@ -39,15 +39,17 @@ public class LRUCache {
 
     private void removeNode(Node node){
         //update previous
-        if (node.prev !=null){
-            node.prev.next = node.next;
-        } else {
+        if (node.prev ==null){
+            // case node is the head
             head = node.next;
-        }
-        if (node.next !=null){
-            node.next.prev = node.prev;
         } else {
+            node.prev.next = node.next;
+        }
+        if (node.next ==null){
+            //case node is the tail
             tail = node.prev;
+        } else {
+            node.next.prev = node.prev;
         }
     }
 
