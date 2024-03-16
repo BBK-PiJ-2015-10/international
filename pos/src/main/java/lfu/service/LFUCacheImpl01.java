@@ -1,8 +1,6 @@
 package lfu.service;
 
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LFUCacheImpl01 implements LFUCache {
 
@@ -22,15 +20,34 @@ public class LFUCacheImpl01 implements LFUCache {
 
     @Override
     public int get(int key) {
+        Integer existingValue = keysToValues.get(key);
+        if (existingValue == null) {
+            return -1;
+        } else {
+            int existingFrequency = keysToFrequency.get(key);
+            int updatedFrequency = existingFrequency + 1;
+            keysToFrequency.put(key, updatedFrequency);
+            // remove and update
+            var existingFrequencyList = freqToLRUKeys.get(existingFrequency);
+            existingFrequencyList.removeFirstOccurrence(key);
+            var freqList = freqToLRUKeys.get(updatedFrequency);
+            if (freqList == null) {
+                var createdList = new LinkedList<Integer>();
+                createdList.add(key);
+                freqToLRUKeys.put(updatedFrequency, createdList);
+            } else {
+                freqList.add(key);
+            }
+            if (minFrequency == existingFrequency) {
+                if (existingFrequencyList.isEmpty()){
+                    minFrequency = updatedFrequency;
+                }
+            }
 
-//        MyNode existingNode = cache.get(key);
-//        if (existingNode == null) {
-//            return -1;
-//        } else {
-//            existingNode.setLastestTimeSamp(LocalDateTime.now());
-//            existingNode.setRequests(existingNode.requests + 1);
-//            return existingNode.value;
-//        }
+
+
+            return existingValue;
+        }
     }
 
     @Override
@@ -42,7 +59,9 @@ public class LFUCacheImpl01 implements LFUCache {
             if (keysToValues.size() >= maxCapacity) {
                 // THERE IS NO SPACE, NEED TO EVICT
                 // Evicting key
+                System.out.println(String.format("min is %d , key is %d, value is %d ", minFrequency,key,value));
                 var keyToEvict = freqToLRUKeys.get(minFrequency).removeFirst();
+                System.out.println(String.format("Removed %d ",keyToEvict));
                 keysToFrequency.remove(keyToEvict);
                 keysToValues.remove(keyToEvict);
             }
@@ -54,7 +73,7 @@ public class LFUCacheImpl01 implements LFUCache {
             if (freqToLRUKeysList == null) {
                 LinkedList<Integer> newList = new LinkedList();
                 newList.add(key);
-                freqToLRUKeys.put(key, newList);
+                freqToLRUKeys.put(frequency, newList);
             } else {
                 freqToLRUKeysList.add(key);
             }
@@ -62,13 +81,17 @@ public class LFUCacheImpl01 implements LFUCache {
             if (minFrequency == null) {
                 minFrequency = frequency;
             }
+            if (minFrequency > frequency){
+                minFrequency = frequency;
+            }
+            System.out.println(String.format("HERE 1 Minimum frequency iS %d ", minFrequency));
 
         } else {
             // update frequencies
             var existingFrequency = keysToFrequency.get(key);
             // remove from existing
             var otherKeysWithSameFrequency = freqToLRUKeys.get(existingFrequency);
-            otherKeysWithSameFrequency.remove(key);
+            otherKeysWithSameFrequency.removeFirstOccurrence(key);
             // update frequencies
             var updatedFrequency = existingFrequency + 1;
             keysToFrequency.put(key, updatedFrequency);
@@ -76,7 +99,7 @@ public class LFUCacheImpl01 implements LFUCache {
             if (freqToLRUKeysList == null) {
                 LinkedList<Integer> newList = new LinkedList();
                 newList.add(key);
-                freqToLRUKeys.put(key, newList);
+                freqToLRUKeys.put(updatedFrequency, newList);
             } else {
                 freqToLRUKeysList.add(key);
             }
