@@ -74,5 +74,39 @@ public class LFUCacheTest {
 
     }
 
+    @Test
+    public void leetExample() {
+        //set-up
+        var lfuCache = new LFUCacheImpl(2);
+
+        int id1 = 3;
+        int name1 = 1;
+        int id2 = 2;
+        int name2 = 1;
+        int id3 = 2;
+        int name3 = 2;
+        int id4 = 4;
+        int name4 = 4;
+        int id5 = 3;
+
+
+        //execute
+        lfuCache.put(id1, name1);
+        lfuCache.put(id2, name2);
+        lfuCache.put(id3, name3);
+        lfuCache.put(id4, name4);
+
+        lfuCache.get(id1);
+        lfuCache.put(id2, name2);
+        lfuCache.put(id3, name3);
+
+        //verity
+        var cachedValue = lfuCache.get(id1);
+        Assert.assertEquals(lfuCache.get(id1), name1);
+        Assert.assertEquals(lfuCache.get(id2), -1);
+        Assert.assertEquals(lfuCache.get(id3), name3);
+
+    }
+
 
 }

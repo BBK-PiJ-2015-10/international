@@ -1,17 +1,19 @@
 package lfu.service;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class LFUCacheImpl implements LFUCache {
+public class LFUCacheImpl01 implements LFUCache {
 
     private Map<Integer, MyNode> cache = new HashMap<>();
 
     private int maxCapacity;
 
-    public LFUCacheImpl(int maxCapacity) {
+    public LFUCacheImpl01(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
@@ -46,7 +48,6 @@ public class LFUCacheImpl implements LFUCache {
             // just fetch and update
             existingNode.setLastestTimeSamp(LocalDateTime.now());
             existingNode.setRequests(existingNode.requests + 1);
-            existingNode.setValue(value);
         }
     }
 
@@ -69,10 +70,6 @@ public class LFUCacheImpl implements LFUCache {
             this.requests = requests;
         }
 
-        public void setValue(Integer value) {
-            this.value = value;
-        }
-
         public void setLastestTimeSamp(LocalDateTime lastestTimeSamp) {
             this.lastestTimeStamp = lastestTimeSamp;
         }
@@ -88,7 +85,6 @@ public class LFUCacheImpl implements LFUCache {
         public Integer getKey() {
             return key;
         }
-
     }
 
 
