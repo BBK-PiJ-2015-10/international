@@ -13,14 +13,14 @@ public class LFUCacheTest {
         var lfuCache = new LFUCacheImpl(2);
 
         int id1 = 1234;
-        String name1 = "aa";
+        int name1 = 22;
 
         //execute
         lfuCache.put(id1, name1);
 
         //verity
         var cachedValue = lfuCache.get(id1);
-        Assert.assertEquals(cachedValue.get(), name1);
+        Assert.assertEquals(cachedValue, name1);
     }
 
     @Test
@@ -29,11 +29,11 @@ public class LFUCacheTest {
         var lfuCache = new LFUCacheImpl(2);
 
         int id1 = 123;
-        String name1 = "aa";
+        int name1 = 22;
         int id2 = 456;
-        String name2 = "bb";
+        int name2 = 33;
         int id3 = 789;
-        String name3 = "bb";
+        int name3 = 44;
 
         //execute
         lfuCache.put(id1, name1);
@@ -42,9 +42,9 @@ public class LFUCacheTest {
 
         //verity
         var cachedValue = lfuCache.get(id1);
-        Assert.assertEquals(cachedValue.isEmpty(), true);
-        Assert.assertEquals(lfuCache.get(id2).get(), name2);
-        Assert.assertEquals(lfuCache.get(id3).get(), name3);
+        Assert.assertEquals(cachedValue, -1);
+        Assert.assertEquals(lfuCache.get(id2), name2);
+        Assert.assertEquals(lfuCache.get(id3), name3);
 
     }
 
@@ -54,11 +54,11 @@ public class LFUCacheTest {
         var lfuCache = new LFUCacheImpl(2);
 
         int id1 = 123;
-        String name1 = "aa";
+        int name1 = 22;
         int id2 = 456;
-        String name2 = "bb";
+        int name2 = 33;
         int id3 = 789;
-        String name3 = "bb";
+        int name3 = 44;
 
         //execute
         lfuCache.put(id1, name1);
@@ -68,9 +68,9 @@ public class LFUCacheTest {
 
         //verity
         var cachedValue = lfuCache.get(id1);
-        Assert.assertEquals(lfuCache.get(id1).get(), name1);
-        Assert.assertEquals(lfuCache.get(id2).isEmpty(), true);
-        Assert.assertEquals(lfuCache.get(id3).get(), name3);
+        Assert.assertEquals(lfuCache.get(id1), name1);
+        Assert.assertEquals(lfuCache.get(id2), -1);
+        Assert.assertEquals(lfuCache.get(id3), name3);
 
     }
 

@@ -11,26 +11,24 @@ public class LFUCacheImpl implements LFUCache {
 
     private int maxCapacity;
 
-    private int minUsed = 1;
-
     public LFUCacheImpl(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
     @Override
-    public Optional<String> get(int key) {
+    public int get(int key) {
         MyNode existingNode = cache.get(key);
         if (existingNode == null) {
-            return Optional.empty();
+            return -1;
         } else {
             existingNode.setLastestTimeSamp(LocalDateTime.now());
             existingNode.setRequests(existingNode.requests + 1);
-            return Optional.of(existingNode.value);
+            return existingNode.value;
         }
     }
 
     @Override
-    public void put(int key, String value) {
+    public void put(int key, int value) {
         MyNode existingNode = cache.get(key);
         if (existingNode == null) {
             var node = new MyNode(key, value, 1, LocalDateTime.now());
@@ -59,11 +57,11 @@ public class LFUCacheImpl implements LFUCache {
     class MyNode {
 
         Integer key;
-        String value;
+        Integer value;
         Integer requests;
         LocalDateTime lastestTimeStamp;
 
-        public MyNode(Integer key, String value, int requests, LocalDateTime lastestTimeSamp) {
+        public MyNode(Integer key, Integer value, int requests, LocalDateTime lastestTimeSamp) {
             this.key = key;
             this.value = value;
             this.requests = requests;

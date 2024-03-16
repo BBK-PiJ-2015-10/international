@@ -4,9 +4,9 @@ import java.util.Optional;
 
 public interface LFUCache {
 
-    Optional<String> get(int key);
+    int get(int key);
 
-    void put(int key, String value);
+    void put(int key, int value);
 
 
 }
