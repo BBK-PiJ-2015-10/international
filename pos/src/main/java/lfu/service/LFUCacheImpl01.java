@@ -2,9 +2,10 @@ package lfu.service;
 
 import java.util.*;
 
+
+//https://leetcode.com/problems/lfu-cache/
 public class LFUCacheImpl01 implements LFUCache {
-
-
+    
     private int maxCapacity;
 
     private Integer minFrequency;
@@ -39,13 +40,10 @@ public class LFUCacheImpl01 implements LFUCache {
                 freqList.add(key);
             }
             if (minFrequency == existingFrequency) {
-                if (existingFrequencyList.isEmpty()){
+                if (existingFrequencyList.isEmpty()) {
                     minFrequency = updatedFrequency;
                 }
             }
-
-
-
             return existingValue;
         }
     }
@@ -59,9 +57,7 @@ public class LFUCacheImpl01 implements LFUCache {
             if (keysToValues.size() >= maxCapacity) {
                 // THERE IS NO SPACE, NEED TO EVICT
                 // Evicting key
-                System.out.println(String.format("min is %d , key is %d, value is %d ", minFrequency,key,value));
                 var keyToEvict = freqToLRUKeys.get(minFrequency).removeFirst();
-                System.out.println(String.format("Removed %d ",keyToEvict));
                 keysToFrequency.remove(keyToEvict);
                 keysToValues.remove(keyToEvict);
             }
@@ -81,12 +77,12 @@ public class LFUCacheImpl01 implements LFUCache {
             if (minFrequency == null) {
                 minFrequency = frequency;
             }
-            if (minFrequency > frequency){
+            if (minFrequency > frequency) {
                 minFrequency = frequency;
             }
-            System.out.println(String.format("HERE 1 Minimum frequency iS %d ", minFrequency));
 
         } else {
+            keysToValues.put(key, value);
             // update frequencies
             var existingFrequency = keysToFrequency.get(key);
             // remove from existing
@@ -103,20 +99,15 @@ public class LFUCacheImpl01 implements LFUCache {
             } else {
                 freqToLRUKeysList.add(key);
             }
-
             if (minFrequency == null) {
                 minFrequency = frequency;
             }
-
             if (minFrequency == existingFrequency) {
                 if (otherKeysWithSameFrequency.isEmpty()) {
                     minFrequency = updatedFrequency;
                 }
             }
-
         }
-
-
     }
 
 
