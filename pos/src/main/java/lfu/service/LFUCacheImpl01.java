@@ -4,6 +4,7 @@ import java.util.*;
 
 
 //https://leetcode.com/problems/lfu-cache/
+// This is a mock comment
 public class LFUCacheImpl01 implements LFUCache {
     
     private int maxCapacity;
