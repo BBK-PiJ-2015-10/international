@@ -2,8 +2,11 @@ package treesgraphs.trees.binarytree;
 
 //https://www.baeldung.com/java-binary-tree
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class BinaryTreeIntImpl {
 
@@ -33,6 +36,31 @@ public class BinaryTreeIntImpl {
     public void traversePostOrder() {
         traversePostOrder(root);
     }
+
+    public List<List<Integer>> levelList() {
+        var levelsToNodes = new HashMap<Integer, List<Integer>>();
+        levelList(levelsToNodes, 0, root);
+        return levelsToNodes.values().stream().collect(Collectors.toList());
+    }
+
+    private HashMap<Integer, List<Integer>> levelList(HashMap<Integer, List<Integer>> levelsToNodes, int level, Node element) {
+        var existingList = levelsToNodes.get(level);
+        if (existingList == null) {
+            List<Integer> levelList = new LinkedList<>();
+            levelList.add(element.value);
+            levelsToNodes.put(level, levelList);
+        } else {
+            existingList.add(element.value);
+        }
+        if (element.left != null) {
+            levelList(levelsToNodes, level + 1, element.left);
+        }
+        if (element.right != null) {
+            levelList(levelsToNodes, level + 1, element.right);
+        }
+        return levelsToNodes;
+    }
+
 
     public void traverseBFS() {
         Queue<Node> nodes = new LinkedList<>();
