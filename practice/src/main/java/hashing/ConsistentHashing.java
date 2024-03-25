@@ -9,7 +9,7 @@ public class ConsistentHashing<S, K> {
 
     private int replicas;
     private SortedMap<Integer, S> serverRing = new TreeMap<>();
-    
+
     private Function<String, Integer> hashFunction;
 
     public ConsistentHashing(int replicas, Function<String, Integer> hashFunction, Collection<S> nodes) {
