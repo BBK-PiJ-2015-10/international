@@ -31,17 +31,21 @@ public class ConsistentHashing<S, K> {
         }
     }
 
-    public S getServer(K key) {
-        int hashKey = hashFunction.apply(key.toString());
-        var server = serverRing.get(hashKey);
-        if (server == null) {
-            var potentialServers = serverRing.tailMap(hashKey);
-            return potentialServers.isEmpty() ? serverRing.firstKey() : potentialServers.firstKey()
-        } else {
-            return server;
-        }
-
-        return null;
-    }
+//    public S getServer(K key) {
+//        int hashKey = hashFunction.apply(key.toString());
+//        var server = serverRing.get(hashKey);
+//        if (server == null) {
+//            var potentialServers = serverRing.tailMap(hashKey);
+//            if (potentialServers.isEmpty()){
+//                return serverRing.firstKey();
+//            } else {
+//                return potentialServers.firstKey();
+//            }
+//        } else {
+//            return server;
+//        }
+//
+//        return null;
+//    }
 
 }
