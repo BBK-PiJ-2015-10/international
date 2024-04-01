@@ -12,4 +12,6 @@ public class VolumetricWeightCalcImpl implements VolumetricWeightCalc {
         var balance = (rawWeight - root) == 0.00000 ? 0.0 : 0.5;
         return (root + balance);
     }
+
+
 }

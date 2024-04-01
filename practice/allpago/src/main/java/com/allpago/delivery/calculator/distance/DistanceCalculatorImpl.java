@@ -60,7 +60,7 @@ public class DistanceCalculatorImpl implements DistanceCalculator {
                 return distanceFromSource.get(closerUnvisitedNodeToSource);
             }
         }
-        return - 1;
+        return - 1.0;
     }
 
     private Node getMinimumDistance(Set<Node> unvisitedNodes, Map<Node, Integer> distanceFromSource) {
