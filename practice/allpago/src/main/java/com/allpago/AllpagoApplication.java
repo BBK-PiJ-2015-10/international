@@ -1,6 +1,7 @@
 package com.allpago;
 
 import com.allpago.delivery.calculator.Coordinator;
+import com.allpago.delivery.calculator.source.Source;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,8 +13,8 @@ public class AllpagoApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context  = SpringApplication.run(AllpagoApplication.class, args);
-        Coordinator c = context.getBean(Coordinator.class);
-        c.execute();
+        Source c = context.getBean(Source.class);
+        c.load();
 
     }
 

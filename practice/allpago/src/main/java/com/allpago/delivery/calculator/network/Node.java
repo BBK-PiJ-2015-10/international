@@ -25,4 +25,11 @@ public class Node {
         return toEdges;
     }
 
+    public void setToEdges(Map<Node, Integer> toEdges) {
+        this.toEdges = toEdges;
+    }
+
+    public void addEdge(Node node, Integer cost){
+        toEdges.put(node,cost);
+    }
 }
