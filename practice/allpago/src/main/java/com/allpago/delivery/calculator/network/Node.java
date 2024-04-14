@@ -2,6 +2,7 @@ package com.allpago.delivery.calculator.network;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Node {
 
@@ -33,6 +34,18 @@ public class Node {
         toEdges.put(node, cost);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return Objects.equals(id, node.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
 
 

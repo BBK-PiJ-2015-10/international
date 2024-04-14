@@ -1,6 +1,7 @@
 package com.allpago.delivery.calculator.source;
 
 import com.allpago.delivery.calculator.distance.DistanceCalculatorImpl;
+import com.allpago.delivery.calculator.network.Network;
 import com.allpago.delivery.calculator.network.Node;
 import com.allpago.delivery.calculator.source.mapper.InputMapper;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ public class SourceImpl implements Source {
 
     private InputMapper inputMapper;
 
+    private Set<Node> network;
+
 
     @Autowired
     public SourceImpl(InputMapper inputMapper) {
@@ -29,7 +32,12 @@ public class SourceImpl implements Source {
     }
 
     @Override
-    public Set<Node> load() {
+    public Set<Node> getNetwork() {
+        return network;
+    }
+
+    @Override
+    public void load() {
 
         var path = Paths.get(fileName);
 
@@ -43,7 +51,7 @@ public class SourceImpl implements Source {
 
         logger.info("Read {}", data);
 
-        var result = inputMapper.toGraph(data);
+        network = inputMapper.toGraph(data);
 
 //        String read = Files.readString(path);
 //
@@ -55,8 +63,7 @@ public class SourceImpl implements Source {
 //
 //            e.printStackTrace();
 //        }
-//
-        return result;
+
     }
 
 

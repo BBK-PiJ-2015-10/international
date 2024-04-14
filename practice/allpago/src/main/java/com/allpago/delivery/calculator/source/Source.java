@@ -6,6 +6,8 @@ import java.util.Set;
 
 public interface Source {
 
-    Set<Node> load();
+    void load();
+
+    Set<Node> getNetwork();
 
 }
