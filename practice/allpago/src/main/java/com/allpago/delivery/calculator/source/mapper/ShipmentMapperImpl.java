@@ -37,7 +37,7 @@ public class ShipmentMapperImpl implements ShipmentMapper {
         Arrays.asList(shipmentString.split(",")).forEach(si -> shipmentInfo.add(si));
         shipmentInfo.remove("@");
         shipmentInfo.remove("");
-        var values = shipmentInfo.stream().collect(Collectors.joining(", "));
+        //var values = shipmentInfo.stream().collect(Collectors.joining(", "));
         var toId = shipmentInfo.remove(0);
         var volume = shipmentInfo.get(0);
         var dims = Arrays.asList(volume.split("x"));

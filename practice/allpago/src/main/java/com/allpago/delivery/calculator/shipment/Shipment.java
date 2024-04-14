@@ -1,5 +1,6 @@
 package com.allpago.delivery.calculator.shipment;
 
+import lombok.Getter;
 import lombok.ToString;
 import lombok.AllArgsConstructor;
 
@@ -7,18 +8,18 @@ import lombok.AllArgsConstructor;
 @ToString
 public class Shipment {
 
-    private String fromId;
+    private @Getter  String fromId;
 
-    private String toId;
+    private @Getter String toId;
 
-    private int lenght;
+    private @Getter int lenght;
 
-    private int width;
+    private @Getter int width;
 
-    private int depth;
+    private @Getter int depth;
 
-    private double weight;
+    private @Getter double weight;
 
-    private String expectedCost;
+    private @Getter String expectedCost;
 
 }

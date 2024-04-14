@@ -49,11 +49,11 @@ public class DistanceCalculatorImpl implements DistanceCalculator {
         reachedUnvisitedNodes.add(startNode);
 
         while (!reachedUnvisitedNodes.isEmpty()) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e){
-                logger.info("Someone woke me up");
-            }
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e){
+//                logger.info("Someone woke me up");
+//            }
 
             var closerUnvisitedNodeToSource = getMinimumDistance(reachedUnvisitedNodes, distanceFromSource);
             logger.info("Evaluating unvisited node with id {}",closerUnvisitedNodeToSource.getId());

@@ -62,8 +62,6 @@ public class SourceImpl implements Source {
             logger.error("Error reading data due to {}", data);
         }
 
-        logger.info("Read {}", data);
-
         List<String> inputData = new ArrayList<>();
         Arrays.asList(data.split("@")).forEach(i -> inputData.add(i));
 
@@ -72,7 +70,6 @@ public class SourceImpl implements Source {
 
         network = nodeMapper.toGraph(nodeData);
         shipments = shipmentMapper.toShipments(inputData);
-
 
 //        String read = Files.readString(path);
 //

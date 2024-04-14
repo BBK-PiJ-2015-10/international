@@ -29,17 +29,17 @@ public class DeliveryCostCalculatorImpl implements DeliveryCostCalculator {
     private DistanceCalculator distanceCalculator;
 
     @Override
-    public String calculateCosts(String fromId, String toId, int width, int length, int depth, double weight) {
-        logger.info("Calculating costs from startNode: {} to endNode{} with width {} length {} depth {} weight {}",
-                fromId, toId, width, length, depth, weight);
-        var calculatedWeight = weightCalculator.calculateWeight(width, length, depth, weight);
+    public String calculateCosts(String fromId, String toId, int width, int length, int height, double weight) {
+        logger.info("Calculating costs from startNode: {} to endNode{} with width {} length {} height {} weight {}",
+                fromId, toId, width, length, height, weight);
+        var calculatedWeight = weightCalculator.calculateWeight(width, length, height, weight);
         logger.info("Calculated weight: {}", calculatedWeight);
-        var minimumPathCost = distanceCalculator.getMinimumDistance(fromId, toId);
-        logger.info("Minimum path cost: {}", minimumPathCost);
-        if (minimumPathCost == -1.0) {
+        var minimumPathDistance = distanceCalculator.getMinimumDistance(fromId, toId);
+        logger.info("Minimum path cost: {}", minimumPathDistance);
+        if (minimumPathDistance == -1.0) {
             return "~";
         } else {
-            var result = Math.sqrt(minimumPathCost * calculatedWeight);
+            var result = Math.sqrt(minimumPathDistance * calculatedWeight);
             DecimalFormat df = new DecimalFormat("#.00");
             df.setRoundingMode(RoundingMode.HALF_EVEN);
             var response = df.format(result);

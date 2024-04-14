@@ -12,9 +12,9 @@ public class NormalizedWeightCalculator implements WeightCalculator {
     }
 
     @Override
-    public double calculateWeight(int width, int length, int depth, double weight) {
+    public double calculateWeight(int width, int length, int height, double weight) {
         var weightInKgs = weight / 1000;
-        double volumeWeight = volumetricWeightCalc.calculateWeight(width, length, depth, 5000.0);
+        double volumeWeight = volumetricWeightCalc.calculateWeight(width, length, height, 5000.0);
         return (volumeWeight > weightInKgs) ? volumeWeight : weightInKgs;
     }
 }
