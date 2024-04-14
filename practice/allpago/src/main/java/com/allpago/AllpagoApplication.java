@@ -27,7 +27,7 @@ public class AllpagoApplication {
         DeliveryCostCalculator dcc = context.getBean(DeliveryCostCalculator.class);
         DistanceCalculator dc = dcc.getDistanceCalculator();
         dc.setNetwork(c.getNetwork());
-        
+
         logger.info("Have {} number of nodes", nodes.size());
         var cat = nodes.stream().map(n -> n.getId()).collect(Collectors.toSet());
         logger.info("Have {} number of nodes", cat);

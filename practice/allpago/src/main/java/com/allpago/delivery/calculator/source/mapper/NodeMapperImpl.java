@@ -10,17 +10,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class InputMapperImpl implements InputMapper {
+public class NodeMapperImpl implements NodeMapper {
 
-    private Logger logger = LoggerFactory.getLogger(InputMapperImpl.class);
+    private Logger logger = LoggerFactory.getLogger(NodeMapperImpl.class);
 
     private HashMap<String, Node> nodes = new HashMap();
 
     @Override
-    public Set<Node> toGraph(String input) {
-        var data = input.split("@");
-        var nodeData = data[0];
-        processNodeData(nodeData);
+    public Set<Node> toGraph(String nodesData) {
+        processNodeData(nodesData);
         return nodes.values().stream().collect(Collectors.toSet());
     }
 
@@ -37,7 +35,7 @@ public class InputMapperImpl implements InputMapper {
         String nodeId = nodeInfo.remove(0);
         var node = nodes.get(nodeId);
         if (node == null) {
-            logger.info("Creating new node with id {}",nodeId);
+            logger.info("Creating new node with id {}", nodeId);
             node = new Node(nodeId);
         }
         for (String linkedNodeInfo : nodeInfo) {

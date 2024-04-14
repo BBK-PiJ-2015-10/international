@@ -4,7 +4,7 @@ import com.allpago.delivery.calculator.network.Node;
 
 import java.util.Set;
 
-public interface InputMapper {
+public interface NodeMapper {
 
     Set<Node> toGraph(String input);
 
