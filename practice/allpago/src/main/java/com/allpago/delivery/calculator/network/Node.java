@@ -7,7 +7,7 @@ public class Node {
 
     private String id;
 
-    private Map<Node,Integer> toEdges = new HashMap<>();
+    private Map<Node, Integer> toEdges = new HashMap<>();
 
     public Node(String id) {
         this.id = id;
@@ -29,7 +29,10 @@ public class Node {
         this.toEdges = toEdges;
     }
 
-    public void addEdge(Node node, Integer cost){
-        toEdges.put(node,cost);
+    public void addEdge(Node node, Integer cost) {
+        toEdges.put(node, cost);
     }
+
 }
+
+

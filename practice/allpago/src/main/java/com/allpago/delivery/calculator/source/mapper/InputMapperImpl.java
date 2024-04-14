@@ -2,43 +2,58 @@ package com.allpago.delivery.calculator.source.mapper;
 
 import com.allpago.delivery.calculator.network.Node;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class InputMapperImpl implements InputMapper{
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-    private HashMap<String,Node> nodes = new HashMap();
+@Component
+public class InputMapperImpl implements InputMapper {
 
+    private Logger logger = LoggerFactory.getLogger(InputMapperImpl.class);
+
+    private HashMap<String, Node> nodes = new HashMap();
+
+    @Override
     public Set<Node> toGraph(String input) {
-        // Todo
-        // split by @
-        // take first and use it to populate the input
-        // second and fourth to run cases, just store
-        return null;
+        var data = input.split("@");
+        var nodeData = data[0];
+        processNodeData(nodeData);
+        return nodes.values().stream().collect(Collectors.toSet());
+    }
+
+    private Set<Node> processNodeData(String nodesData) {
+        var nodes = Arrays.asList(nodesData.split(System.lineSeparator()));
+        return nodes.stream().map(ns -> toNode(ns)).collect(Collectors.toSet());
     }
 
 
-    @Override
-    public Node toNode(String input) {
-        var nodeInfo = Arrays.asList(input.split(","));
-        var nodeId = nodeInfo.remove(0);
+    private Node toNode(String input) {
+        logger.info("Processing string: {}", input);
+        List<String> nodeInfo = new ArrayList<>();
+        Arrays.asList(input.split(",")).forEach(i -> nodeInfo.add(i));
+        String nodeId = nodeInfo.remove(0);
         var node = nodes.get(nodeId);
-        if (node == null){
+        if (node == null) {
+            logger.info("Creating new node with id {}",nodeId);
             node = new Node(nodeId);
         }
-        for (String linkedNodeInfo: nodeInfo){
+        for (String linkedNodeInfo : nodeInfo) {
             var linkedNodeInfos = Arrays.asList(linkedNodeInfo.split(":"));
             var linkedNodeId = linkedNodeInfos.get(0);
             var linkedNode = nodes.get(linkedNodeId);
             if (linkedNode == null) {
                 linkedNode = new Node(linkedNodeId);
-                nodes.put(linkedNodeId,linkedNode);
+                logger.info("Creating linkedNode {} while processing node with id {}", linkedNode, nodeId);
+                nodes.put(linkedNodeId, linkedNode);
             }
             var linkedCost = Integer.valueOf(linkedNodeInfos.get(1));
-            node.addEdge(linkedNode,linkedCost);
+            node.addEdge(linkedNode, linkedCost);
         }
-        nodes.put(nodeId,node);
+        logger.info("Updated nodeId: {} to {}", nodeId, node);
+        nodes.put(nodeId, node);
         return node;
     }
 }
