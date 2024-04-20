@@ -1,6 +1,7 @@
 package com.allpago;
 
 import com.allpago.delivery.calculator.DeliveryCostCalculator;
+import com.allpago.delivery.calculator.Executor;
 import com.allpago.delivery.calculator.shipment.Shipment;
 import com.allpago.delivery.calculator.source.Source;
 import org.slf4j.Logger;
@@ -26,6 +27,10 @@ public class AllpagoApplication {
         var sourceDirectory = "allpago/src/main/resources/input/";
         ConfigurableApplicationContext context = SpringApplication.run(AllpagoApplication.class, args);
 
+        //Executor executor = context.getBean(Executor.class);
+
+        //executor.execute(sourceDirectory);
+
         Source c = context.getBean(Source.class);
         DeliveryCostCalculator dcc = context.getBean(DeliveryCostCalculator.class);
 
@@ -38,7 +43,7 @@ public class AllpagoApplication {
 
     }
 
-    private static void process(Source c, DeliveryCostCalculator dcc, Path filePath) {
+   private static void process(Source c, DeliveryCostCalculator dcc, Path filePath) {
         logger.info("Processing file {}", filePath);
         c.load(filePath.toString());
         for (Shipment shipment : c.getShipments()) {
