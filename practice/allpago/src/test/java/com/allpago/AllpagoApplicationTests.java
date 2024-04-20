@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class AllpagoApplicationTests {
 
     @Autowired
-    //Coordinator coordinator;
+    AllpagoApplication allpagoApplication;
 
     @Test
     void contextLoads() {

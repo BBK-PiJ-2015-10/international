@@ -9,6 +9,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 //https://medium.com/edureka/what-is-dependency-injection-5006b53af782
 
@@ -19,13 +23,24 @@ public class AllpagoApplication {
 
     public static void main(String[] args) {
 
-        var fileName = "allpago/src/main/resources/input/03.csv";
+        var sourceDirectory = "allpago/src/main/resources/input/";
         ConfigurableApplicationContext context = SpringApplication.run(AllpagoApplication.class, args);
-        Source c = context.getBean(Source.class);
-        c.load(fileName);
 
+        Source c = context.getBean(Source.class);
         DeliveryCostCalculator dcc = context.getBean(DeliveryCostCalculator.class);
 
+        try {
+            var files = Files.list(Paths.get(sourceDirectory));
+            files.forEach(d -> process(c, dcc, d));
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    private static void process(Source c, DeliveryCostCalculator dcc, Path filePath) {
+        logger.info("Processing file {}", filePath);
+        c.load(filePath.toString());
         for (Shipment shipment : c.getShipments()) {
             var cost = dcc.calculateCosts(shipment.getFromId(), shipment.getToId(), shipment.getLenght(), shipment.getWidth(), shipment.getDepth(), shipment.getWeight(), c.getNetwork());
             if (shipment.getExpectedCost().trim().equals(cost.trim())) {
@@ -36,7 +51,6 @@ public class AllpagoApplication {
 
         }
         logger.info("Thank you.");
-
     }
 
 }
