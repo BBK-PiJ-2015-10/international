@@ -29,15 +29,12 @@ public class AllpagoApplication {
 
         for (Shipment shipment : c.getShipments()) {
             var cost = dcc.calculateCosts(shipment.getFromId(), shipment.getToId(), shipment.getLenght(), shipment.getWidth(), shipment.getDepth(), shipment.getWeight());
-            String nr = "~";
-            String ec = shipment.getExpectedCost().trim();
-            if (!nr.contains(ec)) {
-                var expectedCost = Double.valueOf(shipment.getExpectedCost());
-                var actualCost = Double.valueOf(cost);
-                var factor = expectedCost / actualCost;
-                logger.info("Factor is {} ", factor);
+            if (shipment.getExpectedCost().trim().equals(cost.trim())){
+                logger.info("The cost for {} matches expected {} and is {}", shipment,shipment.getExpectedCost(),cost);
+            } else {
+                logger.error("The cost for {} does not match expected {} and is {}", shipment,shipment.getExpectedCost(),cost);
             }
-            logger.info("The cost for {} is expected {} and is {}", shipment, shipment.getExpectedCost(), cost);
+
         }
         logger.info("Thank you.");
 
