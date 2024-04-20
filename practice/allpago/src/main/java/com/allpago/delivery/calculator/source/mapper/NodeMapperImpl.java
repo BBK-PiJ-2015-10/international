@@ -29,13 +29,13 @@ public class NodeMapperImpl implements NodeMapper {
 
 
     private Node toNode(String input) {
-        logger.info("Processing string: {}", input);
+        //logger.info("Processing string: {}", input);
         List<String> nodeInfo = new ArrayList<>();
         Arrays.asList(input.split(",")).forEach(i -> nodeInfo.add(i));
         String nodeId = nodeInfo.remove(0);
         var node = nodes.get(nodeId);
         if (node == null) {
-            logger.info("Creating new node with id {}", nodeId);
+            //logger.info("Creating new node with id {}", nodeId);
             node = new Node(nodeId);
         }
         for (String linkedNodeInfo : nodeInfo) {
@@ -44,13 +44,13 @@ public class NodeMapperImpl implements NodeMapper {
             var linkedNode = nodes.get(linkedNodeId);
             if (linkedNode == null) {
                 linkedNode = new Node(linkedNodeId);
-                logger.info("Creating linkedNode {} while processing node with id {}", linkedNode, nodeId);
+                //logger.info("Creating linkedNode {} while processing node with id {}", linkedNode, nodeId);
                 nodes.put(linkedNodeId, linkedNode);
             }
             var linkedCost = Integer.valueOf(linkedNodeInfos.get(1));
             node.addEdge(linkedNode, linkedCost);
         }
-        logger.info("Updated nodeId: {} to {}", nodeId, node);
+        //logger.info("Updated nodeId: {} to {}", nodeId, node);
         nodes.put(nodeId, node);
         return node;
     }

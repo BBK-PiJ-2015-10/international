@@ -39,7 +39,7 @@ public class DeliveryCostCalculatorImpl implements DeliveryCostCalculator {
         if (minimumPathDistance == -1.0) {
             return "~";
         } else {
-            var result = Math.sqrt(minimumPathDistance * calculatedWeight);
+            var result = Math.sqrt(minimumPathDistance) * calculatedWeight;
             DecimalFormat df = new DecimalFormat("#.00");
             df.setRoundingMode(RoundingMode.HALF_EVEN);
             var response = df.format(result);

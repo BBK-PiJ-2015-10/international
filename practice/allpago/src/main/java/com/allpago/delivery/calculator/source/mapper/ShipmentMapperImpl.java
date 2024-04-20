@@ -32,7 +32,7 @@ public class ShipmentMapperImpl implements ShipmentMapper {
     }
 
     private Shipment toShipment(String shipmentString) {
-        logger.info("Processing shipment string: " + shipmentString);
+        //logger.info("Processing shipment string: " + shipmentString);
         List<String> shipmentInfo = new ArrayList<>();
         Arrays.asList(shipmentString.split(",")).forEach(si -> shipmentInfo.add(si));
         shipmentInfo.remove("@");
