@@ -4,7 +4,6 @@ import com.allpago.delivery.calculator.network.Node;
 import com.allpago.delivery.calculator.shipment.Shipment;
 import com.allpago.delivery.calculator.source.mapper.NodeMapper;
 import com.allpago.delivery.calculator.source.mapper.ShipmentMapper;
-import com.allpago.delivery.calculator.source.mapper.ShipmentMapperImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class SourceImpl implements Source {
 
     Logger logger = LoggerFactory.getLogger(SourceImpl.class);
 
-    String fileName = "allpago/src/main/resources/input/03.csv";
+    //String fileName = "allpago/src/main/resources/input/03.csv";
 
     private NodeMapper nodeMapper;
 
@@ -50,7 +49,10 @@ public class SourceImpl implements Source {
     }
 
     @Override
-    public void load() {
+    public void load(String fileName) {
+
+        network = null;
+        shipments = null;
 
         var path = Paths.get(fileName);
 
@@ -66,7 +68,6 @@ public class SourceImpl implements Source {
         Arrays.asList(data.split("@")).forEach(i -> inputData.add(i));
 
         var nodeData = inputData.remove(0);
-        //var shipmentData = dataArray[1];
 
         network = nodeMapper.toGraph(nodeData);
         shipments = shipmentMapper.toShipments(inputData);

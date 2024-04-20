@@ -1,6 +1,7 @@
 package com.allpago.delivery.calculator;
 
 import com.allpago.delivery.calculator.distance.DistanceCalculator;
+import com.allpago.delivery.calculator.network.Node;
 import com.allpago.delivery.calculator.weight.WeightCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Set;
 
 @Component
 public class DeliveryCostCalculatorImpl implements DeliveryCostCalculator {
@@ -19,22 +21,17 @@ public class DeliveryCostCalculatorImpl implements DeliveryCostCalculator {
         this.distanceCalculator = distanceCalculator;
     }
 
-    @Override
-    public DistanceCalculator getDistanceCalculator() {
-        return distanceCalculator;
-    }
-
     private WeightCalculator weightCalculator;
 
     private DistanceCalculator distanceCalculator;
 
     @Override
-    public String calculateCosts(String fromId, String toId, int width, int length, int height, double weight) {
+    public String calculateCosts(String fromId, String toId, int width, int length, int height, double weight, Set<Node> network) {
         logger.info("Calculating costs from startNode: {} to endNode{} with width {} length {} height {} weight {}",
                 fromId, toId, width, length, height, weight);
         var calculatedWeight = weightCalculator.calculateWeight(width, length, height, weight);
         logger.info("Calculated weight: {}", calculatedWeight);
-        var minimumPathDistance = distanceCalculator.getMinimumDistance(fromId, toId);
+        var minimumPathDistance = distanceCalculator.getMinimumDistance(fromId, toId, network);
         logger.info("Minimum path cost: {}", minimumPathDistance);
         if (minimumPathDistance == -1.0) {
             return "~";

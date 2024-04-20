@@ -1,7 +1,6 @@
 package com.allpago;
 
 import com.allpago.delivery.calculator.DeliveryCostCalculator;
-import com.allpago.delivery.calculator.distance.DistanceCalculator;
 import com.allpago.delivery.calculator.shipment.Shipment;
 import com.allpago.delivery.calculator.source.Source;
 import org.slf4j.Logger;
@@ -19,20 +18,20 @@ public class AllpagoApplication {
     private static Logger logger = LoggerFactory.getLogger(AllpagoApplication.class);
 
     public static void main(String[] args) {
+
+        var fileName = "allpago/src/main/resources/input/03.csv";
         ConfigurableApplicationContext context = SpringApplication.run(AllpagoApplication.class, args);
         Source c = context.getBean(Source.class);
-        c.load();
+        c.load(fileName);
 
         DeliveryCostCalculator dcc = context.getBean(DeliveryCostCalculator.class);
-        DistanceCalculator dc = dcc.getDistanceCalculator();
-        dc.setNetwork(c.getNetwork());
 
         for (Shipment shipment : c.getShipments()) {
-            var cost = dcc.calculateCosts(shipment.getFromId(), shipment.getToId(), shipment.getLenght(), shipment.getWidth(), shipment.getDepth(), shipment.getWeight());
-            if (shipment.getExpectedCost().trim().equals(cost.trim())){
-                logger.info("The cost for {} matches expected {} and is {}", shipment,shipment.getExpectedCost(),cost);
+            var cost = dcc.calculateCosts(shipment.getFromId(), shipment.getToId(), shipment.getLenght(), shipment.getWidth(), shipment.getDepth(), shipment.getWeight(), c.getNetwork());
+            if (shipment.getExpectedCost().trim().equals(cost.trim())) {
+                logger.info("The cost for {} matches expected {} and is {}", shipment, shipment.getExpectedCost(), cost);
             } else {
-                logger.error("The cost for {} does not match expected {} and is {}", shipment,shipment.getExpectedCost(),cost);
+                logger.error("The cost for {} does not match expected {} and is {}", shipment, shipment.getExpectedCost(), cost);
             }
 
         }

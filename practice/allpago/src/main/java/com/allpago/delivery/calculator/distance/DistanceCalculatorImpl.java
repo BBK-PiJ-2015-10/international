@@ -4,7 +4,7 @@ import com.allpago.delivery.calculator.network.Network;
 import com.allpago.delivery.calculator.network.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -17,20 +17,15 @@ public class DistanceCalculatorImpl implements DistanceCalculator {
     Logger logger = LoggerFactory.getLogger(DistanceCalculatorImpl.class);
 
 
-    @Autowired
-    public DistanceCalculatorImpl(Network network) {
-        this.network = network;
-    }
+//    @Autowired
+//    public DistanceCalculatorImpl() {
+//    }
+
 
     @Override
-    public void setNetwork(Set<Node> networkInput) {
-        network.setNetwork(networkInput);
-    }
+    public double getMinimumDistance(String startId, String destinationId,Set<Node> network) {
 
-    @Override
-    public double getMinimumDistance(String startId, String destinationId) {
-
-        var nodes = network.getNetwork();
+        var nodes = network;
         //logger.info("Calculating distance between nodes " + startId + " and " + destinationId +"with a a graph with "+nodes.size()  +" nodes");
         Map<Node, Integer> distanceFromSource = new HashMap<>();
 

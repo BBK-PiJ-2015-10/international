@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface Source {
 
-    void load();
+    void load(String fileName);
 
     Set<Node> getNetwork();
 
