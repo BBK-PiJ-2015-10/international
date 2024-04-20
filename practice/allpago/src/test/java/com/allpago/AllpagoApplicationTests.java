@@ -1,20 +1,27 @@
 package com.allpago;
 
+import com.allpago.delivery.calculator.Executor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ConfigurableApplicationContext;
 
+//@SpringBootTest
 @SpringBootTest
 class AllpagoApplicationTests {
 
     @Autowired
-    AllpagoApplication allpagoApplication;
+    Executor executor;
 
     @Test
     void contextLoads() {
 
-        //ConfigurableApplicationContext context  = SpringApplication.run(AllpagoApplication.class, args);
-      //  Coordinator c = coordinator;
+        var sourceDirectory = "allpago/src/main/resources/input/";
+
+        //ConfigurableApplicationContext context  = SpringApplication.run(AllpagoApplication.class);
+        //var result = executor.execute(sourceDirectory);
+        //  Coordinator c = coordinator;
         //c.execute();
 
     }
