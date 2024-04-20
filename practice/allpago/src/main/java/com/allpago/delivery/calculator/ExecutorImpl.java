@@ -1,6 +1,5 @@
 package com.allpago.delivery.calculator;
 
-import com.allpago.AllpagoApplication;
 import com.allpago.delivery.calculator.shipment.Shipment;
 import com.allpago.delivery.calculator.source.Source;
 import org.slf4j.Logger;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Collectors;
 
 @Component
 public class ExecutorImpl implements Executor {
@@ -22,14 +22,17 @@ public class ExecutorImpl implements Executor {
     private DeliveryCostCalculator deliveryCostCalculator;
 
     @Autowired
-    public ExecutorImpl(Source source) {
+    public ExecutorImpl(Source source, DeliveryCostCalculator deliveryCostCalculator) {
         this.source = source;
+        this.deliveryCostCalculator = deliveryCostCalculator;
     }
 
     @Override
     public boolean execute(String fileDirectoryPath) {
         try {
-            var files = Files.list(Paths.get(fileDirectoryPath));
+            logger.info("Processing directory: " + fileDirectoryPath);
+            var files = Files.list(Paths.get(fileDirectoryPath)).collect(Collectors.toSet());
+            logger.info("Directory has {} files", files.size());
             files.forEach(d -> process(source, deliveryCostCalculator, d));
         } catch (Exception e) {
 
