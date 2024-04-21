@@ -30,7 +30,6 @@ public class ExecutorImpl implements Executor {
     @Override
     public boolean execute(String fileDirectoryPath) {
         try {
-            logger.info("Processing directory: " + fileDirectoryPath);
             var files = Files.list(Paths.get(fileDirectoryPath)).collect(Collectors.toSet());
             logger.info("Directory has {} files", files.size());
             files.forEach(d -> process(source, deliveryCostCalculator, d));

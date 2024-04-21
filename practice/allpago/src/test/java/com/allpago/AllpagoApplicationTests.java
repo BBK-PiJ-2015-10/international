@@ -3,26 +3,27 @@ package com.allpago;
 import com.allpago.delivery.calculator.Executor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
 
-//@SpringBootTest
+import java.io.File;
+
 @SpringBootTest
 class AllpagoApplicationTests {
 
     @Autowired
-    Executor executor;
+    ConfigurableApplicationContext context;
 
     @Test
     void contextLoads() {
 
-        var sourceDirectory = "allpago/src/main/resources/input/";
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("input").getFile());
 
-        //ConfigurableApplicationContext context  = SpringApplication.run(AllpagoApplication.class);
-        //var result = executor.execute(sourceDirectory);
-        //  Coordinator c = coordinator;
-        //c.execute();
+        var sourceDirectory = file.getPath().toString();
+
+        Executor executor = context.getBean(Executor.class);
+        executor.execute(sourceDirectory);
 
     }
 
