@@ -7,14 +7,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="allpago" />
+        <module name="trader" />
         <module name="pratice" />
+        <module name="sccap" />
+        <module name="allpago" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="sc" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="allpago" options="-parameters" />
+      <module name="sc" options="-parameters" />
+      <module name="sccap" options="-parameters" />
+      <module name="trader" options="-parameters" />
     </option>
   </component>
 </project>
