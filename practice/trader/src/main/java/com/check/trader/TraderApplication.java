@@ -1,6 +1,6 @@
 package com.check.trader;
 
-import com.check.trader.file.CustomerRepo;
+import com.check.trader.source.CustomerRepo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

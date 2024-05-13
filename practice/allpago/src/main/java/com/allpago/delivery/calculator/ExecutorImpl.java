@@ -40,7 +40,7 @@ public class ExecutorImpl implements Executor {
     }
 
     private void process(Source c, DeliveryCostCalculator dcc, Path filePath) {
-        logger.info("Processing file {}", filePath);
+        logger.info("Processing source {}", filePath);
         c.load(filePath.toString());
         for (Shipment shipment : c.getShipments()) {
             var cost = dcc.calculateCosts(shipment.getFromId(), shipment.getToId(), shipment.getLenght(), shipment.getWidth(), shipment.getDepth(), shipment.getWeight(), c.getNetwork());

@@ -2,7 +2,7 @@ package treesgraphs.minimumpath.dijstra;
 
 import java.util.*;
 
-//file: https://www.baeldung.com/java-dijkstra
+//source: https://www.baeldung.com/java-dijkstra
 // DI: Example https://medium.com/edureka/what-is-dependency-injection-5006b53af782
 public class Graph {
 
@@ -48,14 +48,14 @@ public class Graph {
         return shortestDistance;
     }
 
-//    public void calculatorShortestDistancesFromNode(Node file) {
+//    public void calculatorShortestDistancesFromNode(Node source) {
 //
-//        file.setDistance(0);
+//        source.setDistance(0);
 //
 //        Set<Node> settledNodes = new HashSet<>();
 //        Set<Node> unsettledNodes = new HashSet<>();
 //
-//        unsettledNodes.add(file);
+//        unsettledNodes.add(source);
 //
 //        while (!unsettledNodes.isEmpty()) {
 //            Node curretNode = getShortestDistanceNode(unsettledNodes);
