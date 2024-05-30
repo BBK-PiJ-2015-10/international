@@ -1,6 +1,6 @@
 package com.check.trader.source;
 
-import com.check.trader.dto.Strategy;
+import com.check.trader.entity.ImportedStrategy;
 import com.check.trader.mapper.StrategyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class StrategyRepoImpl implements StrategyRepo {
     }
 
     @Override
-    public List<Strategy> getStrategies() {
+    public List<ImportedStrategy> getStrategies() {
         var strategiesFilePath = Paths.get(fileName);
         String data = "";
 

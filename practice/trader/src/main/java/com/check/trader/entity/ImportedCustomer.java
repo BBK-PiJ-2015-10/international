@@ -1,12 +1,9 @@
-package com.check.trader.dto;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+package com.check.trader.entity;
 
 import java.time.LocalDate;
 
 
-public record Customer(int customerId, String email, LocalDate dateOfBirth, int riskLevel, int retirementAge) {
+public record ImportedCustomer(int customerId, String email, LocalDate dateOfBirth, int riskLevel, int retirementAge) {
 
 }
 

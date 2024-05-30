@@ -1,9 +1,9 @@
 package com.check.trader.mapper;
 
-import com.check.trader.dto.Strategy;
+import com.check.trader.entity.ImportedStrategy;
 
 public interface StrategyMapper {
 
-    Strategy toStrategy(String strategy);
+    ImportedStrategy toStrategy(String strategy);
 
 }

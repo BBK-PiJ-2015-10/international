@@ -1,6 +1,6 @@
 package com.check.trader.source;
 
-import com.check.trader.dto.Customer;
+import com.check.trader.entity.ImportedCustomer;
 import com.check.trader.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public List<Customer> fetchCustomers() {
+    public List<ImportedCustomer> fetchCustomers() {
         logger.info("Start fetch customers from {}", fileName);
         var path = Paths.get(fileName);
         String data = "";
@@ -44,7 +44,7 @@ public class CustomerRepoImpl implements CustomerRepo {
         }
         List<String> customersString = new ArrayList<>(Arrays.asList(data.split("\\R")));
         customersString.remove(0);
-        var customers = customersString.stream().map(cs -> customerMapper.toCustomer(cs)).collect(Collectors.toList());
+        var customers = customersString.stream().map(cs -> customerMapper.toImportedCustomer(cs)).collect(Collectors.toList());
         logger.info("Returning {} customers", customers.size());
         return customers;
     }
