@@ -3,8 +3,12 @@ package codility.zal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MatrixOptimizerImpl implements MatrixPathOptimizer {
+
+    Logger logger  = LoggerFactory.getLogger(this.getClass());
 
     class Node {
 
@@ -44,6 +48,17 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
         public void setTotalNumber(int totalNumber) {
             this.totalNumber = totalNumber;
         }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "xPosition=" + xPosition +
+                    ", yPosition=" + yPosition +
+                    ", number=" + number +
+                    ", pathToNode=" + pathToNode +
+                    ", totalNumber=" + totalNumber +
+                    '}';
+        }
     }
 
     public MatrixOptimizerImpl() {
@@ -68,6 +83,7 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
 
         while (!nodeTracker.isEmpty()) {
             var node = nodeTracker.poll();
+            logger.info("Polling node: {}", node);
             var downYPos = node.yPosition - 1;
             var rightXPos = node.xPosition + 1;
             if (rightXPos <= maxXPos) {
@@ -78,6 +94,7 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
                     rightNode.pathToNode.add(node);
                     nodeTracker.add(rightNode);
                     maxNode = rightNode;
+                    logger.info("Adding right node: {}", rightNode);
                 }
             }
             if (downYPos >= minYPos) {
@@ -88,6 +105,7 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
                     downNode.pathToNode.add(node);
                     nodeTracker.add(downNode);
                     maxNode = downNode;
+                    logger.info("Adding down node: {}", downNode);
                 }
             }
         }
