@@ -45,8 +45,11 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
             return totalNumber;
         }
 
-        public void setTotalNumber(int totalNumber) {
-            this.totalNumber = totalNumber;
+        public void setTotalNumber(int newNumber) {
+            String newNumberString = String.valueOf(newNumber);
+            String existingNumberString = String.valueOf(totalNumber);
+            String updatedTotalNumberString = existingNumberString.concat(newNumberString);
+            this.totalNumber = Integer.valueOf(updatedTotalNumberString);
         }
 
         @Override
@@ -68,44 +71,56 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
     @Override
     public String findHighestPath(int[][] matrix) {
 
-        var length = matrix.length;
-        var height = matrix[0].length;
+        logger.error("Starting dod");
+
+        var height = matrix.length;
+        var length = matrix[0].length;
+
+        logger.error("length = {}", length);
+        logger.error("height = {}", height);
 
         var maxXPos = length - 1;
-        var minYPos = 0;
+        var maxYPos = height-1;
+
+        System.out.println("FUCKER");
+        //var cat = matrix[0][1];
+        //this is right = matrix[0][1]; 2 => row 0, column 2
+        // this is Y or down  matrix[1][0];
+        var cat = matrix[1][0];
+        System.out.println(cat);
 
 
         Queue<Node> nodeTracker = new LinkedList<>();
-        var originNode = new Node(0, height - 1, matrix[0][height - 1]);
+        var originNode = new Node(0, 0, matrix[0][0]);
         nodeTracker.add(originNode);
         var maxValue = originNode.totalNumber;
         var maxNode = originNode;
 
         while (!nodeTracker.isEmpty()) {
             var node = nodeTracker.poll();
-            logger.info("Polling node: {}", node);
-            var downYPos = node.yPosition - 1;
+            logger.error("Polling node: {}", node);
+            var downYPos = node.yPosition + 1;
             var rightXPos = node.xPosition + 1;
             if (rightXPos <= maxXPos) {
-                var rightNode = new Node(rightXPos, node.yPosition, matrix[rightXPos][node.yPosition]);
+                var rightNode = new Node(rightXPos, node.yPosition, matrix[node.yPosition][rightXPos]);
                 rightNode.setTotalNumber(rightNode.totalNumber + node.totalNumber);
                 if (rightNode.getTotalNumber() >= maxValue) {
                     maxValue = rightNode.getTotalNumber();
                     rightNode.pathToNode.add(node);
                     nodeTracker.add(rightNode);
                     maxNode = rightNode;
-                    logger.info("Adding right node: {}", rightNode);
+                    logger.error("Adding right node: {}", rightNode);
                 }
             }
-            if (downYPos >= minYPos) {
-                var downNode = new Node(node.xPosition, downYPos, matrix[node.xPosition][downYPos]);
+            if (downYPos <= maxYPos) {
+                var downNode = new Node(node.xPosition, downYPos, matrix[downYPos][node.xPosition]);
                 downNode.setTotalNumber(downNode.totalNumber + node.totalNumber);
                 if (downNode.getTotalNumber() >= maxValue) {
                     maxValue = downNode.getTotalNumber();
                     downNode.pathToNode.add(node);
                     nodeTracker.add(downNode);
                     maxNode = downNode;
-                    logger.info("Adding down node: {}", downNode);
+                    logger.error("Adding down node: {}", downNode);
                 }
             }
         }
