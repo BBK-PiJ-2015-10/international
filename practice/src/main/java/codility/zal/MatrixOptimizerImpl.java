@@ -93,19 +93,18 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
                 nodeTracker.add(rightNode);
                 logger.error("Adding right node: {}", rightNode);
                 if (rightNode.getTotalNumber() >= maxValue) {
+                    logger.error("Updating maxValue from right from {} to {}", maxValue,rightNode.getTotalNumber());
                     maxValue = rightNode.getTotalNumber();
-                    logger.error("Updating maxValue to {}", maxValue);
                 }
             }
             if (downYPos <= maxYPos) {
                 var downNode = new Node(node.xPosition, downYPos, matrix[downYPos][node.xPosition]);
                 downNode.setTotalNumber(node.totalNumber);
-                maxValue = downNode.getTotalNumber();
                 nodeTracker.add(downNode);
                 logger.error("Adding down node: {}", downNode);
                 if (downNode.getTotalNumber() >= maxValue) {
+                    logger.error("Updating maxValue from left from {} to {}", maxValue,downNode.getTotalNumber());
                     maxValue = downNode.getTotalNumber();
-                    logger.error("Updating maxValue to {}", maxValue);
                 }
             }
         }

@@ -36,4 +36,21 @@ public class MatrixOptimizerTest {
         Assert.assertEquals(String.valueOf(1296), maxNumber);
     }
 
+    @Test
+    public void test3() {
+
+        int[][] arr = {
+                {9, 9, 7},
+                {9, 7, 2},
+                {6, 9, 5},
+                {9, 1, 2}
+        };
+
+        var maxNumber = matrixPathOptimizer.findHighestPath(arr);
+
+        System.out.println(maxNumber);
+
+        Assert.assertEquals(String.valueOf(997952), maxNumber);
+    }
+
 }
