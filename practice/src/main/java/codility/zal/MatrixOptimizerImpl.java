@@ -15,7 +15,6 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
         int xPosition;
         int yPosition;
         int number;
-        List<Node> pathToNode = new LinkedList<>();
         int totalNumber;
 
         public Node(int xPosition, int yPosition, int number) {
@@ -37,10 +36,6 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
             return number;
         }
 
-        public List<Node> getPathToNode() {
-            return pathToNode;
-        }
-
         public int getTotalNumber() {
             return totalNumber;
         }
@@ -48,7 +43,7 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
         public void setTotalNumber(int newNumber) {
             String newNumberString = String.valueOf(newNumber);
             String existingNumberString = String.valueOf(totalNumber);
-            String updatedTotalNumberString = existingNumberString.concat(newNumberString);
+            String updatedTotalNumberString =  newNumberString +existingNumberString;
             this.totalNumber = Integer.valueOf(updatedTotalNumberString);
         }
 
@@ -58,7 +53,6 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
                     "xPosition=" + xPosition +
                     ", yPosition=" + yPosition +
                     ", number=" + number +
-                    ", pathToNode=" + pathToNode +
                     ", totalNumber=" + totalNumber +
                     '}';
         }
@@ -103,10 +97,9 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
             var rightXPos = node.xPosition + 1;
             if (rightXPos <= maxXPos) {
                 var rightNode = new Node(rightXPos, node.yPosition, matrix[node.yPosition][rightXPos]);
-                rightNode.setTotalNumber(rightNode.totalNumber + node.totalNumber);
+                rightNode.setTotalNumber(node.totalNumber);
                 if (rightNode.getTotalNumber() >= maxValue) {
                     maxValue = rightNode.getTotalNumber();
-                    rightNode.pathToNode.add(node);
                     nodeTracker.add(rightNode);
                     maxNode = rightNode;
                     logger.error("Adding right node: {}", rightNode);
@@ -114,10 +107,9 @@ public class MatrixOptimizerImpl implements MatrixPathOptimizer {
             }
             if (downYPos <= maxYPos) {
                 var downNode = new Node(node.xPosition, downYPos, matrix[downYPos][node.xPosition]);
-                downNode.setTotalNumber(downNode.totalNumber + node.totalNumber);
+                downNode.setTotalNumber(node.totalNumber);
                 if (downNode.getTotalNumber() >= maxValue) {
                     maxValue = downNode.getTotalNumber();
-                    downNode.pathToNode.add(node);
                     nodeTracker.add(downNode);
                     maxNode = downNode;
                     logger.error("Adding down node: {}", downNode);
