@@ -14,6 +14,14 @@ public class Point {
         this.y = y;
     }
 
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
     public List<Edges> getEdges(Integer distance){
         List<Edges> edges = new LinkedList<>();
         var lxLy = new Edges(x-distance, y-distance);
@@ -24,6 +32,8 @@ public class Point {
         edges.add(lxHy);
         edges.add(hxHy);
         edges.add(hxLy);
+        System.out.println("Point "+this);
+        System.out.println("Edges: "+edges);
         return edges;
     }
 
