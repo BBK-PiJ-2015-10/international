@@ -2,6 +2,7 @@ package codility.deutsche;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PointsAndEdgesImpl implements PointsAndEdges {
@@ -26,23 +27,25 @@ public class PointsAndEdgesImpl implements PointsAndEdges {
         while (inProcess) {
             int finalMaxDistance = maxDistance;
             System.out.println("Evaluating with distance " + finalMaxDistance);
+            List<Optional<Boolean>> anyOverlaps = new LinkedList<>();
             for (int i = 0; i < points.size(); i++) {
                 var firstPoint = points.get(i);
-                var anyOverlaps = points.stream().filter(p -> !p.equals(firstPoint))
+                points.stream().filter(p -> !p.equals(firstPoint))
                         .map(op -> PointAnalyzer.overlap(finalMaxDistance, op, firstPoint))
-                        .filter(d -> d.isPresent()).collect(Collectors.toList());
-                if (!anyOverlaps.isEmpty()) {
-                    var anyExceeds = anyOverlaps.stream().filter(d -> d.get() == true).collect(Collectors.toList());
-                    if (anyExceeds.isEmpty()) {
-                        System.out.println("Found overlaps no exceeding breaking now with maxDistance " + maxDistance);
-                        inProcess = false;
-                        return maxDistance;
-                    } else {
-                        maxDistance = maxDistance - 1;
-                        System.out.println("Found overlaps exceeding breaking now with maxDistance " + maxDistance);
-                        inProcess = false;
-                        return maxDistance;
-                    }
+                        .filter(d -> d.isPresent())
+                        .forEach(d -> anyOverlaps.add(d));
+            }
+            if (!anyOverlaps.isEmpty()) {
+                var anyExceeds = anyOverlaps.stream().filter(d -> d.get() == true).collect(Collectors.toList());
+                if (anyExceeds.isEmpty()) {
+                    System.out.println("Found overlaps no exceeding breaking now with maxDistance " + maxDistance);
+                    inProcess = false;
+                    return maxDistance;
+                } else {
+                    maxDistance = maxDistance - 1;
+                    System.out.println("Found overlaps exceeding breaking now with maxDistance " + maxDistance);
+                    inProcess = false;
+                    return maxDistance;
                 }
             }
             maxDistance = maxDistance + 1;

@@ -34,5 +34,18 @@ public class PointAndEdgesTest {
         Assert.assertEquals(2,maxDistance);
     }
 
+    @Test
+    public void test3() {
+
+        int[] x = new int[]{0, 2, 3};
+        int[] y = new int[]{0, 0, 0};
+
+        var maxDistance = pointsAndEdges.distanceToTouch(x,y);
+
+        System.out.println(maxDistance);
+
+        Assert.assertEquals(0,maxDistance);
+    }
+
 
 }
