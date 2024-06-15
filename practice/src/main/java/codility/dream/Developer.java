@@ -17,6 +17,13 @@ public class Developer {
        this.frontEndToBackContributionDelta = frontEndcontribution - backEndcontribution;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "position=" + position +
+                ", frontEndcontribution=" + frontEndcontribution +
+                ", backEndcontribution=" + backEndcontribution +
+                ", frontEndToBackContributionDelta=" + frontEndToBackContributionDelta +
+                '}';
+    }
 }
