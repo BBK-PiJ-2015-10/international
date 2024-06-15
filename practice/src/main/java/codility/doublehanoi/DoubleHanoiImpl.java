@@ -7,8 +7,8 @@ import java.util.TreeSet;
 
 public class DoubleHanoiImpl implements DoubleHanoi {
 
-    Comparator<Disk> leftComparatorDesc = (Disk c1, Disk c2) -> -Integer.compare(c1.size, c2.size);
-    Comparator<Disk> rightComparatorAsc = (Disk c1, Disk c2) -> Integer.compare(c1.size, c2.size);
+    private Comparator<Disk> leftComparatorDesc = (Disk c1, Disk c2) -> -Integer.compare(c1.size, c2.size);
+    private Comparator<Disk> rightComparatorAsc = (Disk c1, Disk c2) -> Integer.compare(c1.size, c2.size);
 
     @Override
     public int maxNumberOfDisk(int[] A, int L, int R) {
@@ -46,5 +46,7 @@ public class DoubleHanoiImpl implements DoubleHanoi {
         }
 
         return leftCount + rightCount;
+
+
     }
 }
