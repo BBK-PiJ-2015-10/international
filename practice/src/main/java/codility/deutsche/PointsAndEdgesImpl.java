@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 public class PointsAndEdgesImpl implements PointsAndEdges {
 
+    private PointAnalyzer pointAnalyzer = new PointAnalyzer();
+
     public PointsAndEdgesImpl() {
     }
 
@@ -31,7 +33,7 @@ public class PointsAndEdgesImpl implements PointsAndEdges {
             for (int i = 0; i < points.size(); i++) {
                 var firstPoint = points.get(i);
                 points.stream().filter(p -> !p.equals(firstPoint))
-                        .map(op -> PointAnalyzer.overlap(finalMaxDistance, op, firstPoint))
+                        .map(op -> pointAnalyzer.overlap(finalMaxDistance, op, firstPoint))
                         .filter(d -> d.isPresent())
                         .forEach(d -> anyOverlaps.add(d));
             }

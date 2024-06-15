@@ -7,7 +7,7 @@ public class PointAnalyzer {
     public PointAnalyzer() {
     }
 
-    public static Optional<Boolean> overlap(int distance, Point a, Point b) {
+    public Optional<Boolean> overlap(int distance, Point a, Point b) {
         var xDelta = Math.abs(a.x - b.x);
         var yDelta = Math.abs(a.y - b.y);
         var largestDelta = Math.max(xDelta, yDelta);
