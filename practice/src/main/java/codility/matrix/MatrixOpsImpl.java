@@ -13,8 +13,8 @@ public class MatrixOpsImpl implements MatrixOps {
     public int minTrailingZeros(int[][] A) {
         var xLenght = A.length;
         var yLenght = A[0].length;
-        System.out.println("X goes to " + xLenght);
-        System.out.println("Y goes to  " + yLenght);
+        //System.out.println("X goes to " + xLenght);
+        //System.out.println("Y goes to  " + yLenght);
         var originValue = A[0][0];
         var originPoint = new Point(0, 0, originValue);
         Queue<Point> queue = new LinkedList<>();
@@ -25,6 +25,9 @@ public class MatrixOpsImpl implements MatrixOps {
             //System.out.println("Polling point: " + point);
             var x = point.x;
             var y = point.y;
+            if (x == xLenght-1 && y == yLenght-1) {
+                solutions.add(point);
+            }
             if (x <= xLenght - 1 && y <= yLenght - 1) {
                 // look for right
                 var xRight = x + 1;
@@ -46,10 +49,10 @@ public class MatrixOpsImpl implements MatrixOps {
                     var downPoint = new Point(yDown, x, downValue * point.value);
                     if (downPoint.x == xLenght - 1 && downPoint.y == yLenght - 1) {
                         solutions.add(downPoint);
-                        // System.out.println("Adding to Solution right: " + downPoint);
+                        //System.out.println("Adding to Solution right: " + downPoint);
                     } else {
                         queue.offer(downPoint);
-                        // System.out.println("Offering right point: " + downPoint);
+                        //System.out.println("Offering down point: " + downPoint);
                     }
                 }
             }
@@ -59,7 +62,7 @@ public class MatrixOpsImpl implements MatrixOps {
 
 
     private int helperTrailingZeros(int number) {
-        //System.out.println("Evaluating " + number);
+        System.out.println("Evaluating " + number);
         int zeroes = 0;
         while (number % 10 == 0) {
             zeroes++;

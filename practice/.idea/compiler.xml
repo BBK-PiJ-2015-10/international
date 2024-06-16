@@ -11,6 +11,7 @@
         <module name="pratice" />
         <module name="sccap" />
         <module name="allpago" />
+        <module name="example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,6 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="allpago" options="-parameters" />
+      <module name="example" options="-parameters" />
       <module name="sc" options="-parameters" />
       <module name="sccap" options="-parameters" />
       <module name="trader" options="-parameters" />

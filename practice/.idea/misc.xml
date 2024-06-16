@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/sc/pom.xml" />
         <option value="$PROJECT_DIR$/sccap/pom.xml" />
         <option value="$PROJECT_DIR$/trader/pom.xml" />
+        <option value="$PROJECT_DIR$/mvc-example/pom.xml" />
       </list>
     </option>
   </component>

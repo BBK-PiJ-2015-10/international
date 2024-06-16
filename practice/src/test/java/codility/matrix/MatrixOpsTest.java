@@ -60,5 +60,37 @@ public class MatrixOpsTest {
 
     }
 
+    @Test
+    public void test4() {
+
+        int[][] matrix1 = new int[1][1];
+        matrix1[0][0] = 100;
+
+
+        var minTrailingZeros = matrixOps.minTrailingZeros(matrix1);
+
+        System.out.println(minTrailingZeros);
+
+        Assert.assertEquals(2,minTrailingZeros);
+
+    }
+
+    @Test
+    public void test5() {
+
+        int[][] A = {
+                {10, 10, 10},
+                {10, 10, 10},
+                {10, 10, 10}
+        };
+
+        var minTrailingZeros = matrixOps.minTrailingZeros(A);
+
+        System.out.println(minTrailingZeros);
+
+        Assert.assertEquals(5,minTrailingZeros);
+
+    }
+
 
 }
