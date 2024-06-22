@@ -51,8 +51,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateBook(Book book, int id) {
-        bookRepository.deleteById(id);
-        return bookRepository.save(book);
+    public boolean updateBook(Book book, int id) {
+        var maybeRemoteBook = bookRepository.findById(id);
+        if (maybeRemoteBook.isPresent()) {
+            var remoteBook = maybeRemoteBook.get();
+            remoteBook.setAuthor(book.getAuthor());
+            remoteBook.setName(book.getName());
+            remoteBook.setPrice(book.getPrice());
+            bookRepository.save(remoteBook);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

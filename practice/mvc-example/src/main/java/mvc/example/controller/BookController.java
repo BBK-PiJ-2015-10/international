@@ -59,8 +59,13 @@ public class BookController {
     }
 
     @PutMapping("/books/id/{id}")
-    public Book updateBook(@PathVariable("id") int id, @RequestBody Book book) {
-        return bookService.updateBook(book, id);
+    public ResponseEntity updateBook(@PathVariable("id") int id, @RequestBody Book book) {
+        var existingBook = bookService.updateBook(book, id);
+        if (existingBook) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.CREATED);
+        }
     }
 
 }
