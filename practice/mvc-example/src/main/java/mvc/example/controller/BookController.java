@@ -4,6 +4,8 @@ package mvc.example.controller;
 import mvc.example.entity.Book;
 import mvc.example.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,11 +23,22 @@ public class BookController {
 
     @GetMapping("/books")
     public List<Book> retrieveBooks() {
+
+        var cat = new ResponseEntity<>("", HttpStatus.CONTINUE);
+
+
         return bookService.getAllBooks();
     }
 
     @GetMapping("/books/id/{id}")
     public Book retrieveBookById(@PathVariable("id") int id) {
+        var existingBook = bookService.getBookById(id).map(d -> d.getId());
+        if (existingBook.isPresent()) {
+
+        } else {
+
+        }
+
         return bookService.getBookById(id).orElse(null);
     }
 

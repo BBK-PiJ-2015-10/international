@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -16,8 +15,8 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookServiceImpl(BookRepository repository) {
+        this.bookRepository = repository;
     }
 
     @Override
@@ -52,7 +51,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateBook(Book book,int id) {
+    public Book updateBook(Book book, int id) {
         bookRepository.deleteById(id);
         return bookRepository.save(book);
     }

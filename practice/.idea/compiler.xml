@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="trader" />
+        <module name="mvc-simple-example" />
         <module name="pratice" />
         <module name="sccap" />
         <module name="allpago" />
@@ -22,6 +23,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="allpago" options="-parameters" />
       <module name="example" options="-parameters" />
+      <module name="mvc-simple-example" options="-parameters" />
       <module name="sc" options="-parameters" />
       <module name="sccap" options="-parameters" />
       <module name="trader" options="-parameters" />

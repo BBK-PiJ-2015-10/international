@@ -4,7 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-// docker run -p 3306:3306 --name music -e MYSQL_ROOT_PASSWORD=woof -d mysql:8.0.26
+// docker run -p 3306:3306 --name bookstore -e MYSQL_ROOT_PASSWORD=root -d mysql:8.0.26
+//CREATE DATABASE bookstore;
 
 @SpringBootApplication
 public class MvcExampleApplication {
