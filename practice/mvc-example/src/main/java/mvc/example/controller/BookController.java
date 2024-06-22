@@ -2,6 +2,7 @@ package mvc.example.controller;
 
 
 import mvc.example.entity.Book;
+import mvc.example.exception.BookNotFoundException;
 import mvc.example.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,14 +33,7 @@ public class BookController {
 
     @GetMapping("/books/id/{id}")
     public Book retrieveBookById(@PathVariable("id") int id) {
-        var existingBook = bookService.getBookById(id).map(d -> d.getId());
-        if (existingBook.isPresent()) {
-
-        } else {
-
-        }
-
-        return bookService.getBookById(id).orElse(null);
+        return bookService.getBookById(id).orElseThrow(BookNotFoundException::new);
     }
 
     @GetMapping("/books/author/{name}")
