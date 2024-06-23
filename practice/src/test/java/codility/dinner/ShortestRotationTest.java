@@ -20,4 +20,30 @@ public class ShortestRotationTest {
 
         Assert.assertEquals(2,shortestRotation);
     }
+
+    @Test
+    public void test2() {
+
+        int[] A = new int[]{1,1,1,1};
+        int[] B = new int[]{1,2,3,4};
+
+        var shortestRotation = shortestRotationEvaluator.solution(A,B);
+
+        System.out.println(shortestRotation);
+
+        Assert.assertEquals(-1,shortestRotation);
+    }
+
+    @Test
+    public void test3() {
+
+        int[] A = new int[]{3, 5, 0, 2, 4};
+        int[] B = new int[]{1, 3, 10, 6, 7};
+
+        var shortestRotation = shortestRotationEvaluator.solution(A,B);
+
+        System.out.println(shortestRotation);
+
+        Assert.assertEquals(0,shortestRotation);
+    }
 }
