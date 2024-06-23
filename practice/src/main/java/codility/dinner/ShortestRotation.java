@@ -32,9 +32,9 @@ public class ShortestRotation {
     }
 
     private int bPosition(int positionA, int rotation, int n) {
-        var baseBPosition = positionA - rotation;
+        var baseBPosition = positionA + rotation;
         if (baseBPosition < 0) {
-            return n - baseBPosition;
+            return n + baseBPosition;
         }
         return baseBPosition;
     }
