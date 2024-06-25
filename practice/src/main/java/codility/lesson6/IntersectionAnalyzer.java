@@ -16,7 +16,8 @@ public class IntersectionAnalyzer {
             var point = new Point(i, A[i]);
             points.add(point);
         }
-        for (var point : points) {
+        while (!points.isEmpty()){
+            var point = points.remove(0);
             points.remove(point);
             var inters = points.stream().filter(op -> point.intersect(op)).map(op -> new Intersection(op, point)).collect(Collectors.toList());
             intersections.addAll(inters);
