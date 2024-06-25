@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class Point {
 
-    public int center;
-    public int lowerLimit;
-    public int upperLimit;
+    public long center;
+    public long lowerLimit;
+    public long upperLimit;
 
-    public Point(int center, int radius) {
+    public Point(long center, long radius) {
         this.center = center;
         this.lowerLimit = center - radius;
         this.upperLimit = center + radius;

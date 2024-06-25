@@ -28,7 +28,8 @@ public class IntersectionAnalyzerTest {
 
         System.out.println(numberOfIntersections);
 
-        Assert.assertEquals(0,numberOfIntersections);
+        Assert.assertEquals(2,numberOfIntersections);
+
     }
 
 }
