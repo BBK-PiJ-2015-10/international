@@ -27,7 +27,7 @@ public class TriColorTowersAnalyzer {
         }
         var maxCommonColors = colorsCount.entrySet().stream().max(Map.Entry.comparingByValue());
         var maxColor = maxCommonColors.get();
-        System.out.println("Max color is " + maxColor.getKey() + "with count" + maxColor.getValue());
+        //System.out.println("Max color is " + maxColor.getKey() + " with count" + maxColor.getValue());
         return maxColor.getValue();
     }
 

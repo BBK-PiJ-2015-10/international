@@ -4,8 +4,7 @@ import codility.tricolortower.TriColorTowersAnalyzer;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
+
 
 public class TriColorTowerAnalyzerSpec {
 
@@ -14,27 +13,32 @@ public class TriColorTowerAnalyzerSpec {
     @Test
     public void test1() {
 
-        var culon = "culon";
+        String[] input = new String[]{"aab", "cab", "baa", "baa"};
 
-        var other = culon.chars().mapToObj(e -> (char) e)
-                .map(c -> c.toString())
-                .collect(Collectors.toList());
+        var result = analyzer.maxNumberOfTowersSameColorOrder(input);
 
-        var other1 = Arrays.asList(culon.toCharArray())
-                .stream()
-                .map(c -> c.toString()).collect(Collectors.toList());
+        Assert.assertEquals(3,result);
+    }
 
-                //Arrays.asList(culon.split(""));
+    @Test
+    public void test2() {
 
-        System.out.println("CULON: " + other1.size());
+        String[] input = new String[]{"zzz", "zbz", "zbz", "dgf"};
 
-        //int[] A = new int[]{1, 5, 2, 1, 4, 0};
+        var result = analyzer.maxNumberOfTowersSameColorOrder(input);
 
-        //var numberOfIntersections = intersectionAnalyzer.numberOfIntersections(A);
+        Assert.assertEquals(2,result);
+    }
 
-        //System.out.println(numberOfIntersections);
 
-        //Assert.assertEquals(11,numberOfIntersections);
+    @Test
+    public void test3() {
+
+        String[] input = new String[]{"abc", "cba", "cab", "bac", "bca"};
+
+        var result = analyzer.maxNumberOfTowersSameColorOrder(input);
+
+        Assert.assertEquals(3,result);
     }
 
 }
