@@ -14,6 +14,7 @@
         <option value="$PROJECT_DIR$/trader/pom.xml" />
         <option value="$PROJECT_DIR$/mvc-example/pom.xml" />
         <option value="$PROJECT_DIR$/mvc-simple-example/pom.xml" />
+        <option value="$PROJECT_DIR$/bookDetails/pom.xml" />
       </list>
     </option>
   </component>
