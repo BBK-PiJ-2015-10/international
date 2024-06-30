@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/mvc-example/pom.xml" />
         <option value="$PROJECT_DIR$/mvc-simple-example/pom.xml" />
         <option value="$PROJECT_DIR$/bookDetails/pom.xml" />
+        <option value="$PROJECT_DIR$/openAI/pom.xml" />
       </list>
     </option>
   </component>

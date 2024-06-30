@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="sccap" />
+        <module name="openAI" />
         <module name="allpago" />
         <module name="bookDetails" />
         <module name="trader" />
@@ -26,6 +27,7 @@
       <module name="bookDetails" options="-parameters" />
       <module name="example" options="-parameters" />
       <module name="mvc-simple-example" options="-parameters" />
+      <module name="openAI" options="-parameters" />
       <module name="sc" options="-parameters" />
       <module name="sccap" options="-parameters" />
       <module name="trader" options="-parameters" />

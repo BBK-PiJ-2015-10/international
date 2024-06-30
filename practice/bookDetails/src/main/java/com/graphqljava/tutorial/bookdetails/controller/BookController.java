@@ -27,8 +27,19 @@ public class BookController {
         this.authorRepo = authorRepo;
     }
 
+//    @QueryMapping
+//    public Book bookById(@Argument String id) {
+//        return bookRepo.getById(id).orElse(null);
+//    }
+//
+//    @SchemaMapping
+//    public Author author(Book book) {
+//        return authorRepo.getAuthorById(book.authorId()).orElse(null);
+//    }
+
     @QueryMapping
     public Book bookById(@Argument String id) {
+        System.out.println("Book ID: " + id);
         return bookRepo.getById(id).orElse(null);
     }
 
