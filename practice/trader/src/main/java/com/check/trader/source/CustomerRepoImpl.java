@@ -40,7 +40,7 @@ public class CustomerRepoImpl implements CustomerRepo {
         try {
             data = Files.readString(path);
         } catch (IOException e) {
-            logger.error("Error reading data due to {}", data);
+            logger.error("Error matching data due to {}", data);
         }
         List<String> customersString = new ArrayList<>(Arrays.asList(data.split("\\R")));
         customersString.remove(0);

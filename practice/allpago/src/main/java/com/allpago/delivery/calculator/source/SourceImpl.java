@@ -61,7 +61,7 @@ public class SourceImpl implements Source {
         try {
             data = Files.readString(path);
         } catch (IOException e) {
-            logger.error("Error reading data due to {}", data);
+            logger.error("Error matching data due to {}", data);
         }
 
         List<String> inputData = new ArrayList<>();
