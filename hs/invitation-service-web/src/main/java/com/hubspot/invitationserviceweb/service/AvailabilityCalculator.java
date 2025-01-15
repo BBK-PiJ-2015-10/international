@@ -54,10 +54,11 @@ public class AvailabilityCalculator {
 
     public void processAvailability(Partner partner){
         val country = partner.country;
-        val dates  = partner.availableDates.stream().map(this::extractDate).collect(Collectors.toList());
+        val dates  = partner.availableDates.stream().map(this::extractDate).sorted().collect(Collectors.toList());
         for (int i=0;i<dates.size()-1;i++){
             val date = dates.get(i);
             val nextDate = dates.get(i+1);
+            // partner is available today and next day. Hence, valid date
             if (date.plusDays(1).equals(nextDate)){
                 val countryMap = countriesDatesEmails.get(country);
                 if (countryMap==null){
