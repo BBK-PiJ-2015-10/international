@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class GreetingController {
 
+    //To reach endpoint: http://localhost:8080/greeting?name=woof
+
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required = false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
