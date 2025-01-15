@@ -29,7 +29,10 @@ public class AvailabilityCalculator {
             val dto = new Country();
             dto.setName(country);
             List<String> attendeeList = null;
-            val dateParticipants = countriesDatesEmails.get(country);
+            Map<LocalDate, List<String>> dateParticipants = countriesDatesEmails.get(country);
+            //TODO: replace below with
+            // get the maxSize list
+            // filter keys by max value list and then sort asc and pick first
             val selectedDates =
                     dateParticipants.keySet().stream().sorted(Comparator.comparing(date -> -dateParticipants.get(date).size())).collect(Collectors.toList());
             if (selectedDates.isEmpty()){
