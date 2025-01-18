@@ -75,6 +75,7 @@ public class Graph {
     private Node getShortestDistanceNode(Set<Node> unvisitedNodes, HashMap<Node, Integer> distancesFromSource) {
         return unvisitedNodes.stream()
                 // want to filter to only unvisited nodes that are reachable from the source or aware at that point
+                // not sure if this is really needed
                 .filter(n -> distancesFromSource.get(n) < Integer.MAX_VALUE)
                 // get the one closest to the source
                 .min(Comparator.comparing(n -> distancesFromSource.get(n))).orElseGet(null);
@@ -82,10 +83,10 @@ public class Graph {
 
     private void calculateMinimumDistance(Node evaluationNode, Integer edgeWeight, Node currentNode, HashMap<Node, Integer> distancesFromSource) {
         // getting distances fromSource to the current node
-        int fromDistance = distancesFromSource.get(currentNode);
+        int sourceToCurrentDistance = distancesFromSource.get(currentNode);
         // comparing getting adjacent node from node vs what is on the distancesFromSource
-        if (fromDistance + edgeWeight < distancesFromSource.get(evaluationNode)) {
-            distancesFromSource.put(evaluationNode, fromDistance + edgeWeight);
+        if (sourceToCurrentDistance + edgeWeight < distancesFromSource.get(evaluationNode)) {
+            distancesFromSource.put(evaluationNode,sourceToCurrentDistance + edgeWeight);
             //List<Node> shortestPath = new LinkedList<>(sourceNode.getShortestPath());
             //shortestPath.add(sourceNode);
             //evaluationNode.setShortestPath(shortestPath);
