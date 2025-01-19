@@ -12,7 +12,6 @@ public class BinaryTreeIntImpl {
 
     private Node root;
 
-
     public void add(int value) {
         root = addRecursive(root, value);
     }
@@ -110,6 +109,7 @@ public class BinaryTreeIntImpl {
         } else if (value > current.value) {
             current.right = addRecursive(current.right, value);
         }
+        // This will basically ignore it, since it is a tree-set
         return current;
     }
 
@@ -154,6 +154,7 @@ public class BinaryTreeIntImpl {
         } else {
             current.right = deleteNodeRecursive(current.right, value);
         }
+        // I don't believe this can actually happen since it is a set
         return current;
     }
 
