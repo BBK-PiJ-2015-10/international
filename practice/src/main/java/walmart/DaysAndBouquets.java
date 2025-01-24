@@ -17,40 +17,44 @@ public class DaysAndBouquets {
         if (numberOfFlowers < numberOfBouquetsRequired * numberOfFlowerPerBouquetRequired) {
             return minDays;
         }
-        List<BloomDayFlower> bloomDayFlowerList = new ArrayList<>();
+        List<BloomDayFlower> flowers = new ArrayList<>();
         for (int i = 0; i < numberOfFlowers; i++) {
             var bloomDayFlower = new BloomDayFlower(bloomDays[i], i);
-            bloomDayFlowerList.add(bloomDayFlower);
+            flowers.add(bloomDayFlower);
         }
         var sortByBloomDayAndPosition = Comparator.comparing((BloomDayFlower p) -> p.bloomDay())
                 .thenComparingInt(p -> p.flowerPosition());
-        bloomDayFlowerList.sort(sortByBloomDayAndPosition);
+        flowers.sort(sortByBloomDayAndPosition);
         var totalNumberOfBouquets = 0;
-        List<BloomDayFlower> bouquetFlowers = new ArrayList<>();
-        Map<Integer, BloomDayFlower> unsettledAlreadyBloomedDayFlowerMap = new HashMap<>();
+        List<BloomDayFlower> bouquet = new ArrayList<>();
+        Map<Integer, BloomDayFlower> unsettledAlreadyBloomedPositionDayFlowerMap = new HashMap<>();
         // The list is sorted by day then by position
-        for (int i = 0; i < bloomDayFlowerList.size(); i++) {
-            var dayFlower = bloomDayFlowerList.get(i);
-            var bloomDay = dayFlower.bloomDay;
-            var flowerPosition = dayFlower.flowerPosition;
-            logger.info(String.format("Evaluating Bloom day %s with flower %s", bloomDay, dayFlower));
-            if (bouquetFlowers.isEmpty()) {
-                bouquetFlowers.add(dayFlower);
+        for (int i = 0; i < flowers.size(); i++) {
+            var flower = flowers.get(i);
+            var flowerBloomDay = flower.bloomDay;
+            var flowerPosition = flower.flowerPosition;
+            logger.info(String.format("Evaluating Bloom day %s with flower %s", flowerBloomDay, flower));
+            if (bouquet.isEmpty()) {
+                logger.info(String.format("Bouquet is empty, adding %s",flower));
+                bouquet.add(flower);
             } else {
-                var lastAddedFlowerToBouquetPosition = bouquetFlowers.getLast().flowerPosition;
+                var lastAddedFlowerToBouquetPosition = bouquet.getLast().flowerPosition;
                 var deltaToPosition = flowerPosition - lastAddedFlowerToBouquetPosition;
                 if (deltaToPosition == 0 || deltaToPosition == 1 || deltaToPosition == -1) {
-                    bouquetFlowers.add(dayFlower);
-                    helper(numberOfFlowerPerBouquetRequired, bouquetFlowers, unsettledAlreadyBloomedDayFlowerMap);
+                    bouquet.add(flower);
+                    helper(numberOfFlowerPerBouquetRequired, bouquet, unsettledAlreadyBloomedPositionDayFlowerMap);
+                } else {
+                    logger.info(String.format("Adding to unsettled %s",flower));
+                    unsettledAlreadyBloomedPositionDayFlowerMap.put(flowerPosition,flower);
                 }
             }
-            if (bouquetFlowers.size() == numberOfFlowerPerBouquetRequired) {
+            if (bouquet.size() == numberOfFlowerPerBouquetRequired) {
                 totalNumberOfBouquets++;
-                logger.info(String.format("Bouquet created with flower %s. Total bouquets are %s", dayFlower, totalNumberOfBouquets));
-                bouquetFlowers.clear();
+                logger.info(String.format("Bouquet created with flower %s. Total bouquets are %s", flower, totalNumberOfBouquets));
+                bouquet.clear();
             }
             if (totalNumberOfBouquets == numberOfBouquetsRequired) {
-                minDays = bloomDay;
+                minDays = flowerBloomDay;
                 logger.info(String.format("Minimum days to bloom all flowers is %s", minDays));
                 break;
             }
@@ -61,18 +65,8 @@ public class DaysAndBouquets {
 
     private void helper(int numberOfFlowerPerBouquetRequired, List<BloomDayFlower> bouquetFlowers, Map<Integer, BloomDayFlower> unsettledAlreadyBloomedDayFlowerMap) {
         if (numberOfFlowerPerBouquetRequired == bouquetFlowers.size() || unsettledAlreadyBloomedDayFlowerMap.isEmpty()) {
-            //return;
         } else {
             var latestAddedPosition = bouquetFlowers.getLast().flowerPosition;
-            var bloomedOnSamePosition = bouquetFlowers.get(latestAddedPosition);
-            if (bloomedOnSamePosition != null) {
-                bouquetFlowers.add(bloomedOnSamePosition);
-                if (bouquetFlowers.size() == numberOfFlowerPerBouquetRequired) {
-                    //return;
-                } else {
-                    helper(numberOfFlowerPerBouquetRequired, bouquetFlowers, unsettledAlreadyBloomedDayFlowerMap);
-                }
-            }
             // evaluate if above
             Integer oneAbovePosition = latestAddedPosition + 1;
             var bloomedOneAbovePosition = unsettledAlreadyBloomedDayFlowerMap.get(oneAbovePosition);
