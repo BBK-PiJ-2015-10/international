@@ -54,6 +54,21 @@ public class DaysAndBouquetsTest {
 
     }
 
+    @Test
+    public void test4() {
+
+        var bloomDays = new int[]{1,10,2,9,3,8,4,7,5,6};
+        var numBouquetsRequired = 4;
+        var numFlowersPerBouquetRequired = 2;
+
+
+        var result = daysAndBouquets.minDays(bloomDays, numBouquetsRequired, numFlowersPerBouquetRequired);
+
+
+        Assert.assertEquals(9, result);
+
+    }
+
 
 
 }
