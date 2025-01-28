@@ -68,11 +68,11 @@ public class BuyAndSellWithCoolDown {
                     cumulativeProfit = updatedCumProfit;
                 } else {
                     // state does not change. add left/right reflecting that
-                    var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
-                    var rightNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
-                    node.left = leftNode;
-                    node.right = rightNode;
-                    cumulativeProfit = node.profit;
+//                    var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+//                    var rightNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+//                    node.left = leftNode;
+//                    node.right = rightNode;
+//                    cumulativeProfit = node.profit;
                 }
                 break;
             case SELL:
@@ -87,11 +87,11 @@ public class BuyAndSellWithCoolDown {
                     cumulativeProfit = node.profit;
                 } else {
                     // state does not change. add left/right reflecting that
-                    var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
-                    var rightNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
-                    node.left = leftNode;
-                    node.right = rightNode;
-                    cumulativeProfit = node.profit;
+//                    var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+//                    var rightNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+//                    node.left = leftNode;
+//                    node.right = rightNode;
+//                    cumulativeProfit = node.profit;
                 }
                 break;
             case NOTHING:
