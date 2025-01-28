@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class BuyAndSellWithCoolDownTest {
 
-    private BuyAndSellWithCoolDown calculator = new BuyAndSellWithCoolDown();
+    private BuyAndSellWithCoolDownSolution calculator = new BuyAndSellWithCoolDownSolution();
 
 
     @Test
