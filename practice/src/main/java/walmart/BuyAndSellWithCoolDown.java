@@ -58,7 +58,12 @@ public class BuyAndSellWithCoolDown {
                     node.right = rightNode;
                     cumulativeProfit = updatedCumProfit;
                 } else {
-                    // do nothing don't add any nodes
+                    // state does not change. add left/right reflecting that
+                    var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+                    var rightNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+                    node.left = leftNode;
+                    node.right = rightNode;
+                    cumulativeProfit = node.profit;
                 }
                 break;
             case SELL:
@@ -72,7 +77,12 @@ public class BuyAndSellWithCoolDown {
                     node.right = rightNode;
                     cumulativeProfit = node.profit;
                 } else {
-                    // do nothing
+                    // state does not change. add left/right reflecting that
+                    var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+                    var rightNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+                    node.left = leftNode;
+                    node.right = rightNode;
+                    cumulativeProfit = node.profit;
                 }
                 break;
             case NOTHING:
