@@ -10,15 +10,15 @@ public class BuyAndSellWithCoolDown {
 
     class Node {
         public State state;
-        public int period;
+        public int day;
         public int profit;
         public int cost;
         public Node left;
         public Node right;
 
-        public Node(State state, int period, int profit, int cost, Node left, Node right) {
+        public Node(State state, int day, int profit, int cost, Node left, Node right) {
             this.state = state;
-            this.period = period;
+            this.day = day;
             this.cost = cost;
             this.profit = profit;
             this.left = left;
@@ -26,14 +26,14 @@ public class BuyAndSellWithCoolDown {
         }
     }
 
-    private int add(int price, int period, Node node) {
+    private int add(int price, int day, Node node) {
         var leftProfit = 0;
         var rightProfit = 0;
         if (node.left != null || node.right != null) {
-            leftProfit = add(price, period, node.left);
-            rightProfit = add(price, period, node.right);
+            leftProfit = add(price, day, node.left);
+            rightProfit = add(price, day, node.right);
         } else {
-            leftProfit = takeAction(price, period, node);
+            leftProfit = takeAction(price, day, node);
             rightProfit = leftProfit;
         }
         if (leftProfit >= rightProfit) {
@@ -43,7 +43,7 @@ public class BuyAndSellWithCoolDown {
         }
     }
 
-    private int takeAction(int price, int period, Node node) {
+    private int takeAction(int price, int day, Node node) {
         var cumulativeProfit = node.profit;
         switch (node.state) {
             case BUY:
@@ -52,8 +52,8 @@ public class BuyAndSellWithCoolDown {
                     var incProfit = price - node.cost;
                     var newCost = price;
                     var updatedCumProfit = node.profit + incProfit;
-                    var leftNode = new Node(node.state,node.period,node.profit,node.cost,null,null);
-                    var rightNode = new Node(State.SELL,period,updatedCumProfit,newCost,null,null);
+                    var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+                    var rightNode = new Node(State.SELL, day, updatedCumProfit, newCost, null, null);
                     node.left = leftNode;
                     node.right = rightNode;
                     cumulativeProfit = updatedCumProfit;
@@ -62,14 +62,27 @@ public class BuyAndSellWithCoolDown {
                 }
                 break;
             case SELL:
-                System.out.println("WOOF");
-                // you can buy if no freezing
-                // you can hold
+                var timeSinceSold = day - node.day;
+                if (timeSinceSold > 1) {
+                    // left do nothing, right buy
+                    var newCost = price;
+                    var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+                    var rightNode = new Node(State.BUY, day, node.profit, newCost, null, null);
+                    node.left = leftNode;
+                    node.right = rightNode;
+                    cumulativeProfit = node.profit;
+                } else {
+                    // do nothing
+                }
                 break;
             case NOTHING:
-                System.out.println("WOOF");
-                // you can buy
-                // you can nothing
+                // left do nothing right buy
+                var newCost = price;
+                var leftNode = new Node(node.state, node.day, node.profit, node.cost, null, null);
+                var rightNode = new Node(State.BUY, day, node.profit, newCost, null, null);
+                node.left = leftNode;
+                node.right = rightNode;
+                cumulativeProfit = node.profit;
                 break;
         }
         return cumulativeProfit;
@@ -83,7 +96,8 @@ public class BuyAndSellWithCoolDown {
         var rootNode = new Node(State.NOTHING, 0, 0, 0, null, null);
         for (int i = 0; i < prices.length; i++) {
             var price = prices[i];
-            var profit = add(price, i, rootNode);
+            var period = i + 1;
+            var profit = add(price, period, rootNode);
             if (profit > maxProfit) {
                 maxProfit = profit;
             }
