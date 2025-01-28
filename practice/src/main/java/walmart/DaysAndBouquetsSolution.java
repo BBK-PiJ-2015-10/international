@@ -20,7 +20,6 @@ public class DaysAndBouquetsSolution {
         }
         // Use binary search to find the minimum day
         int left = minDays, right = maxDays;
-        Boolean canMakeBouquets = true;
         while (left < right) {
             int mid = (left + right) >>> 1;
             // Check if it's possible to make the bouquets by this day
