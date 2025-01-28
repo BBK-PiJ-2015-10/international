@@ -1,8 +1,11 @@
 package walmart;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 //https://medium.com/@techiecontent/walmart-interview-experience-sde-iii-6f05a1fda937
@@ -82,6 +85,48 @@ public class BuyAndSellWithCoolDownSolution {
         return cumulativeProfit;
     }
 
+
+    private Node highestProfit(List<Node> nodes) {
+        return nodes.stream().max(Comparator.comparing(e -> e.profit)).get();
+    }
+
+    private int comparingNode(Node node) {
+        int score = 0;
+        switch (node.state) {
+            case BUY:
+
+                break;
+            case SELL:
+                score = node.profit;
+                break;
+            case NOTHING:
+                score = node.profit;
+                break;
+        }
+        return score;
+    }
+
+
+    private List<Node> pickHighestOnEachState(List<Node> newNodes) {
+        List<Node> result = new LinkedList<>();
+        Map<State, List<Node>> groupedByState = newNodes.stream().collect(Collectors.groupingBy(e -> e.state));
+        List<Node> highestNodesPerState = groupedByState.keySet()
+                .stream()
+                .filter(k -> !k.equals(State.BUY))
+                .map(k ->
+                        highestProfit(groupedByState.get(k))
+                )
+                .collect(Collectors.toList());
+        var buyNodes = groupedByState.get(State.BUY);
+        for (Node node: highestNodesPerState){
+            result.add(node);
+        }
+        for (Node node: buyNodes){
+            result.add(node);
+        }
+        return result;
+    }
+
     public int maxProfit(int[] prices) {
         var maxProfit = 0;
         if (prices.length == 1) {
@@ -102,6 +147,9 @@ public class BuyAndSellWithCoolDownSolution {
                     logger.info(String.format("MaxProfit update to %d on day %d", maxProfit, day));
                 }
             }
+
+            //existingNodes = pickHighestOnEachState(newNodes);
+            // inspect the newNodes and pick the highest for each state
             existingNodes = newNodes;
             newNodes = new LinkedList<>();
         }

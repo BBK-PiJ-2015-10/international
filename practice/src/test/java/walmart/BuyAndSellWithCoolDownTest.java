@@ -7,6 +7,8 @@ public class BuyAndSellWithCoolDownTest {
 
     private BuyAndSellWithCoolDownSolution calculator = new BuyAndSellWithCoolDownSolution();
 
+    private BuyAndSellWithCoolDown calculator1 = new BuyAndSellWithCoolDown();
+
 
     @Test
     public void test1() {
