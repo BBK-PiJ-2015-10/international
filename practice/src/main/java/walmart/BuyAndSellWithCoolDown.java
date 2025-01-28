@@ -1,6 +1,15 @@
 package walmart;
 
+import java.util.logging.Logger;
+
+
+//https://medium.com/@techiecontent/walmart-interview-experience-sde-iii-6f05a1fda937
 public class BuyAndSellWithCoolDown {
+
+    private Logger logger = Logger.getLogger("BuyAndSellApp");
+
+    public BuyAndSellWithCoolDown() {
+    }
 
     enum State {
         BUY,
@@ -106,10 +115,11 @@ public class BuyAndSellWithCoolDown {
         var rootNode = new Node(State.NOTHING, 0, 0, 0, null, null);
         for (int i = 0; i < prices.length; i++) {
             var price = prices[i];
-            var period = i + 1;
-            var profit = add(price, period, rootNode);
+            var day = i + 1;
+            var profit = add(price,day, rootNode);
             if (profit > maxProfit) {
                 maxProfit = profit;
+                logger.info(String.format("MaxProfit update to %d on day %d",maxProfit,day));
             }
         }
         return maxProfit;
