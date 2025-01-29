@@ -36,49 +36,49 @@ public class BuyAndSellWithCoolDownSolution {
         }
     }
 
-    private int takeAction(int price, int day, Node node, List<Node> newNodes) {
-        var cumulativeProfit = node.profit;
-        switch (node.state) {
+    private int takeAction(int price, int day, Node existingNode, List<Node> newNodes) {
+        var cumulativeProfit = existingNode.profit;
+        switch (existingNode.state) {
             case BUY:
-                if (price > node.cost) {
+                if (price > existingNode.cost) {
                     // left do nothing, right sell
-                    var incProfit = price - node.cost;
+                    var incProfit = price - existingNode.cost;
                     var newCost = price;
-                    var updatedCumProfit = node.profit + incProfit;
-                    var leftNode = new Node(node.state, node.day, node.profit, node.cost);
+                    var updatedCumProfit = existingNode.profit + incProfit;
+                    //var leftNode = new Node(existingNode.state, existingNode.day, existingNode.profit, existingNode.cost);
                     var rightNode = new Node(State.SELL, day, updatedCumProfit, newCost);
-                    newNodes.add(leftNode);
+                    newNodes.add(existingNode);
                     newNodes.add(rightNode);
                     cumulativeProfit = updatedCumProfit;
                 } else {
                     // state does not change. add left/right reflecting that
-                    cumulativeProfit = node.profit;
-                    newNodes.add(node);
+                    cumulativeProfit = existingNode.profit;
+                    newNodes.add(existingNode);
                 }
                 break;
             case SELL:
-                var timeSinceSold = day - node.day;
+                var timeSinceSold = day - existingNode.day;
                 if (timeSinceSold > 1) {
                     // left do nothing, right buy
                     var newCost = price;
-                    var leftNode = new Node(node.state, node.day, node.profit, node.cost);
-                    var rightNode = new Node(State.BUY, day, node.profit, newCost);
-                    cumulativeProfit = node.profit;
-                    newNodes.add(leftNode);
+                    //var leftNode = new Node(existingNode.state, existingNode.day, existingNode.profit, existingNode.cost);
+                    var rightNode = new Node(State.BUY, day, existingNode.profit, newCost);
+                    cumulativeProfit = existingNode.profit;
+                    newNodes.add(existingNode);
                     newNodes.add(rightNode);
                 } else {
                     // state does not change. add left/right reflecting that
-                    newNodes.add(node);
-                    cumulativeProfit = node.profit;
+                    newNodes.add(existingNode);
+                    cumulativeProfit = existingNode.profit;
                 }
                 break;
             case NOTHING:
                 // left do nothing right buy
                 var newCost = price;
                 // var leftNode = new Node(node.state, node.day, node.profit, node.cost);
-                var rightNode = new Node(State.BUY, day, node.profit, newCost);
-                cumulativeProfit = node.profit;
-                newNodes.add(node);
+                var rightNode = new Node(State.BUY, day, existingNode.profit, newCost);
+                cumulativeProfit = existingNode.profit;
+                newNodes.add(existingNode);
                 newNodes.add(rightNode);
                 break;
         }
