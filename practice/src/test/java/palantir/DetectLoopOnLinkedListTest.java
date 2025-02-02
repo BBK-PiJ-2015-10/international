@@ -27,6 +27,29 @@ public class DetectLoopOnLinkedListTest {
         var result = loopDetector.isThereALoopNaive(head);
         Assert.assertEquals(true, result);
 
+    }
+
+    @Test
+    public void test3() {
+
+        var root = new Node(0);
+        var result = loopDetector.isThereALoopFloyd(root);
+        Assert.assertEquals(false, result);
 
     }
+
+    @Test
+    public void test4() {
+
+        Node head = new Node(1);
+        head.next = new Node(3);
+        head.next.next = new Node(4);
+        head.next.next.next = head.next;
+
+        var result = loopDetector.isThereALoopFloyd(head);
+        Assert.assertEquals(true, result);
+
+    }
+
+
 }
