@@ -57,7 +57,7 @@ public class KthLargestOnArray {
             // need to go to right
         } else if (higherValuesArray.size() + sameValueArray.size() < k) {
             var ktoFind = k - higherValuesArray.size() - sameValueArray.size();
-            return getKthLargestViaArraysHelper(k, lowerValuesArray);
+            return getKthLargestViaArraysHelper(ktoFind, lowerValuesArray);
         }
         return pivot;
     }
