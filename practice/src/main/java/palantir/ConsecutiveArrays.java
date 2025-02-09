@@ -16,7 +16,7 @@ public class ConsecutiveArrays {
 
 
     public int maxArraySizeHelper(int maxArrayToDate, int maxCurrentSubarray, int position, int[] array) {
-        if (position <= array.length - 2) {
+        if (position < array.length - 1) {
             var nextPosition = position + 1;
             var next = array[nextPosition];
             var current = array[position];
