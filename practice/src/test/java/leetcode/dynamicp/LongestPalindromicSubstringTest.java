@@ -18,4 +18,15 @@ public class LongestPalindromicSubstringTest {
         Assert.assertEquals(true,true);
 
     }
+
+    @Test
+    public void test2(){
+
+        String input = "abc";
+
+        var isDivisiable = calculator.longestPalindrome(input);
+
+        Assert.assertEquals(true,true);
+
+    }
 }
