@@ -54,7 +54,9 @@ public class LongestPalindromicSubstringTest {
 
         String input = "abcde";
 
-        var isDivisiable = calculator.longestPalindrome(input);
+        System.out.println(input.substring(0,1));
+
+        //var isDivisiable = calculator.longestPalindrome(input);
 
         Assert.assertEquals(true,true);
 

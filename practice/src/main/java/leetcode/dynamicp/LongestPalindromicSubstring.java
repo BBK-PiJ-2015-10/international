@@ -1,6 +1,8 @@
 package leetcode.dynamicp;
 
 
+import java.util.HashMap;
+
 //https://leetcode.com/problems/longest-palindromic-substring/?envType=problem-list-v2&envId=dynamic-programming
 public class LongestPalindromicSubstring {
 
@@ -8,22 +10,22 @@ public class LongestPalindromicSubstring {
     }
 
     public String longestPalindrome(String s) {
-        var longestSubstring = s.substring(0,1);
+        var longestSubstring = s.substring(0, 1);
         for (int i = 0; i <= s.length(); i++) {
-            for (int k = i + 1; k <= s.length(); k++) {
+            for (int k = s.length(); k >= i + 1; k--) {
                 var subString = s.substring(i, k);
                 System.out.println(String.format("i is %s, k is %s, substring is %s", i, k, subString));
-                if (longestSubstring.length()<subString.length()){
-                    var isPalindrome = isPalindrome(subString);
-                    if (isPalindrome){
+                if (longestSubstring.length() < subString.length()) {
+                    var isPalindromeBoolean = isPalindrome(subString);
+                    if (isPalindromeBoolean) {
                         longestSubstring = subString;
                     }
                 } else {
-                    //break;
+                    break;
                 }
             }
         }
-        return "";
+        return longestSubstring;
     }
 
     private boolean isPalindrome(String input) {
