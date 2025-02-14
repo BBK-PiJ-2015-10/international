@@ -14,17 +14,19 @@ public class LongestPalindromicSubstring {
         for (int i = 0; i <= s.length(); i++) {
             for (int k = s.length(); k >= i + 1; k--) {
                 var subString = s.substring(i, k);
-                System.out.println(String.format("i is %s, k is %s, substring is %s", i, k, subString));
+                System.out.println(String.format("i is %s, k is %s, substring is %s longest is %s", i, k, subString, longestSubstring));
                 if (longestSubstring.length() < subString.length()) {
                     var isPalindromeBoolean = isPalindrome(subString);
                     if (isPalindromeBoolean) {
                         longestSubstring = subString;
                     }
                 } else {
+                    System.out.println(String.format("Breaking on i is %s, k is %s, substring is %s", i, k, subString));
                     break;
                 }
             }
         }
+        System.out.println(String.format("Solution is %s", longestSubstring));
         return longestSubstring;
     }
 
