@@ -30,6 +30,19 @@ public class CombinationSum {
         }
     }
 
+    private void addToExistings(List<List<Integer>> inputs, Integer right, HashMap<Integer, List<List<Integer>>> visitedSums) {
+        inputs.forEach(input -> addToExisting(input, right, visitedSums));
+    }
+
+    private boolean matchesTarget(List<Integer> solution, int target) {
+        if (solution.stream().reduce((a, b) -> a + b).get() == target) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> solution = new LinkedList<>();
         var sortedInput = Arrays.stream(candidates)
@@ -45,9 +58,9 @@ public class CombinationSum {
                 var right = sortedInput.get(k);
                 var sum = left + right;
                 var diffToTarget = target - sum;
-                logger.info(String.format("Start comparing left %d on i %d versus right %d on k %d with diffTarget %d", left,i, right,k, diffToTarget));
+                logger.info(String.format("Start comparing left %d on i %d versus right %d on k %d with diffTarget %d", left, i, right, k, diffToTarget));
                 // element on its own matches targer
-                if (left == target){
+                if (left == target) {
                     var iSolution = new LinkedList<Integer>();
                     iSolution.add(left);
                     solution.add(iSolution);
@@ -62,26 +75,19 @@ public class CombinationSum {
                     // sum is less than target
                     if (diffToTarget > 0) {
                         var exitingSolution = iVisitedSum.get(diffToTarget);
-                        logger.info(String.format("I am on left %d on i %d versus right %d on k %d with diffTarget %d", left,i, right,k, diffToTarget));
+                        logger.info(String.format("I am on left %d on i %d versus right %d on k %d with diffTarget %d", left, i, right, k, diffToTarget));
                         // remove from visitedSum, add left and right and add to isolution
                         if (exitingSolution != null) {
                             var removed = iVisitedSum.remove(diffToTarget);
                             removed.stream().map(as -> helperAdded(as, left, right))
                                     .forEach(d -> solution.add(d));
                         } else {
-                        // update iVisitedSum, make copies and add
-
-                            var existingSums = iVisitedSum.keySet();
-                            logger.info("Made it here2");
-                            for (Integer existingSum : existingSums) {
-                                if (existingSum < diffToTarget) {
-                                    var existingCloned = iVisitedSum.get(existingSum).stream()
-                                            .collect(Collectors.toList());
-                                    existingCloned.forEach(ec ->
-                                            addToExisting(ec, right, iVisitedSum)
-                                    );
-                                }
-                            }
+                            // update iVisitedSum, make copies and add
+                            List<List<List<Integer>>> cloned = iVisitedSum.entrySet().stream()
+                                    .filter(e -> e.getKey() < diffToTarget)
+                                    .map(es -> new LinkedList<>(es.getValue()))
+                                    .collect(Collectors.toList());
+                            cloned.forEach(ec -> addToExistings(ec, right, iVisitedSum));
                             addToExisting(new LinkedList<>(), right, iVisitedSum);
                         }
                     }
@@ -94,6 +100,8 @@ public class CombinationSum {
             l.sort(Integer::compare);
             deDuppingmAP.put(key, l);
         });
-        return deDuppingmAP.values().stream().toList();
+        return deDuppingmAP.values().stream()
+                .filter(s -> matchesTarget(s, target))
+                .toList();
     }
 }

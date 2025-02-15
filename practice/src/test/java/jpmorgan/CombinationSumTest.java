@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CombinationSumTest {
@@ -58,9 +59,28 @@ public class CombinationSumTest {
         int target = 8;
         var results = combinator.combinationSum2(candidates, target);
 
+        results.forEach(r -> System.out.println(r));
+
         var compare = results.containsAll(expectedSolution) && expectedSolution.containsAll(results);
 
         Assert.assertEquals(true, compare);
+
+
+    }
+
+    @Test
+    public void example4() {
+
+        List<String> names = new LinkedList<>();
+        names.add("yasser");
+        names.add("alejandor");
+
+        var cloned = new LinkedList<>(names);
+
+        cloned.add("mama");
+
+        System.out.println(names.size());
+        System.out.println(cloned.size());
 
 
     }
