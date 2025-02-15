@@ -1,13 +1,9 @@
 package jpmorgan;
 
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 // https://leetcode.com/problems/combination-sum-ii/description/
 public class CombinationSum {
@@ -19,6 +15,19 @@ public class CombinationSum {
         input.add(left);
         input.add(right);
         return input;
+    }
+
+    private void addToExisting(List<Integer> input, Integer right, HashMap<Integer, List<List<Integer>>> visitedSums) {
+        input.add(right);
+        Integer cum = input.stream().reduce((a, b) -> a + b).get();
+        List<List<Integer>> existing = visitedSums.get(cum);
+        if (existing == null) {
+            List<List<Integer>> newExisting = new LinkedList<>();
+            newExisting.add(input);
+            visitedSums.put(cum, newExisting);
+        } else {
+            existing.add(input);
+        }
     }
 
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
@@ -35,6 +44,8 @@ public class CombinationSum {
                 var right = sortedInput.get(k);
                 var sum = left + right;
                 var diffToTarget = target - sum;
+                logger.info(String.format("Done Comparing left %d versus right %d with diffTarget %d", left, right, diffToTarget));
+                //logger.info(String.format("Done Comparing pos %d value %d ver pos %d value %d with diffTarget %d", i, left, k, right,diffToTarget));
                 if (diffToTarget == 0) {
                     var iSolution = new LinkedList<Integer>();
                     iSolution.add(left);
@@ -50,15 +61,20 @@ public class CombinationSum {
                             var existingSums = iVisitedSum.keySet();
                             for (Integer existingSum : existingSums) {
                                 if (existingSum < diffToTarget) {
-                                    iVisitedSum.get(existingSum).forEach(el -> el.add(right));
+                                    var existingCloned = iVisitedSum.get(existingSum).stream()
+                                            .collect(Collectors.toList());
+                                    existingCloned.forEach(ec ->
+                                            addToExisting(ec, right, iVisitedSum)
+                                    );
                                 }
                             }
+                            addToExisting(new LinkedList<>(), right, iVisitedSum);
                         }
                     }
                 }
-                logger.info(String.format("Done Comparing pos %d value %d ver pos %d value %d", i, left, k, right));
+                //logger.info(String.format("Done Comparing pos %d value %d ver pos %d value %d", i, left, k, right));
             }
         }
-        return null;
+        return solution;
     }
 }
