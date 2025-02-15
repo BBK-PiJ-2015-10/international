@@ -50,8 +50,8 @@ public class CombinationSumTest {
     }
 
     @Test
-    public void test3() {
-        
+    public void example1() {
+
         List<Integer> l1 = Arrays.asList(1, 1, 6).stream().sorted().toList();
         List<Integer> l2 = Arrays.asList(1, 2, 5).stream().sorted().toList();
         List<Integer> l3 = Arrays.asList(1, 7).stream().sorted().toList();
@@ -69,17 +69,19 @@ public class CombinationSumTest {
     }
 
     @Test
-    public void test4() {
+    public void example2() {
+
+        List<Integer> l1 = Arrays.asList(1, 2, 2).stream().sorted().toList();
+        List<Integer> l2 = Arrays.asList(5).stream().sorted().toList();
+        List<List<Integer>> expectedSolution = List.of(l1, l2);
 
         int[] candidates = new int[]{2, 5, 2, 1, 2};
         int target = 5;
-
         var results = combinator.combinationSum2(candidates, target);
 
-        results.forEach(e -> System.out.println(e));
-
-
-        Assert.assertEquals(true, true);
+        var compare = results.containsAll(expectedSolution) && expectedSolution.containsAll(results);
+        
+        Assert.assertEquals(true, compare);
 
     }
 
