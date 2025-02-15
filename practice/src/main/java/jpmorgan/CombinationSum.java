@@ -34,18 +34,22 @@ public class CombinationSum {
         List<List<Integer>> solution = new LinkedList<>();
         var sortedInput = Arrays.stream(candidates)
                 .boxed()
-                .filter(n -> n < target)
+                .filter(n -> n <= target)
                 .sorted()
                 .collect(Collectors.toList());
         for (int i = 0; i < sortedInput.size(); i++) {
             var iVisitedSum = new HashMap<Integer, List<List<Integer>>>();
-            for (int k = sortedInput.size() - 1; k > i; k--) {
+            for (int k = sortedInput.size() - 1; k >= i; k--) {
                 var left = sortedInput.get(i);
                 var right = sortedInput.get(k);
                 var sum = left + right;
                 var diffToTarget = target - sum;
-                logger.info(String.format("Done Comparing left %d versus right %d with diffTarget %d", left, right, diffToTarget));
-                //logger.info(String.format("Done Comparing pos %d value %d ver pos %d value %d with diffTarget %d", i, left, k, right,diffToTarget));
+                logger.info(String.format("Done Comparing left %d on i %d versus right %d on k %d with diffTarget %d", left,i, right,k, diffToTarget));
+                if (left == target){
+                    var iSolution = new LinkedList<Integer>();
+                    iSolution.add(left);
+                    solution.add(iSolution);
+                }
                 if (diffToTarget == 0) {
                     var iSolution = new LinkedList<Integer>();
                     iSolution.add(left);
@@ -72,9 +76,14 @@ public class CombinationSum {
                         }
                     }
                 }
-                //logger.info(String.format("Done Comparing pos %d value %d ver pos %d value %d", i, left, k, right));
             }
         }
-        return solution;
+        Map<String, List<Integer>> deDuppingmAP = new HashMap<>();
+        solution.forEach(l -> {
+            String key = l.stream().map(e -> e.toString()).collect(Collectors.joining());
+            l.sort(Integer::compare);
+            deDuppingmAP.put(key, l);
+        });
+        return deDuppingmAP.values().stream().toList();
     }
 }
