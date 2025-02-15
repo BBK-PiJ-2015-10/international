@@ -71,16 +71,35 @@ public class CombinationSumTest {
     @Test
     public void example4() {
 
-        List<String> names = new LinkedList<>();
-        names.add("yasser");
-        names.add("alejandor");
+        List<List<Integer>> expectedSolution = new LinkedList<>();
 
-        var cloned = new LinkedList<>(names);
+        int[] candidates = new int[]{1};
+        int target = 2;
+        var results = combinator.combinationSum2(candidates, target);
 
-        cloned.add("mama");
+        results.forEach(r -> System.out.println(r));
 
-        System.out.println(names.size());
-        System.out.println(cloned.size());
+        var compare = results.containsAll(expectedSolution) && expectedSolution.containsAll(results);
+
+        Assert.assertEquals(true, compare);
+
+
+    }
+
+    @Test
+    public void example5() {
+
+        List<List<Integer>> expectedSolution = new LinkedList<>();
+
+        int[] candidates = new int[]{1,2};
+        int target = 4;
+        var results = combinator.combinationSum2(candidates, target);
+
+        results.forEach(r -> System.out.println(r));
+
+        var compare = results.containsAll(expectedSolution) && expectedSolution.containsAll(results);
+
+        Assert.assertEquals(true, compare);
 
 
     }

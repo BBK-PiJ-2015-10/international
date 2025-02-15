@@ -56,39 +56,41 @@ public class CombinationSum {
             for (int k = sortedInput.size() - 1; k >= i; k--) {
                 var left = sortedInput.get(i);
                 var right = sortedInput.get(k);
-                var sum = left + right;
-                var diffToTarget = target - sum;
-                logger.info(String.format("Start comparing left %d on i %d versus right %d on k %d with diffTarget %d", left, i, right, k, diffToTarget));
-                // element on its own matches targer
-                if (left == target) {
-                    var iSolution = new LinkedList<Integer>();
-                    iSolution.add(left);
-                    solution.add(iSolution);
-                }
-                // the sum matches target, just add to solution
-                if (diffToTarget == 0) {
-                    var iSolution = new LinkedList<Integer>();
-                    iSolution.add(left);
-                    iSolution.add(right);
-                    solution.add(iSolution);
+                if (i == k) {
+                    if (left == target) {
+                        var iSolution = new LinkedList<Integer>();
+                        iSolution.add(left);
+                        solution.add(iSolution);
+                    }
                 } else {
-                    // sum is less than target
-                    if (diffToTarget > 0) {
-                        var exitingSolution = iVisitedSum.get(diffToTarget);
-                        logger.info(String.format("I am on left %d on i %d versus right %d on k %d with diffTarget %d", left, i, right, k, diffToTarget));
-                        // remove from visitedSum, add left and right and add to isolution
-                        if (exitingSolution != null) {
-                            var removed = iVisitedSum.remove(diffToTarget);
-                            removed.stream().map(as -> helperAdded(as, left, right))
-                                    .forEach(d -> solution.add(d));
-                        } else {
-                            // update iVisitedSum, make copies and add
-                            List<List<List<Integer>>> cloned = iVisitedSum.entrySet().stream()
-                                    .filter(e -> e.getKey() < diffToTarget)
-                                    .map(es -> new LinkedList<>(es.getValue()))
-                                    .collect(Collectors.toList());
-                            cloned.forEach(ec -> addToExistings(ec, right, iVisitedSum));
-                            addToExisting(new LinkedList<>(), right, iVisitedSum);
+                    var sum = left + right;
+                    var diffToTarget = target - sum;
+                    logger.info(String.format("Start comparing left %d on i %d versus right %d on k %d with diffTarget %d", left, i, right, k, diffToTarget));
+                    // the sum matches target, just add to solution
+                    if (diffToTarget == 0) {
+                        var iSolution = new LinkedList<Integer>();
+                        iSolution.add(left);
+                        iSolution.add(right);
+                        solution.add(iSolution);
+                    } else {
+                        // sum is less than target
+                        if (diffToTarget > 0) {
+                            var exitingSolution = iVisitedSum.get(diffToTarget);
+                            logger.info(String.format("I am on left %d on i %d versus right %d on k %d with diffTarget %d", left, i, right, k, diffToTarget));
+                            // remove from visitedSum, add left and right and add to isolution
+                            if (exitingSolution != null) {
+                                var removed = iVisitedSum.remove(diffToTarget);
+                                removed.stream().map(as -> helperAdded(as, left, right))
+                                        .forEach(d -> solution.add(d));
+                            } else {
+                                // update iVisitedSum, make copies and add
+                                List<List<List<Integer>>> cloned = iVisitedSum.entrySet().stream()
+                                        .filter(e -> e.getKey() < diffToTarget)
+                                        .map(es -> new LinkedList<>(es.getValue()))
+                                        .collect(Collectors.toList());
+                                cloned.forEach(ec -> addToExistings(ec, right, iVisitedSum));
+                                addToExisting(new LinkedList<>(), right, iVisitedSum);
+                            }
                         }
                     }
                 }
