@@ -8,7 +8,7 @@ public class PairSum {
 
     private Logger logger = Logger.getLogger("PairSum");
 
-    record Pair(int leftIndex, int rightIndex) {
+    public record Pair(int leftIndex, int rightIndex) {
     }
 
     public Optional<Pair> getAnyPairSum(int[] input, int target) {
