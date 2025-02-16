@@ -11,6 +11,7 @@ public class PairSum {
     public record Pair(int leftIndex, int rightIndex) {
     }
 
+    // The input is sorted
     public Optional<Pair> getAnyPairSum(int[] input, int target) {
         int leftIndex = 0;
         int rightIndex = input.length - 1;

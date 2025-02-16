@@ -28,4 +28,24 @@ public class TripletSumTest {
         Assert.assertTrue(results.containsAll(solution));
 
     }
+
+
+    @Test
+    public void test1ViaOptimal() {
+
+        int[] input = {0, -1, 2, -3, 1};
+
+
+        var sol1 = Stream.of(-3, 1, 2).sorted().collect(Collectors.toList());
+        var sol2 = Stream.of(-1, 0, 1).sorted().collect(Collectors.toList());
+        var solution = List.of(sol1, sol2);
+
+        var results = calculator.findAllTripletSumToZero(input);
+
+        results.forEach(s -> System.out.println(s));
+
+        Assert.assertTrue(solution.containsAll(results));
+        Assert.assertTrue(results.containsAll(solution));
+
+    }
 }
