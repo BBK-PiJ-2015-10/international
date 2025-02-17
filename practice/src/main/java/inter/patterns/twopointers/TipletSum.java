@@ -43,7 +43,6 @@ public class TipletSum {
             int rightValue = input.get(rightIndex);
             Integer sum = leftValue + rightValue;
             int comparison = sum.compareTo(target);
-            ;
             switch (comparison) {
                 case 0 -> {
                     solutions.add(new PairValue(leftValue, rightValue));
