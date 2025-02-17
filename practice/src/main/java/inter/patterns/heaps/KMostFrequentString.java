@@ -42,9 +42,10 @@ public class KMostFrequentString {
         wordCount.entrySet().stream().map(es -> new StringCounter(es.getKey(), es.getValue())).forEach(es ->
                 queue.add(es));
         int existingCount = 0;
-        while (existingCount <= k && !queue.isEmpty()) {
+        while (existingCount < k && !queue.isEmpty()) {
             var wc = queue.poll();
             topKth.add(wc.string);
+            existingCount++;
         }
         return topKth;
     }
