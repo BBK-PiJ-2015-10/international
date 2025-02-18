@@ -16,7 +16,7 @@ public class CombinerSortedLinkedListsTest {
 
         var l1 = List.of(1, 6);
         var l2 = List.of(1, 4, 6);
-        var l3 = List.of(2, 7);
+        var l3 = List.of(3, 7);
 
         var expectedResult = List.of(1, 1, 3, 4, 6, 6, 7);
 

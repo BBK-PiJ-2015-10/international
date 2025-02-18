@@ -31,6 +31,7 @@ public class CombinerSortedLinkedLists {
     }
 
     public List<Integer> combine(List<Integer>... lists) {
+        List<Integer> results = new LinkedList<>();
         Map<Integer, Node> numberCount = new HashMap<>();
         for (List<Integer> list : lists) {
             for (Integer number : list) {
@@ -43,11 +44,15 @@ public class CombinerSortedLinkedLists {
             }
         }
         Comparator<Node> nodeComparator = (node1, node2) -> node1.number.compareTo(node2.number);
-        Queue<Node> nodeHeap = new PriorityQueue<>(nodeComparator);
-        numberCount.values().forEach(nc -> nodeHeap.add(nc));
-
-
-        return null;
+        Queue<Node> minHeap = new PriorityQueue<>(nodeComparator);
+        numberCount.values().forEach(nc -> minHeap.add(nc));
+        while (minHeap.isEmpty() == false) {
+            var node = minHeap.poll();
+            for (int i = 0; i < node.count; i++) {
+                results.add(node.number);
+            }
+        }
+        return results;
     }
 
 }
