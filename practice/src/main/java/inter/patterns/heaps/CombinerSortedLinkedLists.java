@@ -1,7 +1,6 @@
 package inter.patterns.heaps;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class CombinerSortedLinkedLists {
@@ -32,6 +31,21 @@ public class CombinerSortedLinkedLists {
     }
 
     public List<Integer> combine(List<Integer>... lists) {
+        Map<Integer, Node> numberCount = new HashMap<>();
+        for (List<Integer> list : lists) {
+            for (Integer number : list) {
+                var existingNode = numberCount.get(number);
+                if (existingNode == null) {
+                    numberCount.put(number, new Node(number));
+                } else {
+                    existingNode.count = existingNode.count + 1;
+                }
+            }
+        }
+        Comparator<Node> nodeComparator = (node1, node2) -> node1.number.compareTo(node2.number);
+        Queue<Node> nodeHeap = new PriorityQueue<>(nodeComparator);
+        numberCount.values().forEach(nc -> nodeHeap.add(nc));
+
 
         return null;
     }
