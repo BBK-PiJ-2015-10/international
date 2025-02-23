@@ -1,7 +1,5 @@
 package deutschebank;
 
-import java.math.BigInteger;
-
 public class FactorialFirst10Digits {
 
     public int factorial(int input) {
@@ -16,5 +14,5 @@ public class FactorialFirst10Digits {
             return factorialCum(input - 1, newAccum);
         }
     }
-    
+
 }
