@@ -8,6 +8,22 @@ public class ClimbingStairs {
     public ClimbingStairs() {
     }
 
+
+    public int waysOfClimbingStairsNonMemo(int height) {
+        if (height <= 2) {
+            return height;
+        }
+        var oneStepBefore = 2;
+        var twoStepsBefore = 1;
+        for (int i = 3; i < height + 1; i++) {
+            var current = oneStepBefore + twoStepsBefore;
+            twoStepsBefore = oneStepBefore;
+            oneStepBefore = current;
+        }
+        return oneStepBefore;
+    }
+
+
     // either one or 2 steps at a time
     public int waysOfClimbingStairs(int height) {
         Map<Integer, Integer> waysOfClimbing = new HashMap<>();

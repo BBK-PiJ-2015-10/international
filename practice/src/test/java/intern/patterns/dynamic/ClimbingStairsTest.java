@@ -42,4 +42,13 @@ public class ClimbingStairsTest {
         Assert.assertEquals(13, result);
     }
 
+    @Test
+    public void test6() {
+
+        int height = 6;
+        var result = calculator.waysOfClimbingStairsNonMemo(height);
+
+        Assert.assertEquals(13, result);
+    }
+
 }
