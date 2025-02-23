@@ -32,6 +32,27 @@ public class FactorialFirst10DigitsTest {
         var factorial = calculator.factorial(input);
         Assert.assertEquals(3628800, factorial);
 
+        Integer cat = 123456;
+
+
+        var res = cat / 10000;
+
+        System.out.println(res);
+
+
+
+
     }
+
+    @Test
+    public void test4() {
+
+        var input = 10;
+        var factorial = calculator.factorial(input);
+        Assert.assertEquals(3628800, factorial);
+
+    }
+
+
 }
 

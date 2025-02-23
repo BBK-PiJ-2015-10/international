@@ -16,6 +16,5 @@ public class FactorialFirst10Digits {
             return factorialCum(input - 1, newAccum);
         }
     }
-
-
+    
 }
