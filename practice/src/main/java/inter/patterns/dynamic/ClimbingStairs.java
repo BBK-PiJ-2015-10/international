@@ -5,6 +5,9 @@ import java.util.Map;
 
 public class ClimbingStairs {
 
+    public ClimbingStairs() {
+    }
+
     // either one or 2 steps at a time
     public int waysOfClimbingStairs(int height) {
         Map<Integer, Integer> waysOfClimbing = new HashMap<>();
