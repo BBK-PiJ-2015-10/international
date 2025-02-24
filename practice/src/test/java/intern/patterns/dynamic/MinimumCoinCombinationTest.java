@@ -20,4 +20,16 @@ public class MinimumCoinCombinationTest {
 
     }
 
+    @Test
+    public void test2() {
+
+        var target = 2;
+        int[] coins = {1, 1};
+
+        var minimumCoins = calculator.minimumCoinCombination(coins, target);
+
+        Assert.assertEquals(2, minimumCoins);
+
+    }
+
 }
