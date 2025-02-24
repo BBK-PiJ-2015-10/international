@@ -1,0 +1,23 @@
+package intern.patterns.dynamic;
+
+import inter.patterns.dynamic.MinimumCoinCombination;
+import org.junit.Assert;
+import org.junit.Test;
+
+public class MinimumCoinCombinationTest {
+
+    private MinimumCoinCombination calculator = new MinimumCoinCombination();
+
+    @Test
+    public void test1() {
+
+        var target = 5;
+        int[] coins = {1, 2, 3};
+
+        var minimumCoins = calculator.minimumCoinCombination(coins, target);
+
+        Assert.assertEquals(2, minimumCoins);
+
+    }
+
+}
