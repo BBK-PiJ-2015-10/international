@@ -14,7 +14,7 @@ public class MinimumCoinCombinationTest {
         var target = 5;
         int[] coins = {1, 2, 3};
 
-        var minimumCoins = calculator.minimumCoinCombination(coins, target);
+        var minimumCoins = calculator.minimumCoinCombinationBottomUp(coins, target);
 
         Assert.assertEquals(2, minimumCoins);
 
@@ -26,7 +26,19 @@ public class MinimumCoinCombinationTest {
         var target = 2;
         int[] coins = {1, 1};
 
-        var minimumCoins = calculator.minimumCoinCombination(coins, target);
+        var minimumCoins = calculator.minimumCoinCombinationBottomUp(coins, target);
+
+        Assert.assertEquals(2, minimumCoins);
+
+    }
+
+    @Test
+    public void test3() {
+
+        var target = 5;
+        int[] coins = {1, 2, 3};
+
+        var minimumCoins = calculator.minimumCoinCombinationTopDown(coins, target);
 
         Assert.assertEquals(2, minimumCoins);
 
