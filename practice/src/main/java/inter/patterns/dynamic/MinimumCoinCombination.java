@@ -13,9 +13,6 @@ public class MinimumCoinCombination {
         if (target == 0) {
             return -1;
         }
-        if (coins.length == 0) {
-            return 0;
-        }
         Map<Integer, Integer> minCoinsSolutions = new HashMap<>();
         var result = minimumCoinCombinationTopDownHelper(coins, target, minCoinsSolutions);
         if (result == Integer.MAX_VALUE) {
@@ -27,7 +24,7 @@ public class MinimumCoinCombination {
 
     private int minimumCoinCombinationTopDownHelper(int[] coins, int target, Map<Integer, Integer> solutions) {
         if (target == 0) {
-            return -1;
+            return 0;
         }
         var existingSolution = solutions.get(target);
         if (existingSolution != null) {
@@ -38,6 +35,7 @@ public class MinimumCoinCombination {
                 var coin = coins[cp];
                 if (coin <= target) {
                     minCoins = Math.min(minCoins, 1 + minimumCoinCombinationTopDownHelper(coins, target - coin, solutions));
+                    solutions.put(target, minCoins);
                 }
             }
             solutions.put(target, minCoins);

@@ -44,4 +44,16 @@ public class MinimumCoinCombinationTest {
 
     }
 
+    @Test
+    public void test4() {
+
+        var target = 2;
+        int[] coins = {1, 1};
+
+        var minimumCoins = calculator.minimumCoinCombinationTopDown(coins, target);
+
+        Assert.assertEquals(2, minimumCoins);
+
+    }
+
 }
