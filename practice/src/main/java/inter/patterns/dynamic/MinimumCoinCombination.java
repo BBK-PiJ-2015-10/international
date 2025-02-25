@@ -37,8 +37,8 @@ public class MinimumCoinCombination {
                     minCoins = Math.min(minCoins, 1 + minimumCoinCombinationTopDownHelper(coins, target - coin, solutions));
                     solutions.put(target, minCoins);
                 }
+                solutions.put(target, minCoins);
             }
-            solutions.put(target, minCoins);
         }
         return solutions.get(target);
     }
