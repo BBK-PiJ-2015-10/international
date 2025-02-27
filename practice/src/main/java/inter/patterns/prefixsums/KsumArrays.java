@@ -3,27 +3,24 @@ package inter.patterns.prefixsums;
 public class KsumArrays {
 
     public int findNumberOfSubArrays(int[] array, int target) {
-        var cumulativeArray = new int[array.length];
+        var prefixSum = new int[array.length];
         int result = 0;
         for (int i = 0; i < array.length; i++) {
-            var value = array[i];
             if (i == 0) {
-                cumulativeArray[i] = value;
+                prefixSum[i] = array[i];
             } else {
-                var priorValue = cumulativeArray[i - 1];
-                var cumValue = priorValue + value;
-                cumulativeArray[i] = cumValue;
+                prefixSum[i] = prefixSum[i - 1] + array[i];
             }
         }
-        for (int i = 0; i < cumulativeArray.length; i++) {
-            for (int k = i; k < cumulativeArray.length; k++) {
-                if (i == k) {
-                    var cum = cumulativeArray[i];
+        for (int i = 0; i < prefixSum.length; i++) {
+            for (int j = i; j < prefixSum.length; j++) {
+                if (i == j) {
+                    var cum = prefixSum[i];
                     if (target == cum) {
                         result++;
                     }
                 } else {
-                    var cum = cumulativeArray[k] - cumulativeArray[i];
+                    var cum = prefixSum[j] - prefixSum[i];
                     if (target == cum) {
                         result++;
                     }
