@@ -40,4 +40,20 @@ public class ProductArrayTest {
         Assert.assertEquals(resultE, resultA);
 
     }
+
+    @Test
+    public void test3() {
+
+        int[] input = {2, 3, 1, 4, 5};
+        int[] output = {60, 40, 120, 30, 24};
+
+        var result = calculator.productArrayWithoutCurrentLeftAndRightLessSpace(input);
+
+        var resultA = Arrays.stream(result).boxed().collect(Collectors.toList());
+        var resultE = Arrays.stream(output).boxed().collect(Collectors.toList());
+
+        Assert.assertEquals(resultE, resultA);
+
+    }
 }
+

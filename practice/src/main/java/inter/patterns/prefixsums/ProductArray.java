@@ -37,5 +37,28 @@ public class ProductArray {
         return result;
     }
 
+    public int[] productArrayWithoutCurrentLeftAndRightLessSpace(int[] array) {
+        var result = new int[array.length];
+        var leftProducts = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            if (i == 0) {
+                leftProducts[i] = 1;
+            } else {
+                leftProducts[i] = leftProducts[i - 1] * array[i - 1];
+            }
+            result[i] = leftProducts[i];
+        }
+        var runningProduct = 1;
+        for (int k = array.length - 1; k >= 0; k--) {
+            if (k == array.length - 1) {
+                runningProduct = 1;
+            } else {
+                runningProduct = runningProduct * array[k + 1];
+                result[k] = result[k] * runningProduct;
+            }
+        }
+        return result;
+    }
+
 
 }
