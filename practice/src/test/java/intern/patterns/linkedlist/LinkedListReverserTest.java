@@ -2,9 +2,12 @@ package intern.patterns.linkedlist;
 
 import inter.patterns.linkedlist.LinkedListReverser;
 import inter.patterns.linkedlist.Node;
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LinkedListReverserTest {
 
@@ -18,29 +21,27 @@ public class LinkedListReverserTest {
         var second = new Node(2, third);
         var first = new Node(1, second);
 
-        //calculator.print(first);
+        var reversed = calculator.reverseList(first);
 
-       var reversed = calculator.reverseList(first);
+        var result = calculator.print(reversed, new LinkedList<>()).stream().map(d -> d.value).collect(Collectors.toList());
 
-        calculator.print(reversed);
+        Assert.assertEquals(List.of(4, 3, 2, 1), result);
 
-       // first.forEach(n -> System.out.print(String.format(",%d",n)));
+    }
 
+    @Test
+    public void test3() {
 
-//        for (int i = start.size() - 1; i >= 0; i--) {
-//            var node = new Node(start.get(i));
-//            var last = start.get(i);
-//            System.out.println(last);
-//        }
+        var fourth = new Node(4);
+        var third = new Node(3, fourth);
+        var second = new Node(2, third);
+        var first = new Node(1, second);
 
+        var reversed = calculator.reverseNodeRecurs(first);
 
-//        var last = new Node(4);
-//        var third = new Node(3,last);
-//        var second = new Node(2,third);
-//        var first = new Node(1,second);
-//
-//        var reversed = calculator.reverseList(first);
+        var result = calculator.print(reversed, new LinkedList<>()).stream().map(d -> d.value).collect(Collectors.toList());
 
+        Assert.assertEquals(List.of(4, 3, 2, 1), result);
 
     }
 
