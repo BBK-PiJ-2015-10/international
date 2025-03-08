@@ -18,19 +18,13 @@ public class FindFirstAndLastOccurrences {
                 logger.info(String.format("Found target at mid %d, left %d, right %d", mid, left, right));
                 right = mid;
                 left = mid;
-                while (right < array.length - 1 && array[right] == target) {
+                while (right + 1 < array.length - 1 && array[right + 1] == target) {
                     right++;
                     logger.info(String.format("Moving solution right to %d", right));
                 }
-                while (left >= 0 && array[left] == target) {
+                while (left - 1 >= 0 && array[left - 1] == target) {
                     left--;
                     logger.info(String.format("Moving solution left to %d", left));
-                }
-                if (array[left + 1] == target) {
-                    left++;
-                }
-                if (array[right - 1] == target) {
-                    right--;
                 }
                 result[0] = left;
                 result[1] = right;
