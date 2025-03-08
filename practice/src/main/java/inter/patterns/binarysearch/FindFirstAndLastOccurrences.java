@@ -26,8 +26,14 @@ public class FindFirstAndLastOccurrences {
                     left--;
                     logger.info(String.format("Moving solution left to %d", left));
                 }
-                result[0] = left + 1;
-                result[1] = right - 1;
+                if (array[left + 1] == target) {
+                    left++;
+                }
+                if (array[right - 1] == target) {
+                    right--;
+                }
+                result[0] = left;
+                result[1] = right;
                 logger.info(String.format("Returning solution %d and %d", result[0], result[1]));
                 break;
             } else if (midValue < target) {
