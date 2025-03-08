@@ -20,4 +20,16 @@ public class FindInsertionIndexTest {
 
     }
 
+    @Test
+    public void test2(){
+
+        int target = 6;
+        int[] array = {1,2,4,5,7,8,9};
+
+        var result = calculator.findInsertionIndex(array,target);
+
+        Assert.assertEquals(4,result);
+
+    }
+
 }
