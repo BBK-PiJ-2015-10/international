@@ -18,6 +18,7 @@ public class FindInsertionIndex {
             }
             var mid = (right + left) / 2;
             logger.info(String.format("Left %d, right %d, mid %d, target %d, targetMid %d", left, right, mid, target, array[mid]));
+            // We are finding the element equal or first greater than the target. Hence, we want to keep the mid
             if (array[mid] >= target) {
                 right = mid;
                 logger.info(String.format("Target mid is > target, decreasing right to %d", right));
