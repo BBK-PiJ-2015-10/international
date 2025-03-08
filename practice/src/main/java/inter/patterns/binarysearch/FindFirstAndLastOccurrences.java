@@ -10,7 +10,7 @@ public class FindFirstAndLastOccurrences {
         int[] result = {-1, -1};
         int left = 0;
         int right = array.length - 1;
-        while (left < right) {
+        while (left <= right) {
             int mid = (left + right) / 2;
             int midValue = array[mid];
             logger.info(String.format("Evaluating target %d against value %d mid %d, left %d, right %d", target, midValue, mid, left, right));
