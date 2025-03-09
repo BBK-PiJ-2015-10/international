@@ -1,7 +1,6 @@
 package inter.patterns.tries;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,10 +51,42 @@ public class Trie {
     }
 
     public boolean search(String word) {
-        return false;
+        return searchHelper(root, word);
+    }
+
+    private boolean searchHelper(Node node, String word) {
+        var prefix = word.substring(0, 1);
+        var suffix = word.substring(1, word.length());
+        var existingNode = node.children.get(prefix);
+        if (existingNode == null) {
+            return false;
+        } else {
+            if (suffix.isEmpty()) {
+                return existingNode.isWord;
+            } else {
+                return searchHelper(existingNode, suffix);
+            }
+        }
     }
 
     public boolean hasPrefix(String prefix) {
-        return false;
+        return hasPrefixHelper(root, prefix);
     }
+
+    public boolean hasPrefixHelper(Node node, String word) {
+        var prefix = word.substring(0, 1);
+        var suffix = word.substring(1, word.length());
+        var existingNode = node.children.get(prefix);
+        if (existingNode == null) {
+            return false;
+        } else {
+            if (suffix.isEmpty()) {
+                return true;
+            } else {
+                return searchHelper(existingNode, suffix);
+            }
+        }
+    }
+
+
 }
