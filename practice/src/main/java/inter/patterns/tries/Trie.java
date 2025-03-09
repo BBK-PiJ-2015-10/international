@@ -3,8 +3,11 @@ package inter.patterns.tries;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 public class Trie {
+
+    private Logger logger = Logger.getLogger(Trie.class.getCanonicalName());
 
     public class Node {
 
@@ -76,14 +79,17 @@ public class Trie {
     public boolean hasPrefixHelper(Node node, String word) {
         var prefix = word.substring(0, 1);
         var suffix = word.substring(1, word.length());
+        logger.info(String.format("Evaluating word %s, prefix %s, suffix %s", word, prefix, suffix));
         var existingNode = node.children.get(prefix);
         if (existingNode == null) {
             return false;
         } else {
             if (suffix.isEmpty()) {
+                logger.info(String.format("Suffix is empty word %s, prefix %s, suffix %s", word, prefix, suffix));
                 return true;
             } else {
-                return searchHelper(existingNode, suffix);
+                logger.info(String.format("Suffix is non-empty word %s, prefix %s, suffix %s", word, prefix, suffix));
+                return hasPrefixHelper(existingNode, suffix);
             }
         }
     }
