@@ -31,14 +31,23 @@ public class Trie {
 
     private void insertHelper(Node node, String word) {
         var prefix = word.substring(0, 1);
-        var newNode = new Node(prefix);
+        var existingNode = node.children.get(prefix);
         var suffix = word.substring(1, word.length());
-        if (suffix.isEmpty()) {
-            newNode.isWord = true;
-            node.children.put(prefix, newNode);
+        if (existingNode == null) {
+            var newNode = new Node(prefix);
+            if (suffix.isEmpty()) {
+                newNode.isWord = true;
+                node.children.put(prefix, newNode);
+            } else {
+                node.children.put(prefix, newNode);
+                insertHelper(newNode, suffix);
+            }
         } else {
-            node.children.put(prefix, newNode);
-            insertHelper(newNode, suffix);
+            if (suffix.isEmpty()) {
+                existingNode.isWord = true;
+            } else {
+                insertHelper(existingNode, suffix);
+            }
         }
     }
 

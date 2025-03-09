@@ -9,15 +9,15 @@ public class TrieTest {
     public void test1(){
 
 
-        var input = "a";
+        var input = "ab";
 
-        var cat  = input.substring(1,input.length());
+        var cat  = input.substring(0,input.length());
 
-        var bool = cat.isBlank();
+        //var bool = cat.isBlank();
 
-        System.out.println(bool);
+        System.out.println(input);
 
-        System.out.println(cat);
+        //System.out.println(cat);
 
         Assert.assertEquals(true,true);
 
