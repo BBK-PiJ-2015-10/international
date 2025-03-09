@@ -1,25 +1,25 @@
 package intern.patterns.tries;
 
+import inter.patterns.tries.Trie;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class TrieTest {
 
+    private Trie trie = new Trie();
+
     @Test
-    public void test1(){
+    public void test1() {
+
+        trie.insert("top");
+
+        var hasWord = trie.search("top");
+
+        var hasPrefix = trie.search("top");
 
 
-        var input = "ab";
-
-        var cat  = input.substring(0,input.length());
-
-        //var bool = cat.isBlank();
-
-        System.out.println(input);
-
-        //System.out.println(cat);
-
-        Assert.assertEquals(true,true);
+        Assert.assertEquals(true, hasWord);
+        Assert.assertEquals(true, hasPrefix);
 
     }
 
