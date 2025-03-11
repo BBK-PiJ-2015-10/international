@@ -9,7 +9,7 @@ public class MergingOverlappingIntervalsTest {
     private MergingOverlappingIntervals calculator = new MergingOverlappingIntervals();
 
     @Test
-    public void test1(){
+    public void test1() {
 
         int[][] intervals = new int[5][2];
         intervals[0][0] = 3;
@@ -26,7 +26,7 @@ public class MergingOverlappingIntervalsTest {
         var result = calculator.findOverlappingIntervals(intervals);
 
 
-        Assert.assertEquals(true,true);
+        Assert.assertEquals(2, result.size());
     }
 
 }

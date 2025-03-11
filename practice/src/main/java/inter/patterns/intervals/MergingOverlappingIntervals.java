@@ -3,8 +3,11 @@ package inter.patterns.intervals;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class MergingOverlappingIntervals {
+
+    private Logger logger = Logger.getLogger(MergingOverlappingIntervals.class.getName());
 
     public Interval mergeInterval(Interval first, Interval second) {
         var beginning = first.beginning <= second.beginning ? first.beginning : second.beginning;
@@ -12,20 +15,7 @@ public class MergingOverlappingIntervals {
         return new Interval(beginning, end);
     }
 
-    public class Interval {
-
-        public Interval(Integer beginning, Integer end) {
-            this.beginning = beginning;
-            this.end = end;
-        }
-
-        public Integer beginning;
-        public Integer end;
-
-        public boolean overlap(Interval other) {
-            return this.end >= other.beginning;
-        }
-
+    public record Interval(Integer beginning, Integer end) {
     }
 
     // intervals, beg-end
@@ -40,14 +30,20 @@ public class MergingOverlappingIntervals {
         Comparator<Interval> sortByBeginning = (o1, o2) -> o1.beginning.compareTo(o2.beginning);
         intervalList.sort(sortByBeginning);
         for (Interval interval : intervalList) {
+            logger.info(String.format("Processing %s", interval));
             if (mergedIntervals.isEmpty()) {
+                logger.info(String.format("Adding to merged intervals %s", interval));
                 mergedIntervals.add(interval);
             } else {
                 var lastInterval = mergedIntervals.getLast();
-                if (lastInterval.overlap(interval)) {
+                if (lastInterval.end >= interval.beginning) {
                     var removed = mergedIntervals.removeLast();
+                    logger.info(String.format("Found overlap between %s and %s", removed, interval));
                     var mergedInterval = mergeInterval(removed, interval);
+                    logger.info(String.format("Replacing overlap with %s", mergedInterval));
                     mergedIntervals.add(mergedInterval);
+                } else {
+                    mergedIntervals.add(interval);
                 }
             }
         }
