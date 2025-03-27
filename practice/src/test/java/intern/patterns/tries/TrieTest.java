@@ -38,5 +38,30 @@ public class TrieTest {
 
     }
 
+    @Test
+    public void test3() {
+
+        Trie trie = new Trie();
+
+        trie.insert("band");
+        trie.insert("rat");
+
+        var result1 = trie.constainsWithWild("ra.");
+
+        Assert.assertEquals(true, result1);
+
+        var result2 = trie.constainsWithWild("b..");
+
+        Assert.assertEquals(false, result2);
+
+        trie.insert("ran");
+
+        var result3 = trie.constainsWithWild(".an");
+
+        Assert.assertEquals(true, result3);
+
+
+    }
+
 
 }

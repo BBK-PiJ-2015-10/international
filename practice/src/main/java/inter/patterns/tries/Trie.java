@@ -95,4 +95,36 @@ public class Trie {
     }
 
 
+    public boolean constainsWithWild(String searchTerm) {
+        return containsWithWildHelper(searchTerm,root,".");
+    }
+
+    private boolean containsWithWildHelper(String searchTerm, Node node, String wildCard) {
+        var prefix = searchTerm.substring(0, 1);
+        var suffix = searchTerm.substring(1, searchTerm.length());
+        logger.info(String.format("Prefix is %s, Suffix is %s",prefix,suffix));
+        if (prefix.equals(wildCard)) {
+            logger.info(String.format("Prefix is wildcard %s, Suffix is %s",prefix,suffix));
+            var children = node.children;
+            if (suffix.isEmpty()) {
+                return children.values().stream().anyMatch(c -> c.isWord);
+            } else {
+                return children.values().stream().anyMatch(c -> containsWithWildHelper(suffix, c, wildCard));
+            }
+            // get all children
+        } else {
+            var existingChildrenNode = node.children.get(prefix);
+            if (existingChildrenNode == null) {
+                return false;
+            } else {
+                if (suffix.isEmpty()) {
+                    return existingChildrenNode.isWord;
+                } else {
+                    return containsWithWildHelper(suffix, existingChildrenNode, wildCard);
+                }
+            }
+        }
+    }
+
+
 }
