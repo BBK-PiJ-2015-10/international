@@ -16,6 +16,10 @@ public class BinaryIntegerNode {
 
     private BinaryIntegerNode right;
 
+    public BinaryIntegerNode(Integer value) {
+        this.value = value;
+    }
+
     @Override
     public String toString() {
         return "BinaryIntegerNode{" +

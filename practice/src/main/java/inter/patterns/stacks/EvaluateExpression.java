@@ -48,5 +48,5 @@ public class EvaluateExpression {
         }
         return result + currentNumber * sign;
     }
-    
+
 }
