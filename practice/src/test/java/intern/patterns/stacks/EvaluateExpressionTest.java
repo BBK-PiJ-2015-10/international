@@ -9,15 +9,36 @@ public class EvaluateExpressionTest {
     private EvaluateExpression evaluator = new EvaluateExpression();
 
     @Test
-    public void test1(){
+    public void test1() {
 
-        String expression = "18-(7+(2-4)";
+        String expression = "18-10+7";
 
-        var result = evaluator.evaluateExpression(expression);
+        var result = evaluator.evaluate(expression);
 
+        Assert.assertEquals(15, result);
 
+    }
 
-        Assert.assertEquals(true,true);
+    @Test
+    public void test2() {
+
+        String expression = "10-(7+(2+4))";
+
+        var result = evaluator.evaluate(expression);
+
+        Assert.assertEquals(-3, result);
+
+    }
+
+    @Test
+    public void test3() {
+
+        // create an expression with multiple parenthesis
+        String expression = "18-(7+(2-4))";
+
+        var result = evaluator.evaluate(expression);
+
+        Assert.assertEquals(13, result);
 
     }
 
