@@ -1,6 +1,4 @@
-package veeam;
-
-import java.util.Scanner;
+package veinteream;
 
 public class Solution {
 

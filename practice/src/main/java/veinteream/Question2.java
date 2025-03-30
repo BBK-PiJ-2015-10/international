@@ -1,6 +1,5 @@
-package veeam;
+package veinteream;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Question2 {
