@@ -13,9 +13,6 @@ public class LRUCache {
 
     private LRUNode oldest = null;
 
-    private LRUNode youngest = null;
-
-
     public class LRUNode {
         int key;
 
@@ -47,10 +44,7 @@ public class LRUCache {
                 } else {
                     node.previous.next = node.next;
                 }
-                if (node.next == null) {
-                    // it is the youngest
-                    youngest = node.previous;
-                } else {
+                if (node.next != null) {
                     node.next.previous = node.previous;
                 }
             } else {
@@ -66,12 +60,6 @@ public class LRUCache {
             logger.info(String.format("Node with key %d is the new oldest", nodeToAdd.key));
             oldest = nodeToAdd;
         }
-        if (youngest != null) {
-            youngest.next = nodeToAdd;
-            nodeToAdd.previous = youngest;
-        }
-        logger.info(String.format("Node with key %d is the new youngest", nodeToAdd.key));
-        youngest = nodeToAdd;
     }
 
 
