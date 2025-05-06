@@ -30,8 +30,7 @@ public class RemoveKthLastNode {
             logger.info(String.format("Prior to kth value is %d, next to kth value is %d",priorToKth.value,nextToKth.value));
             return root;
         } else {
-            logger.info("HERE2");
-            return null;
+            return root;
         }
     }
 
