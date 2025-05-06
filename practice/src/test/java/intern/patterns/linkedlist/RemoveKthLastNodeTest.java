@@ -21,7 +21,8 @@ public class RemoveKthLastNodeTest {
         Node two = new Node(2, four);
         Node one = new Node(1, two);
 
-        Node result = calculator.removedKthLastNode(one, 2);
+        //Node result = calculator.removedKthLastNode(one, 2);
+        Node result = calculator.removedKthLastNodeOptimized(one, 2);
 
         List<Integer> resultFormated = new LinkedList<>();
         while (result != null) {
@@ -43,7 +44,7 @@ public class RemoveKthLastNodeTest {
         Node two = new Node(2, four);
         Node one = new Node(1, two);
 
-        Node result = calculator.removedKthLastNode(one, 4);
+        Node result = calculator.removedKthLastNodeOptimized(one, 4);
 
         List<Integer> resultFormated = new LinkedList<>();
         while (result != null) {
@@ -65,7 +66,7 @@ public class RemoveKthLastNodeTest {
         Node two = new Node(2, four);
         Node one = new Node(1, two);
 
-        Node result = calculator.removedKthLastNode(one, 1);
+        Node result = calculator.removedKthLastNodeOptimized(one, 1);
 
         List<Integer> resultFormated = new LinkedList<>();
         while (result != null) {
@@ -87,7 +88,7 @@ public class RemoveKthLastNodeTest {
         Node two = new Node(2, four);
         Node one = new Node(1, two);
 
-        Node result = calculator.removedKthLastNode(one, 5);
+        Node result = calculator.removedKthLastNodeOptimized(one, 5);
 
         List<Integer> resultFormated = new LinkedList<>();
         while (result != null) {
@@ -109,7 +110,7 @@ public class RemoveKthLastNodeTest {
         Node two = new Node(2, four);
         Node one = new Node(1, two);
 
-        Node result = calculator.removedKthLastNode(one, 6);
+        Node result = calculator.removedKthLastNodeOptimized(one, 6);
 
         List<Integer> resultFormated = new LinkedList<>();
         while (result != null) {
