@@ -131,6 +131,19 @@ public class IntensityProcessorTest {
 
     }
 
+    @Test
+    public void test5ASetPositiveDisjointSegment() {
+
+        IntensityProcessor processor = new IntensityProcessor();
+
+        processor.set(10, 30, 1);
+        var result = processor.set(60, 90, 2);
+
+        var expectedResult = List.of(new Segment(10, 1), new Segment(30, 0), new Segment(60, 2), new Segment(90, 0));
+        Assert.assertEquals(expectedResult, result);
+
+    }
+
 
     @Test
     public void setTest6() {
