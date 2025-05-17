@@ -154,7 +154,9 @@ public class IntensityProcessorTest {
         processor.set(10, 30, 1);
         processor.set(20, 40, 1);
         processor.set(10, 40, -1);
-        var result = processor.set(10, 20, 0);
+        var result1 = processor.set(10, 50, -2);
+        System.out.println(result1);
+        var result = processor.set(20, 40, 0);
 
         System.out.println(result);
 

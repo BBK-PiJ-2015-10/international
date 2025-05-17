@@ -57,6 +57,15 @@ public class IntensityProcessor {
                     segmentIntensityRing.remove(toSegment);
                 }
             }
+//            var allSegments = segmentIntensityRing.keySet().stream().toList();
+//            for (int currentSegmentPos = allSegments.size() - 1; currentSegmentPos > 0; currentSegmentPos--) {
+//                var currentSegment = allSegments.get(currentSegmentPos);
+//                var priorSegment = allSegments.get(currentSegmentPos - 1);
+//                var priorSegmentIntensity = segmentIntensityRing.get(priorSegment);
+//                if (priorSegmentIntensity == 0) {
+//                    segmentIntensityRing.remove(currentSegment);
+//                }
+//            }
         }
         return toSegment(segmentIntensityRing.entrySet());
     }
