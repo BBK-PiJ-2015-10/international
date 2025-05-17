@@ -65,7 +65,9 @@ public class IntensityProcessor {
                 }
             }
         }
-        return mapSegment(segmentIntensityRing.entrySet());
+        var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
+        logger.info(String.format("%s", updatedSegmentation));
+        return updatedSegmentation;
     }
 
     public List<Segment> add(int fromSegment, int toSegment, int intensity) {
