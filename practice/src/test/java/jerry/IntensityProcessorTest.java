@@ -146,5 +146,22 @@ public class IntensityProcessorTest {
 
     }
 
+    @Test
+    public void setTest6() {
+
+        IntensityProcessor processor = new IntensityProcessor();
+
+        processor.set(10, 30, 1);
+        processor.set(20, 40, 1);
+        processor.set(10, 40, -1);
+        var result = processor.set(10, 20, 0);
+
+        System.out.println(result);
+
+        //var expectedResult = List.of(new Segment(10, -1), new Segment(20, -1), new Segment(30, -1), new Segment(40, 0));
+        //Assert.assertEquals(expectedResult, result);
+
+    }
+
 
 }
