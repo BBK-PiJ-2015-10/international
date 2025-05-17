@@ -1,6 +1,5 @@
 package jerry;
 
-import inter.patterns.stacks.ValidExpressionValidator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -91,7 +90,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test6AddPositiveToDisjointSegments() {
+    public void test7AddPositiveToDisjointSegments() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -106,7 +105,7 @@ public class IntensityProcessorTest {
 
 
     @Test
-    public void test6AddNegativeToDisjointSegmentsEliminatingOneSegment() {
+    public void test8AddNegativeToDisjointSegmentsEliminatingOneSegment() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -120,7 +119,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test6AddNegativeUnitingDisjointSegments() {
+    public void test9AddNegativeUnitingDisjointSegments() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -175,7 +174,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test5ASetPositiveDisjointSegment() {
+    public void test4SetPositiveDisjointSegment() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -186,28 +185,5 @@ public class IntensityProcessorTest {
         Assert.assertEquals(expectedResult, result);
 
     }
-
-
-    @Test
-    public void setTest6() {
-
-        IntensityProcessor processor = new IntensityProcessor();
-
-        processor.add(10, 20, 1);
-        var result0 = processor.add(30, 40, 1);
-
-        System.out.println(result0);
-
-        var result1 = processor.add(10, 20, -1);
-        System.out.println(result1);
-        //var result = processor.set(20, 40, 0);
-
-        //System.out.println(result);
-
-        //var expectedResult = List.of(new Segment(10, -1), new Segment(20, -1), new Segment(30, -1), new Segment(40, 0));
-        //Assert.assertEquals(expectedResult, result);
-
-    }
-
 
 }
