@@ -2,6 +2,7 @@ package jerry;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class IntensityProcessor {
@@ -66,7 +67,7 @@ public class IntensityProcessor {
             }
         }
         var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
-        logger.info(String.format("%s", updatedSegmentation));
+        logger.log(Level.INFO, String.format("%s", updatedSegmentation));
         return updatedSegmentation;
     }
 
