@@ -18,6 +18,7 @@ public class IntensityProcessor {
             segmentIntensityRing.put(fromSegment, intensity);
             segmentIntensityRing.put(toSegment, 0);
         } else {
+            // This sections updates sentiments between fromSegment(inclusive) toSegment(exclusive)
             var rangeSegments = segmentIntensityRing.subMap(fromSegment, toSegment);
             for (var segment : rangeSegments.keySet()) {
                 var existingIntensity = rangeSegments.get(segment);
@@ -36,6 +37,7 @@ public class IntensityProcessor {
                     segmentIntensityRing.put(fromSegment, fromSegmentIntensity);
                 }
             }
+            // This sections updates the toSegment
             var nextSegments = segmentIntensityRing.tailMap(toSegment);
             if (nextSegments.isEmpty()) {
                 segmentIntensityRing.put(toSegment, 0);
@@ -45,6 +47,7 @@ public class IntensityProcessor {
                     segmentIntensityRing.put(toSegment, nextSegments.get(firstNextSegment));
                 }
             }
+            // This sections removes any segments with 0 intensity
             var allSegments = segmentIntensityRing.keySet().stream().toList();
             for (int currentSegmentPos = allSegments.size() - 1; currentSegmentPos >= 0; currentSegmentPos--) {
                 var currentSegment = allSegments.get(currentSegmentPos);
