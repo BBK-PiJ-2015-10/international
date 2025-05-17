@@ -11,6 +11,9 @@ public class IntensityProcessor {
     private SortedMap<Integer, Integer> segmentIntensityRing = new TreeMap<>();
 
     private List<Segment> segmentBinaryOperation(int fromSegment, int toSegment, int intensity, BinaryOperator<Integer> operation) {
+        if (toSegment <= fromSegment) {
+            throw new IllegalArgumentException(String.format("fromSegment %d needs to be lower than toSegment %d", fromSegment, toSegment));
+        }
         if (segmentIntensityRing.isEmpty()) {
             segmentIntensityRing.put(fromSegment, intensity);
             segmentIntensityRing.put(toSegment, 0);
@@ -21,7 +24,6 @@ public class IntensityProcessor {
                 var updatedIntensity = operation.apply(existingIntensity, intensity);
                 rangeSegments.put(segment, updatedIntensity);
             }
-            // check if
             var existingFromIntensity = rangeSegments.get(fromSegment);
             if (existingFromIntensity == null) {
                 var priorSegments = segmentIntensityRing.headMap(fromSegment);
@@ -34,7 +36,6 @@ public class IntensityProcessor {
                     segmentIntensityRing.put(fromSegment, fromSegmentIntensity);
                 }
             }
-            // remove fromSegment if intensity is 0
             var updatedFromSegmentIntensity = segmentIntensityRing.get(fromSegment);
             if (updatedFromSegmentIntensity == 0) {
                 segmentIntensityRing.remove(fromSegment);
@@ -48,7 +49,6 @@ public class IntensityProcessor {
                     segmentIntensityRing.put(toSegment, nextSegments.get(firstNextSegment));
                 }
             }
-            // remove toSegment if prior intensity is 0
             var priorToSegments = segmentIntensityRing.headMap(toSegment);
             if (!priorToSegments.isEmpty()) {
                 var priorToSegmentIntensity = segmentIntensityRing.get(priorToSegments.lastKey());
@@ -57,8 +57,6 @@ public class IntensityProcessor {
                     segmentIntensityRing.remove(toSegment);
                 }
             }
-            // go from end, check if int = 0, if prior pos is also 0, then, remove prior
-            // go from beg, if you are 0 and next is zero remove yourself
             var allSegments = segmentIntensityRing.keySet().stream().toList();
             for (int currentSegmentPos = allSegments.size() - 1; currentSegmentPos >= 0; currentSegmentPos--) {
                 var currentSegment = allSegments.get(currentSegmentPos);
