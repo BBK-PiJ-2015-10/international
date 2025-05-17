@@ -88,8 +88,6 @@ public class IntensityProcessorTest {
         var expectedResult = List.of(new Segment(10, 1), new Segment(30, 0), new Segment(60, 2), new Segment(90, 0));
         Assert.assertEquals(expectedResult, result);
 
-        System.out.println(result);
-
     }
 
     @Test
@@ -101,31 +99,24 @@ public class IntensityProcessorTest {
         processor.add(60, 90, 2);
         var result = processor.add(10, 100, 1);
 
-        var expectedResult = List.of(new Segment(10, 2), new Segment(30, 1), new Segment(60, 3), new Segment(90, 1),new Segment(100, 0));
-       Assert.assertEquals(expectedResult, result);
+        var expectedResult = List.of(new Segment(10, 2), new Segment(30, 1), new Segment(60, 3), new Segment(90, 1), new Segment(100, 0));
+        Assert.assertEquals(expectedResult, result);
 
     }
 
 
     @Test
-    public void test6AddNegativeToDisjointSegmentsEliminatingOne() {
+    public void test6AddNegativeToDisjointSegmentsEliminatingOneSegment() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
         processor.add(10, 20, 1);
         processor.add(30, 40, 1);
-        var result0 = processor.add(30, 40, 1);
+        processor.add(30, 40, 1);
+        var result = processor.add(10, 20, -1);
 
-        System.out.println(result0);
-
-        var result1 = processor.add(10, 20,-1);
-        System.out.println(result1);
-        //var result = processor.set(20, 40, 0);
-
-        //System.out.println(result);
-
-        //var expectedResult = List.of(new Segment(10, -1), new Segment(20, -1), new Segment(30, -1), new Segment(40, 0));
-        //Assert.assertEquals(expectedResult, result);
+        var expectedResult = List.of(new Segment(30, 2), new Segment(40, 0));
+        Assert.assertEquals(expectedResult, result);
 
     }
 
@@ -194,7 +185,7 @@ public class IntensityProcessorTest {
 
         System.out.println(result0);
 
-        var result1 = processor.add(10, 20,-1);
+        var result1 = processor.add(10, 20, -1);
         System.out.println(result1);
         //var result = processor.set(20, 40, 0);
 
