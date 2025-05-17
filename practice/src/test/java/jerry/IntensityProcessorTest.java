@@ -9,7 +9,7 @@ import java.util.List;
 public class IntensityProcessorTest {
 
     @Test
-    public void addTest1() {
+    public void test1AddPositiveToEmptySegmentationTest() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -21,7 +21,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void addTest2() {
+    public void test2AddPositiveAnOverlappingSegment() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -34,7 +34,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void addTest3() {
+    public void test3AddNegativeMakingAContainedSegmentZero() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -48,7 +48,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void addTest4() {
+    public void test4AddNegativeMakingEndSegmentZero() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -62,7 +62,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void addTest5() {
+    public void test5AddNegativeOverlappingSegment() {
 
         IntensityProcessor processor = new IntensityProcessor();
 
@@ -72,6 +72,20 @@ public class IntensityProcessorTest {
         var result = processor.add(10, 40, -1);
 
         var expectedResult = List.of(new Segment(10, -1), new Segment(20, 0), new Segment(30, -1), new Segment(40, 0));
+        Assert.assertEquals(expectedResult, result);
+
+    }
+
+    @Test
+    public void test6AddPositiveDisjointSegment() {
+
+        IntensityProcessor processor = new IntensityProcessor();
+
+        processor.add(10, 30, 1);
+        processor.add(20, 40, 1);
+        var result = processor.add(60, 90, 2);
+
+        var expectedResult = List.of(new Segment(10, 1), new Segment(20, 2), new Segment(30, 1), new Segment(40, 0), new Segment(60, 2), new Segment(90, 0));
         Assert.assertEquals(expectedResult, result);
 
     }
@@ -145,6 +159,7 @@ public class IntensityProcessorTest {
         Assert.assertEquals(expectedResult, result);
 
     }
+
 
     @Test
     public void setTest6() {
