@@ -111,8 +111,7 @@ public class IntensityProcessorTest {
         IntensityProcessor processor = new IntensityProcessor();
 
         processor.add(10, 20, 1);
-        processor.add(30, 40, 1);
-        processor.add(30, 40, 1);
+        processor.add(30, 40, 2);
         var result = processor.add(10, 20, -1);
 
         var expectedResult = List.of(new Segment(30, 2), new Segment(40, 0));
