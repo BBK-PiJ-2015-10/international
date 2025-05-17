@@ -55,14 +55,28 @@ public class IntensityProcessorTest {
         processor.add(10, 30, 1);
         processor.add(20, 40, 1);
         var result = processor.add(10, 40, -1);
-        //var result = processor.add(10, 40, -2);
 
-        System.out.println(result);
-
-        //var expectedResult = List.of(new Segment(10, -1), new Segment(20, 0), new Segment(30, -1), new Segment(40, 0));
-        //Assert.assertEquals(expectedResult, result);
+        var expectedResult = List.of(new Segment(20, 1), new Segment(30, 0));
+        Assert.assertEquals(expectedResult, result);
 
     }
+
+//    @Test
+//    public void test5() {
+//
+//        IntensityProcessor processor = new IntensityProcessor();
+//
+//        processor.add(10, 30, 1);
+//        processor.add(20, 40, 1);
+//        var result = processor.add(10, 40, -1);
+//        //var result = processor.add(10, 40, -2);
+//
+//        System.out.println(result);
+//
+//        //var expectedResult = List.of(new Segment(10, -1), new Segment(20, 0), new Segment(30, -1), new Segment(40, 0));
+//        //Assert.assertEquals(expectedResult, result);
+//
+//    }
 
 
 }
