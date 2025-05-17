@@ -47,5 +47,22 @@ public class IntensityProcessorTest {
 
     }
 
+    @Test
+    public void test4() {
+
+        IntensityProcessor processor = new IntensityProcessor();
+
+        processor.add(10, 30, 1);
+        processor.add(20, 40, 1);
+        var result = processor.add(10, 40, -1);
+        //var result = processor.add(10, 40, -2);
+
+        System.out.println(result);
+
+        //var expectedResult = List.of(new Segment(10, -1), new Segment(20, 0), new Segment(30, -1), new Segment(40, 0));
+        //Assert.assertEquals(expectedResult, result);
+
+    }
+
 
 }

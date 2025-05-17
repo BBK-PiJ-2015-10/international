@@ -1,8 +1,12 @@
 package jerry;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IntensityProcessor {
+
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
     private SortedMap<Integer, Integer> segmentIntensityRing = new TreeMap<>();
 
@@ -18,8 +22,8 @@ public class IntensityProcessor {
                 rangeSegments.put(segment, updatedIntensity);
             }
             // check if
-            var existingFrom = rangeSegments.get(fromSegment);
-            if (existingFrom == null) {
+            var existingFromIntensity = rangeSegments.get(fromSegment);
+            if (existingFromIntensity == null) {
                 var priorSegments = segmentIntensityRing.headMap(fromSegment);
                 if (priorSegments.isEmpty()) {
                     segmentIntensityRing.put(fromSegment, intensity);
@@ -30,6 +34,11 @@ public class IntensityProcessor {
                     segmentIntensityRing.put(fromSegment, fromSegmentIntensity);
                 }
             }
+            // remove fromSegment if intensity is 0
+            var updatedFromSegmentIntensity = segmentIntensityRing.get(fromSegment);
+            if (updatedFromSegmentIntensity == 0) {
+                segmentIntensityRing.remove(fromSegment);
+            }
             var nextSegments = segmentIntensityRing.tailMap(toSegment);
             if (nextSegments.isEmpty()) {
                 segmentIntensityRing.put(toSegment, 0);
@@ -37,6 +46,15 @@ public class IntensityProcessor {
                 var firstNextSegment = nextSegments.firstKey();
                 if (firstNextSegment > fromSegment) {
                     segmentIntensityRing.put(toSegment, nextSegments.get(firstNextSegment));
+                }
+            }
+            // remove toSegment if prior intensity is 0
+            var priorToSegments = segmentIntensityRing.headMap(toSegment);
+            if (!priorToSegments.isEmpty()) {
+                var priorToSegmentIntensity = segmentIntensityRing.get(priorToSegments.lastKey());
+                //logger.log(Level.INFO, String.format("ToSegment is %d PriorToSegment is value %d, intensity %d", toSegment, priorToSegments.lastKey(), priorToSegmentIntensity));
+                if (priorToSegmentIntensity == 0) {
+                    segmentIntensityRing.remove(toSegment);
                 }
             }
         }
