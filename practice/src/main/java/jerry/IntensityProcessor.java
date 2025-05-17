@@ -36,10 +36,6 @@ public class IntensityProcessor {
                     segmentIntensityRing.put(fromSegment, fromSegmentIntensity);
                 }
             }
-            var updatedFromSegmentIntensity = segmentIntensityRing.get(fromSegment);
-            if (updatedFromSegmentIntensity == 0) {
-                segmentIntensityRing.remove(fromSegment);
-            }
             var nextSegments = segmentIntensityRing.tailMap(toSegment);
             if (nextSegments.isEmpty()) {
                 segmentIntensityRing.put(toSegment, 0);
@@ -47,14 +43,6 @@ public class IntensityProcessor {
                 var firstNextSegment = nextSegments.firstKey();
                 if (firstNextSegment > fromSegment) {
                     segmentIntensityRing.put(toSegment, nextSegments.get(firstNextSegment));
-                }
-            }
-            var priorToSegments = segmentIntensityRing.headMap(toSegment);
-            if (!priorToSegments.isEmpty()) {
-                var priorToSegmentIntensity = segmentIntensityRing.get(priorToSegments.lastKey());
-                //logger.log(Level.INFO, String.format("ToSegment is %d PriorToSegment is value %d, intensity %d", toSegment, priorToSegments.lastKey(), priorToSegmentIntensity));
-                if (priorToSegmentIntensity == 0) {
-                    segmentIntensityRing.remove(toSegment);
                 }
             }
             var allSegments = segmentIntensityRing.keySet().stream().toList();
