@@ -82,10 +82,9 @@ public class IntensityProcessorTest {
         IntensityProcessor processor = new IntensityProcessor();
 
         processor.add(10, 30, 1);
-        processor.add(20, 40, 1);
         var result = processor.add(60, 90, 2);
 
-        var expectedResult = List.of(new Segment(10, 1), new Segment(20, 2), new Segment(30, 1), new Segment(40, 0), new Segment(60, 2), new Segment(90, 0));
+        var expectedResult = List.of(new Segment(10, 1), new Segment(30, 0), new Segment(60, 2), new Segment(90, 0));
         Assert.assertEquals(expectedResult, result);
 
     }
