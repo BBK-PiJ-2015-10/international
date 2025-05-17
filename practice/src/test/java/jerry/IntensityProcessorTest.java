@@ -1,5 +1,6 @@
 package jerry;
 
+import inter.patterns.stacks.ValidExpressionValidator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -87,6 +88,8 @@ public class IntensityProcessorTest {
         var expectedResult = List.of(new Segment(10, 1), new Segment(30, 0), new Segment(60, 2), new Segment(90, 0));
         Assert.assertEquals(expectedResult, result);
 
+        System.out.println(result);
+
     }
 
     @Test
@@ -100,6 +103,29 @@ public class IntensityProcessorTest {
 
         var expectedResult = List.of(new Segment(10, 2), new Segment(30, 1), new Segment(60, 3), new Segment(90, 1),new Segment(100, 0));
        Assert.assertEquals(expectedResult, result);
+
+    }
+
+
+    @Test
+    public void test6AddNegativeToDisjointSegmentsEliminatingOne() {
+
+        IntensityProcessor processor = new IntensityProcessor();
+
+        processor.add(10, 20, 1);
+        processor.add(30, 40, 1);
+        var result0 = processor.add(30, 40, 1);
+
+        System.out.println(result0);
+
+        var result1 = processor.add(10, 20,-1);
+        System.out.println(result1);
+        //var result = processor.set(20, 40, 0);
+
+        //System.out.println(result);
+
+        //var expectedResult = List.of(new Segment(10, -1), new Segment(20, -1), new Segment(30, -1), new Segment(40, 0));
+        //Assert.assertEquals(expectedResult, result);
 
     }
 
@@ -163,14 +189,16 @@ public class IntensityProcessorTest {
 
         IntensityProcessor processor = new IntensityProcessor();
 
-        processor.set(10, 30, 1);
-        processor.set(20, 40, 1);
-        processor.set(10, 40, -1);
-        var result1 = processor.set(10, 50, -2);
-        System.out.println(result1);
-        var result = processor.set(20, 40, 0);
+        processor.add(10, 20, 1);
+        var result0 = processor.add(30, 40, 1);
 
-        System.out.println(result);
+        System.out.println(result0);
+
+        var result1 = processor.add(10, 20,-1);
+        System.out.println(result1);
+        //var result = processor.set(20, 40, 0);
+
+        //System.out.println(result);
 
         //var expectedResult = List.of(new Segment(10, -1), new Segment(20, -1), new Segment(30, -1), new Segment(40, 0));
         //Assert.assertEquals(expectedResult, result);

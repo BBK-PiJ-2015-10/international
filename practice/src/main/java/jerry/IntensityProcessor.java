@@ -59,15 +59,22 @@ public class IntensityProcessor {
             }
             // go from end, check if int = 0, if prior pos is also 0, then, remove prior
             // go from beg, if you are 0 and next is zero remove yourself
-//            var allSegments = segmentIntensityRing.keySet().stream().toList();
-//            for (int currentSegmentPos = allSegments.size() - 1; currentSegmentPos > 0; currentSegmentPos--) {
-//                var currentSegment = allSegments.get(currentSegmentPos);
-//                var priorSegment = allSegments.get(currentSegmentPos - 1);
-//                var priorSegmentIntensity = segmentIntensityRing.get(priorSegment);
-//                if (priorSegmentIntensity == 0) {
-//                    segmentIntensityRing.remove(currentSegment);
-//                }
-//            }
+            var allSegments = segmentIntensityRing.keySet().stream().toList();
+            for (int currentSegmentPos = allSegments.size() - 1; currentSegmentPos >= 0; currentSegmentPos--) {
+                var currentSegment = allSegments.get(currentSegmentPos);
+                var currentSegmentIntensity = segmentIntensityRing.get(currentSegment);
+                if (currentSegmentIntensity == 0) {
+                    if (currentSegmentPos == 0) {
+                        segmentIntensityRing.remove(currentSegment);
+                    } else {
+                        var priorSegment = allSegments.get(currentSegmentPos - 1);
+                        var priorSegmentIntensity = segmentIntensityRing.get(priorSegment);
+                        if (priorSegmentIntensity == 0) {
+                            segmentIntensityRing.remove(currentSegment);
+                        }
+                    }
+                }
+            }
         }
         return toSegment(segmentIntensityRing.entrySet());
     }
