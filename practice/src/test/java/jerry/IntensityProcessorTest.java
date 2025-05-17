@@ -119,6 +119,20 @@ public class IntensityProcessorTest {
 
     }
 
+    @Test
+    public void test6AddNegativeUnitingDisjointSegments() {
+
+        IntensityProcessor processor = new IntensityProcessor();
+
+        processor.add(10, 20, 1);
+        processor.add(40, 60, 1);
+        var result = processor.add(10, 60, -1);
+
+        var expectedResult = List.of(new Segment(20, -1), new Segment(40, 0));
+        Assert.assertEquals(expectedResult, result);
+
+    }
+
     // These are the tests for set
 
     @Test
