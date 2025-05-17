@@ -6,10 +6,40 @@ public class IntensityProcessor {
 
     private SortedMap<Integer, Integer> segmentIntensityRing = new TreeMap<>();
 
-    public List<Segment> addIntensity(int fromSegment, int toSegment, int intensity) {
+    public List<Segment> add(int fromSegment, int toSegment, int intensity) {
         if (segmentIntensityRing.isEmpty()) {
             segmentIntensityRing.put(fromSegment, intensity);
             segmentIntensityRing.put(toSegment, 0);
+        } else {
+            var rangeSegments = segmentIntensityRing.subMap(fromSegment, toSegment);
+            for (var segment : rangeSegments.keySet()) {
+                var existingIntensity = rangeSegments.get(segment);
+                var updatedIntensity = existingIntensity + intensity;
+                rangeSegments.put(segment, updatedIntensity);
+            }
+            // check if
+            var existingFrom = rangeSegments.get(fromSegment);
+            if (existingFrom == null) {
+                var priorSegments = segmentIntensityRing.headMap(existingFrom);
+                if (priorSegments == null) {
+                    segmentIntensityRing.put(fromSegment, intensity);
+                } else {
+                    var beforeSegment = priorSegments.lastKey();
+                    var beforeSegmentIntensity = priorSegments.get(beforeSegment);
+                    var fromSegmentIntensity = beforeSegmentIntensity + intensity;
+                    segmentIntensityRing.put(fromSegment, fromSegmentIntensity);
+                }
+            }
+            var nextSegments = segmentIntensityRing.tailMap(toSegment);
+            if (nextSegments == null) {
+                // just need to add with a zero
+                segmentIntensityRing.put(toSegment, 0);
+            } else {
+                var firstNextSegment = nextSegments.firstKey();
+                if (firstNextSegment > fromSegment) {
+                    segmentIntensityRing.put(toSegment, nextSegments.get(firstNextSegment));
+                }
+            }
         }
         return toSegment(segmentIntensityRing.entrySet());
     }
