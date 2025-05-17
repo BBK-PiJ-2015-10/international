@@ -20,8 +20,8 @@ public class IntensityProcessor {
             // check if
             var existingFrom = rangeSegments.get(fromSegment);
             if (existingFrom == null) {
-                var priorSegments = segmentIntensityRing.headMap(existingFrom);
-                if (priorSegments == null) {
+                var priorSegments = segmentIntensityRing.headMap(fromSegment);
+                if (priorSegments.isEmpty()) {
                     segmentIntensityRing.put(fromSegment, intensity);
                 } else {
                     var beforeSegment = priorSegments.lastKey();
@@ -31,8 +31,7 @@ public class IntensityProcessor {
                 }
             }
             var nextSegments = segmentIntensityRing.tailMap(toSegment);
-            if (nextSegments == null) {
-                // just need to add with a zero
+            if (nextSegments.isEmpty()) {
                 segmentIntensityRing.put(toSegment, 0);
             } else {
                 var firstNextSegment = nextSegments.firstKey();
