@@ -21,7 +21,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test2AddPositiveAnOverlappingSegment() {
+    public void test2AddingAPositiveOverlappingSegment() {
 
         IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
@@ -34,7 +34,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test3AddNegativeMakingAContainedSegmentZero() {
+    public void test3AddingANegativeAcrossAllSegmentsMakingInnerSegmentZero() {
 
         IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
