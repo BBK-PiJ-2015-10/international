@@ -186,4 +186,31 @@ public class IntensityProcessorTest {
 
     }
 
+    @Test
+    public void test5SetZeroOnExistingSegment() {
+
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
+
+        processor.add(10, 30, 1);
+        var result = processor.set(10, 30, 0);
+
+        Assert.assertTrue(result.isEmpty());
+
+    }
+
+    @Test
+    public void test5SetZeroOnExistingInnerSegments() {
+
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
+
+        processor.add(10, 40, 1);
+        processor.add(30, 60, 1);
+
+        var result = processor.set(30, 50, 0);
+        var expectedResult = List.of(new Segment(10, 1), new Segment(30, 0));
+        Assert.assertEquals(expectedResult, result);
+
+    }
+
+
 }
