@@ -4,8 +4,10 @@ import java.util.Objects;
 
 public class Segment {
 
+    // Represents the starting or end point of a segment
     public int value;
 
+    // Represents the value of the sentiments at this point
     public int sentiment;
 
     public Segment(int value, int sentiment) {
