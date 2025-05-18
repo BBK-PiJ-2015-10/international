@@ -80,7 +80,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
             }
         }
         var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
-        logger.log(Level.INFO, String.format("%s", updatedSegmentation));
+        logger.log(Level.INFO, String.format("From: %d to: %d intensity %d. Updated segmentation%s", fromSegment, toSegment, intensity, updatedSegmentation));
         return updatedSegmentation;
     }
 

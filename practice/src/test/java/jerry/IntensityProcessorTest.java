@@ -48,7 +48,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test4AddNegativeMakingEndSegmentZero() {
+    public void test4AddingNegativeEliminatingEndSegments() {
 
         IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
