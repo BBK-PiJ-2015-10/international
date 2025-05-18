@@ -47,6 +47,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
                 rangeSegments.put(segment, updatedIntensity);
             }
             var existingFromIntensity = rangeSegments.get(fromPoint);
+            // This sections updates the fromPoint in cases where it was not inside the rangeSegments
             if (existingFromIntensity == null) {
                 var priorSegments = segmentIntensityRing.headMap(fromPoint);
                 if (priorSegments.isEmpty()) {
