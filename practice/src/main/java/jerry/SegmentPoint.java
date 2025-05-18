@@ -2,7 +2,7 @@ package jerry;
 
 import java.util.Objects;
 
-public class Segment {
+public class SegmentPoint {
 
     // Represents the starting or end point of a segment
     public int point;
@@ -10,7 +10,7 @@ public class Segment {
     // Represents the value of the intensity at this point
     public int intensity;
 
-    public Segment(int point, int intensity) {
+    public SegmentPoint(int point, int intensity) {
         this.point = point;
         this.intensity = intensity;
     }
@@ -25,8 +25,8 @@ public class Segment {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Segment segment = (Segment) o;
-        return point == segment.point && intensity == segment.intensity;
+        SegmentPoint segmentPoint = (SegmentPoint) o;
+        return point == segmentPoint.point && intensity == segmentPoint.intensity;
     }
 
     @Override

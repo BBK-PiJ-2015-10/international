@@ -15,7 +15,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
     private SortedMap<Integer, Integer> segmentIntensityRing = new TreeMap<>();
 
     @Override
-    public List<Segment> add(int fromPoint, int toPoint, int intensity) {
+    public List<SegmentPoint> add(int fromPoint, int toPoint, int intensity) {
         if (intensity == 0) {
             var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
             logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation %s", fromPoint, toPoint, "add", intensity, updatedSegmentation));
@@ -26,12 +26,12 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
     }
 
     @Override
-    public List<Segment> set(int fromPoint, int toPoint, int intensity) {
+    public List<SegmentPoint> set(int fromPoint, int toPoint, int intensity) {
         BinaryOperator<Integer> set = (x, y) -> y;
         return segmentBinaryOperation(fromPoint, toPoint, intensity, set, "set");
     }
 
-    private List<Segment> segmentBinaryOperation(int fromPoint, int toPoint, int intensity, BinaryOperator<Integer> operation, String operationName) {
+    private List<SegmentPoint> segmentBinaryOperation(int fromPoint, int toPoint, int intensity, BinaryOperator<Integer> operation, String operationName) {
         if (toPoint <= fromPoint) {
             throw new IllegalArgumentException(String.format("fromPoint %d needs to be lower than toPoint %d", fromPoint, toPoint));
         }
@@ -93,10 +93,10 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
     }
 
 
-    private List<Segment> mapSegment(Set<Map.Entry<Integer, Integer>> entrySet) {
+    private List<SegmentPoint> mapSegment(Set<Map.Entry<Integer, Integer>> entrySet) {
         return entrySet
                 .stream()
-                .map(es -> (new Segment(es.getKey(), es.getValue()))).toList();
+                .map(es -> (new SegmentPoint(es.getKey(), es.getValue()))).toList();
     }
 
 }
