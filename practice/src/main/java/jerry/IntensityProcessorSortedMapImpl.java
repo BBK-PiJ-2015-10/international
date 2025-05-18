@@ -15,57 +15,57 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
     private SortedMap<Integer, Integer> segmentIntensityRing = new TreeMap<>();
 
     @Override
-    public List<Segment> add(int fromSegment, int toSegment, int intensity) {
+    public List<Segment> add(int fromPoint, int toPoint, int intensity) {
         if (intensity == 0) {
             var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
-            logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation%s", fromSegment, toSegment, "add", intensity, updatedSegmentation));
+            logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation%s", fromPoint, toPoint, "add", intensity, updatedSegmentation));
             return updatedSegmentation;
         }
         BinaryOperator<Integer> add = (x, y) -> x + y;
-        return segmentBinaryOperation(fromSegment, toSegment, intensity, add, "add");
+        return segmentBinaryOperation(fromPoint, toPoint, intensity, add, "add");
     }
 
     @Override
-    public List<Segment> set(int fromSegment, int toSegment, int intensity) {
+    public List<Segment> set(int fromPoint, int toPoint, int intensity) {
         BinaryOperator<Integer> set = (x, y) -> y;
-        return segmentBinaryOperation(fromSegment, toSegment, intensity, set, "set");
+        return segmentBinaryOperation(fromPoint, toPoint, intensity, set, "set");
     }
 
-    private List<Segment> segmentBinaryOperation(int fromSegment, int toSegment, int intensity, BinaryOperator<Integer> operation, String operationName) {
-        if (toSegment <= fromSegment) {
-            throw new IllegalArgumentException(String.format("fromSegment %d needs to be lower than toSegment %d", fromSegment, toSegment));
+    private List<Segment> segmentBinaryOperation(int fromPoint, int toPoint, int intensity, BinaryOperator<Integer> operation, String operationName) {
+        if (toPoint <= fromPoint) {
+            throw new IllegalArgumentException(String.format("fromPoint %d needs to be lower than toPoint %d", fromPoint, toPoint));
         }
         if (segmentIntensityRing.isEmpty()) {
-            segmentIntensityRing.put(fromSegment, intensity);
-            segmentIntensityRing.put(toSegment, 0);
+            segmentIntensityRing.put(fromPoint, intensity);
+            segmentIntensityRing.put(toPoint, 0);
         } else {
-            // This sections updates sentiments between fromSegment(inclusive) toSegment(exclusive)
-            var rangeSegments = segmentIntensityRing.subMap(fromSegment, toSegment);
+            // This sections updates sentiments between fromPoint(inclusive) toPoint(exclusive)
+            var rangeSegments = segmentIntensityRing.subMap(fromPoint, toPoint);
             for (var segment : rangeSegments.keySet()) {
                 var existingIntensity = rangeSegments.get(segment);
                 var updatedIntensity = operation.apply(existingIntensity, intensity);
                 rangeSegments.put(segment, updatedIntensity);
             }
-            var existingFromIntensity = rangeSegments.get(fromSegment);
+            var existingFromIntensity = rangeSegments.get(fromPoint);
             if (existingFromIntensity == null) {
-                var priorSegments = segmentIntensityRing.headMap(fromSegment);
+                var priorSegments = segmentIntensityRing.headMap(fromPoint);
                 if (priorSegments.isEmpty()) {
-                    segmentIntensityRing.put(fromSegment, intensity);
+                    segmentIntensityRing.put(fromPoint, intensity);
                 } else {
                     var beforeSegment = priorSegments.lastKey();
                     var beforeSegmentIntensity = priorSegments.get(beforeSegment);
                     var fromSegmentIntensity = operation.apply(beforeSegmentIntensity, intensity);
-                    segmentIntensityRing.put(fromSegment, fromSegmentIntensity);
+                    segmentIntensityRing.put(fromPoint, fromSegmentIntensity);
                 }
             }
-            // This sections updates the toSegment
-            var nextSegments = segmentIntensityRing.tailMap(toSegment);
+            // This sections updates the toPoint
+            var nextSegments = segmentIntensityRing.tailMap(toPoint);
             if (nextSegments.isEmpty() || intensity == 0) {
-                segmentIntensityRing.put(toSegment, 0);
+                segmentIntensityRing.put(toPoint, 0);
             } else {
                 var firstNextSegment = nextSegments.firstKey();
-                if (firstNextSegment > fromSegment) {
-                    segmentIntensityRing.put(toSegment, nextSegments.get(firstNextSegment));
+                if (firstNextSegment > fromPoint) {
+                    segmentIntensityRing.put(toPoint, nextSegments.get(firstNextSegment));
                 }
             }
             // This sections removes any segments with 0 intensity
@@ -87,7 +87,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
             }
         }
         var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
-        logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation%s", fromSegment, toSegment, operationName, intensity, updatedSegmentation));
+        logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation%s", fromPoint, toPoint, operationName, intensity, updatedSegmentation));
         return updatedSegmentation;
     }
 

@@ -5,19 +5,19 @@ import java.util.Objects;
 public class Segment {
 
     // Represents the starting or end point of a segment
-    public int value;
+    public int point;
 
     // Represents the value of the sentiments at this point
     public int sentiment;
 
-    public Segment(int value, int sentiment) {
-        this.value = value;
+    public Segment(int point, int sentiment) {
+        this.point = point;
         this.sentiment = sentiment;
     }
 
     @Override
     public String toString() {
-        return "[" + value +
+        return "[" + point +
                 "," + sentiment +
                 ']';
     }
@@ -26,11 +26,11 @@ public class Segment {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Segment segment = (Segment) o;
-        return value == segment.value && sentiment == segment.sentiment;
+        return point == segment.point && sentiment == segment.sentiment;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, sentiment);
+        return Objects.hash(point, sentiment);
     }
 }
