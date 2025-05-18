@@ -13,6 +13,11 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
 
     @Override
     public List<Segment> add(int fromSegment, int toSegment, int intensity) {
+        if (intensity == 0) {
+            var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
+            logger.log(Level.INFO, String.format("From: %d to: %d intensity %d. Updated segmentation%s", fromSegment, toSegment, intensity, updatedSegmentation));
+            return updatedSegmentation;
+        }
         BinaryOperator<Integer> add = (x, y) -> x + y;
         return segmentBinaryOperation(fromSegment, toSegment, intensity, add);
     }
@@ -21,7 +26,6 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
     public List<Segment> set(int fromSegment, int toSegment, int intensity) {
         BinaryOperator<Integer> set = (x, y) -> y;
         return segmentBinaryOperation(fromSegment, toSegment, intensity, set);
-
     }
 
     private List<Segment> segmentBinaryOperation(int fromSegment, int toSegment, int intensity, BinaryOperator<Integer> operation) {
