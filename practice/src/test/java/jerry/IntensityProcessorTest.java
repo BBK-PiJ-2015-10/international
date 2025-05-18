@@ -212,5 +212,18 @@ public class IntensityProcessorTest {
 
     }
 
+    @Test
+    public void test5SetZeroCoversingDisjointsSegments() {
+
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
+
+        processor.add(10, 40, 1);
+        processor.add(60, 90, 1);
+
+        var result = processor.set(10, 90, 0);
+        Assert.assertTrue(result.isEmpty());
+
+    }
+
 
 }
