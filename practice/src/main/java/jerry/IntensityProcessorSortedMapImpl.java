@@ -18,7 +18,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
     public List<Segment> add(int fromPoint, int toPoint, int intensity) {
         if (intensity == 0) {
             var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
-            logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation%s", fromPoint, toPoint, "add", intensity, updatedSegmentation));
+            logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation %s", fromPoint, toPoint, "add", intensity, updatedSegmentation));
             return updatedSegmentation;
         }
         BinaryOperator<Integer> add = (x, y) -> x + y;
@@ -39,7 +39,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
             segmentIntensityRing.put(fromPoint, intensity);
             segmentIntensityRing.put(toPoint, 0);
         } else {
-            // This sections updates sentiments between fromPoint(inclusive) toPoint(exclusive)
+            // This section updates sentiments between fromPoint(inclusive) toPoint(exclusive)
             var rangeSegments = segmentIntensityRing.subMap(fromPoint, toPoint);
             for (var segment : rangeSegments.keySet()) {
                 var existingIntensity = rangeSegments.get(segment);
@@ -47,7 +47,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
                 rangeSegments.put(segment, updatedIntensity);
             }
             var existingFromIntensity = rangeSegments.get(fromPoint);
-            // This sections updates the fromPoint in cases where it was not inside the rangeSegments
+            // This section updates the fromPoint in cases where it was not inside the rangeSegments
             if (existingFromIntensity == null) {
                 var priorSegments = segmentIntensityRing.headMap(fromPoint);
                 if (priorSegments.isEmpty()) {
@@ -59,7 +59,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
                     segmentIntensityRing.put(fromPoint, fromSegmentIntensity);
                 }
             }
-            // This sections updates the toPoint
+            // This section updates the toPoint
             var nextSegments = segmentIntensityRing.tailMap(toPoint);
             if (nextSegments.isEmpty() || intensity == 0) {
                 segmentIntensityRing.put(toPoint, 0);
@@ -69,7 +69,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
                     segmentIntensityRing.put(toPoint, nextSegments.get(firstNextSegment));
                 }
             }
-            // This sections removes any segments with 0 intensity
+            // This section removes any segments with 0 intensity
             var allSegments = segmentIntensityRing.keySet().stream().toList();
             for (int currentSegmentPos = allSegments.size() - 1; currentSegmentPos >= 0; currentSegmentPos--) {
                 var currentSegment = allSegments.get(currentSegmentPos);
@@ -88,7 +88,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
             }
         }
         var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
-        logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation%s", fromPoint, toPoint, operationName, intensity, updatedSegmentation));
+        logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation %s", fromPoint, toPoint, operationName, intensity, updatedSegmentation));
         return updatedSegmentation;
     }
 
