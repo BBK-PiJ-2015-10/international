@@ -53,7 +53,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
             }
             // This sections updates the toSegment
             var nextSegments = segmentIntensityRing.tailMap(toSegment);
-            if (nextSegments.isEmpty()) {
+            if (nextSegments.isEmpty() || intensity == 0) {
                 segmentIntensityRing.put(toSegment, 0);
             } else {
                 var firstNextSegment = nextSegments.firstKey();

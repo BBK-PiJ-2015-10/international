@@ -213,7 +213,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test5SetZeroCoversingDisjointsSegments() {
+    public void test5SetZeroCoveringDisjointsSegments() {
 
         IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
@@ -222,6 +222,19 @@ public class IntensityProcessorTest {
 
         var result = processor.set(10, 90, 0);
         Assert.assertTrue(result.isEmpty());
+
+    }
+
+    @Test
+    public void test5SetZeroNonCoveringDisjointsSegments() {
+
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
+
+        processor.add(10, 30, 1);
+        processor.add(70, 90, 1);
+
+        var result = processor.set(40, 50, 0);
+        //Assert.assertTrue(result.isEmpty());
 
     }
 
