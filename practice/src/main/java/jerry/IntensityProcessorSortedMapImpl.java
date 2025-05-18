@@ -5,6 +5,9 @@ import java.util.function.BinaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * An implementation of the IntensityProcessor using a SortedMap to manage segments intensity relationships
+ */
 public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
