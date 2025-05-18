@@ -15,20 +15,20 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
     public List<Segment> add(int fromSegment, int toSegment, int intensity) {
         if (intensity == 0) {
             var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
-            logger.log(Level.INFO, String.format("From: %d to: %d intensity %d. Updated segmentation%s", fromSegment, toSegment, intensity, updatedSegmentation));
+            logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation%s", fromSegment, toSegment, "add", intensity, updatedSegmentation));
             return updatedSegmentation;
         }
         BinaryOperator<Integer> add = (x, y) -> x + y;
-        return segmentBinaryOperation(fromSegment, toSegment, intensity, add);
+        return segmentBinaryOperation(fromSegment, toSegment, intensity, add, "add");
     }
 
     @Override
     public List<Segment> set(int fromSegment, int toSegment, int intensity) {
         BinaryOperator<Integer> set = (x, y) -> y;
-        return segmentBinaryOperation(fromSegment, toSegment, intensity, set);
+        return segmentBinaryOperation(fromSegment, toSegment, intensity, set, "set");
     }
 
-    private List<Segment> segmentBinaryOperation(int fromSegment, int toSegment, int intensity, BinaryOperator<Integer> operation) {
+    private List<Segment> segmentBinaryOperation(int fromSegment, int toSegment, int intensity, BinaryOperator<Integer> operation, String operationName) {
         if (toSegment <= fromSegment) {
             throw new IllegalArgumentException(String.format("fromSegment %d needs to be lower than toSegment %d", fromSegment, toSegment));
         }
@@ -84,7 +84,7 @@ public class IntensityProcessorSortedMapImpl implements IntensityProcessor {
             }
         }
         var updatedSegmentation = mapSegment(segmentIntensityRing.entrySet());
-        logger.log(Level.INFO, String.format("From: %d to: %d intensity %d. Updated segmentation%s", fromSegment, toSegment, intensity, updatedSegmentation));
+        logger.log(Level.INFO, String.format("From: %d to: %d %s intensity %d. Updated segmentation%s", fromSegment, toSegment, operationName, intensity, updatedSegmentation));
         return updatedSegmentation;
     }
 
