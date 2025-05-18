@@ -2,6 +2,9 @@ package jerry;
 
 import java.util.Objects;
 
+/**
+ * Represents a starting or endpoint of a segment. A segment with an intensity of 0 signals an endpoint.
+ */
 public class SegmentPoint {
 
     // Represents the starting or end point of a segment
