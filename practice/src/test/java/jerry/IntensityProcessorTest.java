@@ -187,7 +187,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test5SetZeroOnExistingSegment() {
+    public void test6SetZeroOnExistingSegment() {
 
         IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
@@ -199,7 +199,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test5SetZeroOnExistingInnerSegments() {
+    public void test7SetZeroOnExistingInnerSegments() {
 
         IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
@@ -213,7 +213,7 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test5SetZeroCoveringDisjointsSegments() {
+    public void test8SetZeroCoveringDisjointsSegments() {
 
         IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
@@ -226,15 +226,16 @@ public class IntensityProcessorTest {
     }
 
     @Test
-    public void test5SetZeroNonCoveringDisjointsSegments() {
+    public void test9SetZeroNonCoveringDisjointsSegments() {
 
         IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 30, 1);
         processor.add(70, 90, 1);
-
         var result = processor.set(40, 50, 0);
-        //Assert.assertTrue(result.isEmpty());
+
+        var expectedResult = List.of(new Segment(10, 1), new Segment(30, 0), new Segment(70, 1), new Segment(90, 0));
+        Assert.assertEquals(expectedResult, result);
 
     }
 
