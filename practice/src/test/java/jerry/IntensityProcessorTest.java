@@ -11,7 +11,7 @@ public class IntensityProcessorTest {
     @Test
     public void test1AddPositiveToEmptySegmentation() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         var result = processor.add(10, 30, 1);
         var expectedResult = List.of(new Segment(10, 1), new Segment(30, 0));
@@ -23,7 +23,7 @@ public class IntensityProcessorTest {
     @Test
     public void test2AddPositiveAnOverlappingSegment() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 30, 1);
         var result = processor.add(20, 40, 1);
@@ -36,7 +36,7 @@ public class IntensityProcessorTest {
     @Test
     public void test3AddNegativeMakingAContainedSegmentZero() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 30, 1);
         processor.add(20, 40, 1);
@@ -50,7 +50,7 @@ public class IntensityProcessorTest {
     @Test
     public void test4AddNegativeMakingEndSegmentZero() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 30, 1);
         processor.add(20, 40, 1);
@@ -64,7 +64,7 @@ public class IntensityProcessorTest {
     @Test
     public void test5AddNegativeOverlappingSegment() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 30, 1);
         processor.add(20, 40, 1);
@@ -79,7 +79,7 @@ public class IntensityProcessorTest {
     @Test
     public void test6AddPositiveDisjointSegment() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 30, 1);
         var result = processor.add(60, 90, 2);
@@ -92,7 +92,7 @@ public class IntensityProcessorTest {
     @Test
     public void test7AddPositiveToDisjointSegments() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 30, 1);
         processor.add(60, 90, 2);
@@ -107,7 +107,7 @@ public class IntensityProcessorTest {
     @Test
     public void test8AddNegativeToDisjointSegmentsEliminatingOneSegment() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 20, 1);
         processor.add(30, 40, 2);
@@ -121,7 +121,7 @@ public class IntensityProcessorTest {
     @Test
     public void test9AddNegativeUnitingDisjointSegments() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.add(10, 20, 1);
         processor.add(40, 60, 1);
@@ -137,7 +137,7 @@ public class IntensityProcessorTest {
     @Test
     public void test1SetPositiveToEmptySegmentation() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         var result = processor.set(10, 30, 1);
         var expectedResult = List.of(new Segment(10, 1), new Segment(30, 0));
@@ -149,7 +149,7 @@ public class IntensityProcessorTest {
     @Test
     public void test2SetPositiveAnOverlappingSegment() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.set(10, 30, 1);
         var result = processor.set(20, 40, 1);
@@ -162,7 +162,7 @@ public class IntensityProcessorTest {
     @Test
     public void test3SetNegativeAllSegments() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.set(10, 30, 1);
         processor.set(20, 40, 1);
@@ -176,7 +176,7 @@ public class IntensityProcessorTest {
     @Test
     public void test4SetPositiveDisjointSegment() {
 
-        IntensityProcessor processor = new IntensityProcessor();
+        IntensityProcessor processor = new IntensityProcessorSortedMapImpl();
 
         processor.set(10, 30, 1);
         var result = processor.set(60, 90, 2);
