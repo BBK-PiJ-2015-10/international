@@ -4,6 +4,7 @@ package inter.patterns.intervals;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class LargestOverlap {
@@ -22,7 +23,7 @@ public class LargestOverlap {
                         .thenComparing(Position::type);
         List<Position> positions = intervals
                 .stream()
-                .flatMap(interval -> List.of(new Position(interval.from, "s"), new Position(interval.to, "e")).stream())
+                .flatMap(interval -> Stream.of(new Position(interval.from, "s"), new Position(interval.to, "e")))
                 .sorted(positionComparator)
                 .collect(Collectors.toList());
         for (int i = 0; i < positions.size(); i++) {
