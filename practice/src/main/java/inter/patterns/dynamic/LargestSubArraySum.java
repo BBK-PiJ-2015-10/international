@@ -1,5 +1,7 @@
 package inter.patterns.dynamic;
 
+import inter.patterns.heaps.KMostFrequentString;
+
 import java.util.logging.Logger;
 
 public class LargestSubArraySum {
@@ -41,5 +43,17 @@ public class LargestSubArraySum {
         }
         return response;
     }
+
+    public int getLargestSubArraySumKadaneAlgorithm(int[] input) {
+        int currSum = Integer.MIN_VALUE;
+        int maxSum = Integer.MIN_VALUE;
+        for (int i = 0; i < input.length; i++) {
+            var current = input[i];
+            currSum = Math.max(currSum + current, current);
+            maxSum = Math.max(maxSum, currSum);
+        }
+        return maxSum;
+    }
+
 
 }

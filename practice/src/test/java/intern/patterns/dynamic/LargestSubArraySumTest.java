@@ -25,4 +25,17 @@ public class LargestSubArraySumTest {
 
 
     }
+
+    @Test
+    public void test2() {
+
+        int[] input = {3, 1, -6, 2, -1, 4, -9};
+
+        var result = calculator.getLargestSubArraySumKadaneAlgorithm(input);
+
+
+        System.out.println(result);
+
+
+    }
 }
