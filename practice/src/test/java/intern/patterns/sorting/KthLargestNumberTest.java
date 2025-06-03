@@ -1,23 +1,21 @@
 package intern.patterns.sorting;
 
+import inter.patterns.sorting.KthLargestNumber;
+import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 public class KthLargestNumberTest {
 
+    private KthLargestNumber calculator = new KthLargestNumber();
+
     @Test
-    public void test1(){
+    public void test1() {
 
-        int[] cat = new int[2];
+        int[] input = {5, 2, 4, 3, 1, 6};
 
-        System.out.println(cat.length);
+        var result = calculator.getKthLargest(input, 3);
 
-        System.out.println(cat[0]);
-
-        ArrayList<Integer> list = new ArrayList<>();
-
-        list.add(4,5);
+        Assert.assertEquals(result, 4);
 
     }
 }

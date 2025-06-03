@@ -1,17 +1,12 @@
 package inter.patterns.sorting;
 
-import ch.qos.logback.core.util.InvocationGate;
-import com.google.protobuf.CodedInputStream;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 // https://last9.io/blog/heaps-in-java/
 public class KthLargestNumber {
 
-    private int getKthLargest(int[] numbers, int k) {
+    public int getKthLargest(int[] numbers, int k) {
         heap = new ArrayList<Integer>();
         for (int i = 0; i < numbers.length; i++) {
             if (heap.size() < k) {
