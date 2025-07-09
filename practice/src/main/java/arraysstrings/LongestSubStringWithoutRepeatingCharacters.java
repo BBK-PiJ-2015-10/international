@@ -25,13 +25,12 @@ public class LongestSubStringWithoutRepeatingCharacters {
                 existingCharPosition.put(currentChar, right);
                 var currentSize = right - left;
                 maxSize = Math.max(maxSize, currentSize);
-                right++;
             } else {
                 logger.info(String.format("Char repeated %s old at pos %d new at pos %d", currentChar, existingPos, right));
                 existingCharPosition.clear();
                 left = right;
-                right++;
             }
+            right++;
             logger.info(String.format("Max size is %d", maxSize));
         }
         return maxSize;
