@@ -22,7 +22,7 @@ public class KMostFrequentString {
         Comparator<StringCounter> descThenLexicological = (sc1, sc2) -> {
             var resultByCount = -sc1.count.compareTo(sc2.count);
             if (resultByCount == 0) {
-                var resultByLexi = -sc1.string.compareTo(sc2.string);
+                var resultByLexi = sc1.string.compareTo(sc2.string);
                 return resultByLexi;
             } else {
                 return resultByCount;

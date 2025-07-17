@@ -27,7 +27,7 @@ public class MergingOverlappingIntervals {
             var interval = new Interval(inter[0], inter[1]);
             intervalList.add(interval);
         }
-        Comparator<Interval> sortByBeginning = (o1, o2) -> o1.beginning.compareTo(o2.beginning);
+        Comparator<Interval> sortByBeginning = Comparator.comparing(o -> o.beginning);
         intervalList.sort(sortByBeginning);
         for (Interval interval : intervalList) {
             logger.info(String.format("Processing %s", interval));

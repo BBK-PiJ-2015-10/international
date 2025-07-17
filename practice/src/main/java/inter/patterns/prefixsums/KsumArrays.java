@@ -7,7 +7,6 @@ public class KsumArrays {
 
     public int findNumberOfSubArrays(int[] array, int target) {
         var prefixSum = new int[array.length];
-        int result = 0;
         for (int i = 0; i < array.length; i++) {
             if (i == 0) {
                 prefixSum[i] = array[i];
@@ -15,6 +14,7 @@ public class KsumArrays {
                 prefixSum[i] = prefixSum[i - 1] + array[i];
             }
         }
+        int result = 0;
         for (int i = 0; i < prefixSum.length; i++) {
             for (int j = i; j < prefixSum.length; j++) {
                 if (i == j) {

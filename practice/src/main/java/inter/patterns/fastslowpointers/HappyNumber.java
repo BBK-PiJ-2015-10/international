@@ -30,11 +30,11 @@ public class HappyNumber {
     private int nextNumberHelper(int number, int cumulative) {
         var lastDigit = number % 10;
         int multiplication = lastDigit * lastDigit;
-        int residual = number / 10;
-        logger.info(String.format("Number is %s, lastDigit is %s, multi is %s, residual is %s", number, lastDigit, multiplication, residual));
-        if (residual > 0) {
+        int root = number / 10;
+        logger.info(String.format("Number is %s, lastDigit is %s, multi is %s, residual is %s", number, lastDigit, multiplication, root));
+        if (root > 0) {
             //logger.info(String.format("HERE 1 Residual is %d", residual));
-            return nextNumberHelper(residual, cumulative + multiplication);
+            return nextNumberHelper(root, cumulative + multiplication);
         } else {
             //logger.info(String.format("HERE 2 Residual is %d", residual));
             return cumulative + multiplication;
