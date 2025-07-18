@@ -85,14 +85,11 @@ public class LRUCacheO1 {
     }
 
     public void place(int key, int value) {
+        var nodeToAdd = new LRUNode(key, value);
         var existing = cache.get(key);
-        var nodeToAdd = new LRUNode(key,value);
-        // exist => update, remove, and add
         if (existing != null) {
             logger.info(String.format("Key %d already exist just updating", key));
-            cache.put(key, nodeToAdd);
             removeNode(key, head);
-            addNode(nodeToAdd);
         } else {
             logger.info(String.format("Key %d does not exist need to add", key));
             // at capacity, remove oldest, and add new
@@ -106,9 +103,9 @@ public class LRUCacheO1 {
                 }
                 head = head.next;
             }
-            cache.put(key, nodeToAdd);
-            addNode(nodeToAdd);
         }
+        cache.put(key, nodeToAdd);
+        addNode(nodeToAdd);
     }
 
     public int get(int key) {
@@ -118,7 +115,7 @@ public class LRUCacheO1 {
             logger.info(String.format("Key found for key %d", key));
             result = existing.value;
             removeNode(key, head);
-            var nodeToAdd = new LRUNode(key,result);
+            var nodeToAdd = new LRUNode(key, result);
             addNode(nodeToAdd);
         } else {
             logger.info(String.format("No key found for key %d", key));
