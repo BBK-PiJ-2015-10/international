@@ -30,4 +30,25 @@ public class FindInsertionIndex {
         return insertionIndex;
     }
 
+    public int findInsertionIndexRecurs(int[] values, int target) {
+        return findInsertionIndexRecurs(values, target, 0, values.length);
+    }
+
+    public int findInsertionIndexRecurs(int[] values, int target, int left, int right) {
+        int mid = left + (right - left) / 2;
+        int valueAtMid = values[mid];
+        logger.info(String.format("Evaluating leftIndex: %d rightIndex: %d middleIndex: %d middleValue %d", left, right, mid, valueAtMid));
+        if (valueAtMid == target) {
+            return mid;
+        }
+        if (left == mid || right == mid) {
+            return mid + 1;
+        }
+        if (valueAtMid > target) {
+            return findInsertionIndexRecurs(values, target, left, mid);
+        } else {
+            return findInsertionIndexRecurs(values, target, mid, right);
+        }
+    }
+
 }

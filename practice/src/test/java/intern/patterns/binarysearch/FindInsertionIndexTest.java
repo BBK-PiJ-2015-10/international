@@ -44,4 +44,40 @@ public class FindInsertionIndexTest {
 
     }
 
+    @Test
+    public void test1Recurs(){
+
+        int target = 4;
+        int[] array = {1,2,4,5,7,8,9};
+
+        var result = calculator.findInsertionIndexRecurs(array,target);
+
+        Assert.assertEquals(2,result);
+
+    }
+
+    @Test
+    public void test2Recurs(){
+
+        int target = 6;
+        int[] array = {1,2,4,5,7,8,9};
+
+        var result = calculator.findInsertionIndexRecurs(array,target);
+
+        Assert.assertEquals(4,result);
+
+    }
+
+    @Test
+    public void test3Recurs(){
+
+        int target = 6;
+        int[] array = {1,2,4};
+
+        var result = calculator.findInsertionIndexRecurs(array,target);
+
+        Assert.assertEquals(3,result);
+
+    }
+
 }
