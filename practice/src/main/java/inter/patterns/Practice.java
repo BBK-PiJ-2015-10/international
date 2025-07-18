@@ -1,31 +1,60 @@
 package inter.patterns;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class Practice {
 
+    class Node {
+        int key;
+        int value;
+        Node next;
+        Node previus;
+
+        public Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    private int capacity;
+
+    private Map<Integer, Node> mapKeysNodes;
+
+    private Node leastRecentlyUsed;
+    private Node mostRecentlyUsed;
+
+    public Practice(int capacity) {
+        this.capacity = capacity;
+        mapKeysNodes = new HashMap<>(capacity);
+    }
+
+    public int get(int key) {
+        var result = -1;
+        Node existing = mapKeysNodes.get(key);
+        if (existing != null) {
+            result = existing.value;
+            if (existing.previus != null) {
+                existing.previus.next = mostRecentlyUsed;
+            }
+            if (existing.next != null) {
+                existing.next.previus = mostRecentlyUsed;
+            }
+            mostRecentlyUsed.next = existing;
+            existing.previus = mostRecentlyUsed;
+            existing.next = null;
+            mostRecentlyUsed = existing;
+        }
+        return result;
+    }
+
+    public void put(int key, int value) {
+
+    }
+
+
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public int findInsertionIndexRecurs(int[] values, int target) {
-        return findInsertionIndexRecurs(values, target, 0, values.length);
-    }
 
-    public int findInsertionIndexRecurs(int[] values, int target, int left, int right) {
-        var result = 0;
-        int mid = left + (right - left) / 2;
-        int valueAtMid = values[mid];
-        logger.info(String.format("Evaluating leftIndex: %d rightIndex: %d middleIndex: %d middleValue %d", left, right, mid, valueAtMid));
-        if (valueAtMid == target) {
-            result = mid;
-            return result;
-        }
-        if (left == mid || right == mid) {
-            return mid + 1;
-        }
-        if (valueAtMid > target) {
-            return findInsertionIndexRecurs(values, target, left, mid);
-        } else {
-            return findInsertionIndexRecurs(values, target, mid, right);
-        }
-    }
 }

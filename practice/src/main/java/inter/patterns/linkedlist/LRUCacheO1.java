@@ -12,9 +12,9 @@ public class LRUCacheO1 {
 
     private Map<Integer, LRUNode> cache;
 
-    private LRUNode oldest = null;
+    private LRUNode head = null;
 
-    private LRUNode youngest = null;
+    private LRUNode tail = null;
 
 
     public class LRUNode {
@@ -46,14 +46,14 @@ public class LRUCacheO1 {
                 logger.info(String.format("Found node to remove for key %d ", key));
                 // remove all pointers
                 if (node.previous == null) {
-                    // it is the oldest
-                    oldest = node.next;
+                    // it is the head
+                    head = node.next;
                 } else {
                     node.previous.next = node.next;
                 }
                 if (node.next == null) {
-                    // it is the youngest
-                    youngest = node.previous;
+                    // it is the tail
+                    tail = node.previous;
                 } else {
                     node.next.previous = node.previous;
                 }
@@ -66,16 +66,16 @@ public class LRUCacheO1 {
     }
 
     private void addNode(LRUNode nodeToAdd) {
-        if (oldest == null) {
+        if (head == null) {
             logger.info(String.format("Node with key %d is the new oldest", nodeToAdd.key));
-            oldest = nodeToAdd;
+            head = nodeToAdd;
         }
-        if (youngest != null) {
-            youngest.next = nodeToAdd;
-            nodeToAdd.previous = youngest;
+        if (tail != null) {
+            tail.next = nodeToAdd;
+            nodeToAdd.previous = tail;
         }
         logger.info(String.format("Node with key %d is the new youngest", nodeToAdd.key));
-        youngest = nodeToAdd;
+        tail = nodeToAdd;
     }
 
 
@@ -91,20 +91,20 @@ public class LRUCacheO1 {
         if (existing != null) {
             logger.info(String.format("Key %d already exist just updating", key));
             cache.put(key, nodeToAdd);
-            removeNode(key, oldest);
+            removeNode(key, head);
             addNode(nodeToAdd);
         } else {
             logger.info(String.format("Key %d does not exist need to add", key));
             // at capacity, remove oldest, and add new
             if (capacity == cache.size()) {
                 logger.info(String.format("At capacity need to remove oldest, to host key %d", key));
-                var oldestKeyToRemove = oldest.key;
-                cache.remove(oldestKeyToRemove);
-                var nextToOldest = oldest.next;
-                if (nextToOldest != null) {
-                    nextToOldest.previous = null;
+                var headKeyToRemove = head.key;
+                cache.remove(headKeyToRemove);
+                var nextToHead = head.next;
+                if (nextToHead != null) {
+                    nextToHead.previous = null;
                 }
-                oldest = oldest.next;
+                head = head.next;
             }
             cache.put(key, nodeToAdd);
             addNode(nodeToAdd);
@@ -117,7 +117,7 @@ public class LRUCacheO1 {
         if (existing != null) {
             logger.info(String.format("Key found for key %d", key));
             result = existing.value;
-            removeNode(key, oldest);
+            removeNode(key, head);
             var nodeToAdd = new LRUNode(key,result);
             addNode(nodeToAdd);
         } else {
