@@ -17,8 +17,8 @@ public class PairSumUnsorted {
             var searchingFor = target - array[i];
             var foundIndex = valuesPositionMap.get(searchingFor);
             if (foundIndex != null) {
-                solution[0] = i;
-                solution[1] = foundIndex;
+                solution[0] = foundIndex;
+                solution[1] = i;
                 logger.info(String.format("Found solution with index x %d, index y %d", i, foundIndex));
                 return solution;
             }
