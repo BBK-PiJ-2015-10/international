@@ -29,4 +29,16 @@ public class FindMaxRepeatingSubstringTest {
 
     }
 
+    @Test
+    public void test3() {
+
+        String input = "banana";
+
+        var result = calculator.findMaxRepeatingSubstringWithOverlapPrac(input);
+
+        Assert.assertEquals("ana", result);
+
+    }
+
+
 }
