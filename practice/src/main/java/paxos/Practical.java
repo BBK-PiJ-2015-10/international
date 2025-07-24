@@ -33,4 +33,31 @@ public class Practical {
         return operations;
     }
 
+    public List<Integer> merge(List<Integer> sortedArray1, List<Integer> sortedArray2) {
+        List<Integer> result = new LinkedList<>();
+        int array1Pointer = 0;
+        int array2Pointer = 0;
+        while (array1Pointer <= sortedArray1.size() - 1 || array2Pointer <= sortedArray2.size() - 1) {
+            var array1Value = sortedArray1.get(array1Pointer);
+            var array2Value = sortedArray1.get(array2Pointer);
+            //var comparison = array1Value.compareTo(array1Value);
+            if (array1Value == array2Value) {
+                if (array1Pointer <= array2Pointer) {
+                    result.add(array1Value);
+                    array1Pointer++;
+                } else {
+                    result.add(array2Value);
+                    array2Pointer++;
+                }
+            } else if (array1Value < array2Value) {
+                result.add(array1Value);
+                array1Pointer++;
+            } else {
+                result.add(array2Value);
+                array2Pointer++;
+            }
+        }
+        return result;
+    }
+
 }
