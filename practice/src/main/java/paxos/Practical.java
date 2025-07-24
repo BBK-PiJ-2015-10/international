@@ -19,7 +19,7 @@ public class Practical {
                 Character currentCharacter = characters[k];
                 //logger.info(String.format("Current %s prior %s lastSubstituted %s", currentCharacter, priorCharacter, lastSubstituted));
                 if (priorCharacter == currentCharacter) {
-                    if (!(lastSubstituted == priorCharacter)) {
+                    if (lastSubstituted != priorCharacter) {
                         substitutedCount++;
                     }
                     lastSubstituted = currentCharacter;
